@@ -1,24 +1,17 @@
-# Use an official OpenJDK 17 runtime as the base image
-FROM openjdk:17-jdk-slim
-
-# Set working directory
+# Stage 1: Build
+FROM maven:3.9.3-eclipse-temurin-17 AS builder
 WORKDIR /app
-
-# Copy pom.xml and source code
 COPY pom.xml .
 COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Build the application
-RUN apt-get update && apt-get install -y maven \
-    && mvn clean package -DskipTests \
-    && apt-get remove -y maven \
-    && rm -rf /var/lib/apt/lists/*
+# Stage 2: Run
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 
-# Copy the built jar to the working directory
-COPY target/*.jar app.jar
-
-# Expose the port Render will use
+# Expose port
 EXPOSE 10000
 
-# Set the start command
+# Start command
 CMD ["java", "-Dserver.port=$PORT", "-jar", "app.jar"]

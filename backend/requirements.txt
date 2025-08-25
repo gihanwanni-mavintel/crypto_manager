@@ -4,4 +4,4 @@ rsa==4.9.1
 Telethon==1.40.0
 python-dotenv==1.0.0
 websockets==12.0
-asyncpg==0.29.0
+asyncpg==0.30.0

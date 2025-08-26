@@ -14,4 +14,4 @@ COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 10000
 
 # Start command
-CMD ["java", "-Dserver.port=$PORT", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]

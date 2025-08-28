@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 import asyncpg
 import datetime
+from contextlib import suppress
 
 load_dotenv()
 
@@ -120,56 +121,90 @@ async def create_tables(pool):
         print("✅ Tables checked/created.")
 
 async def flush_buffers(pool):
+    """Safely flush buffers; no-op if pool is closed or buffers empty."""
     global signal_buffer, market_buffer
-    async with pool.acquire() as conn:
-        if signal_buffer:
-            await conn.executemany("""
-                INSERT INTO signal_messages
-                (pair, setup_type, entry, leverage, tp1, tp2, tp3, tp4, stop_loss, timestamp, full_message)
-                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-                ON CONFLICT (full_message) DO NOTHING
-            """, signal_buffer)
-            signal_buffer = []
 
-        if market_buffer:
-            await conn.executemany("""
-                INSERT INTO market_messages
-                (sender, text, timestamp)
-                VALUES ($1,$2,$3)
-                ON CONFLICT (text) DO NOTHING
-            """, market_buffer)
-            market_buffer = []
+    if (not signal_buffer and not market_buffer) or getattr(pool, "_closed", False):
+        return
+
+    try:
+        async with pool.acquire() as conn:
+            if signal_buffer:
+                await conn.executemany("""
+                    INSERT INTO signal_messages
+                    (pair, setup_type, entry, leverage, tp1, tp2, tp3, tp4, stop_loss, timestamp, full_message)
+                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+                    ON CONFLICT (full_message) DO NOTHING
+                """, signal_buffer)
+                signal_buffer = []
+
+            if market_buffer:
+                await conn.executemany("""
+                    INSERT INTO market_messages
+                    (sender, text, timestamp)
+                    VALUES ($1,$2,$3)
+                    ON CONFLICT (text) DO NOTHING
+                """, market_buffer)
+                market_buffer = []
+    except asyncpg.InterfaceError:
+        # Pool was closed between the check and acquire; ignore on shutdown.
+        pass
 
 # ------------------- Main -------------------
 async def fetch_past_messages():
     pool = await asyncpg.create_pool(DATABASE_URL, min_size=1, max_size=10)
     await create_tables(pool)
 
-    async with TelegramClient("fetch_past_session", API_ID, API_HASH) as client:
+    # ---- NEW: shutdown-aware background task ----
+    stop_event = asyncio.Event()
 
-        async def flush_periodically():
-            while True:
-                await asyncio.sleep(FLUSH_INTERVAL)
+    async def flush_periodically():
+        try:
+            while not stop_event.is_set():
+                # time-based flush
+                try:
+                    await asyncio.wait_for(stop_event.wait(), timeout=FLUSH_INTERVAL)
+                except asyncio.TimeoutError:
+                    pass
                 await flush_buffers(pool)
 
-        # Background flush task
-        asyncio.create_task(flush_periodically())
+                # optional: size-based flush to reduce latency
+                if len(signal_buffer) >= BATCH_SIZE or len(market_buffer) >= BATCH_SIZE:
+                    await flush_buffers(pool)
+        except asyncio.CancelledError:
+            # best-effort final flush
+            with suppress(asyncpg.InterfaceError):
+                await flush_buffers(pool)
+            raise
 
-        # Fetch past messages
-        async for message in client.iter_messages(GROUP_ID, limit=100):
-            if not message.message:
-                continue
+    flush_task = asyncio.create_task(flush_periodically())
 
-            sender_name = "Unknown"
-            if message.sender_id:
-                sender_entity = await client.get_entity(message.sender_id)
-                sender_name = getattr(sender_entity, 'first_name', None) or getattr(sender_entity, 'username', 'Unknown')
+    try:
+        async with TelegramClient("fetch_past_session", API_ID, API_HASH) as client:
+            # Fetch past messages
+            async for message in client.iter_messages(GROUP_ID, limit=100):
+                if not message.message:
+                    continue
 
-            process_message(message.message.strip(), message.date, sender_name)
+                sender_name = "Unknown"
+                if message.sender_id:
+                    sender_entity = await client.get_entity(message.sender_id)
+                    sender_name = getattr(sender_entity, 'first_name', None) or getattr(sender_entity, 'username', 'Unknown')
 
-        # Final flush
-        await flush_buffers(pool)
-    await pool.close()
+                process_message(message.message.strip(), message.date, sender_name)
+
+            # Final flush after iter completes
+            await flush_buffers(pool)
+    finally:
+        # ---- NEW: stop & cancel the task BEFORE closing the pool ----
+        stop_event.set()
+        flush_task.cancel()
+        with suppress(asyncio.CancelledError):
+            await flush_task
+
+        # Close pool last
+        if not getattr(pool, "_closed", False):
+            await pool.close()
 
 # ------------------- Run -------------------
 if __name__ == "__main__":

@@ -2,7 +2,6 @@ import os
 import asyncio
 import json
 from telethon import TelegramClient, events
-from telethon.sessions import MemorySession
 from dotenv import load_dotenv
 import websockets
 from websockets.exceptions import ConnectionClosed
@@ -60,7 +59,7 @@ async def send_to_clients(data):
         await asyncio.gather(*[client.send(message) for client in connected_clients], return_exceptions=True)
 
 async def run_telegram_client():
-    client = TelegramClient(MemorySession(), API_ID, API_HASH)
+    client = TelegramClient("session", API_ID, API_HASH)
 
     await client.start()
     print("✅ Telegram client started and authenticated")

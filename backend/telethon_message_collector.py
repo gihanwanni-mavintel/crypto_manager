@@ -30,17 +30,6 @@ SESSION_STRING = os.getenv("SESSION_STRING", "")
 connected_clients = set()
 MAX_CONNECTIONS = 100
 
-def to_float_safe(value):
-    if not value or value == "None" or value.lower() == "none":
-        return None
-    try:
-        cleaned = ''.join(c for c in str(value) if c.isdigit() or c in ('.', '-'))
-        if not cleaned or cleaned == '-':
-            return None
-        return float(cleaned)
-    except (ValueError, TypeError):
-        return None
-
 def extract_value(label, lines):
     for line in lines:
         if label.lower() in line.lower():
@@ -75,47 +64,27 @@ async def send_to_clients(data):
 async def run_telegram_client():
     logger.info("🔄 Starting Telegram client...")
 
-    # Debug environment variables
-    logger.debug(f"API_ID: {API_ID}")
-    logger.debug(f"API_HASH: {'*' * len(API_HASH) if API_HASH else 'MISSING'}")
-    logger.debug(f"GROUP_ID: {GROUP_ID}")
-    logger.debug(f"SESSION_STRING: {'SET' if SESSION_STRING else 'MISSING'}")
-
     if not SESSION_STRING:
         logger.error("❌ SESSION_STRING environment variable is missing!")
         return
-
     if not API_ID or not API_HASH:
         logger.error("❌ API_ID or API_HASH is missing!")
         return
 
     client = None
     try:
-        logger.info("🔧 Creating Telegram client...")
         client = TelegramClient(
             session=StringSession(SESSION_STRING),
             api_id=API_ID,
             api_hash=API_HASH
         )
 
-        logger.info("🚀 Starting client connection...")
         await client.start()
         logger.info("✅ Telegram client started successfully!")
 
-        # Test connection
         try:
             me = await client.get_me()
             logger.info(f"👤 Connected as: {me.first_name} (ID: {me.id})")
-
-            # Test group access
-            try:
-                entity = await client.get_entity(GROUP_ID)
-                logger.info(f"📋 Group access: {entity.title}")
-            except ValueError as e:
-                logger.warning(f"⚠️ Group ID might be invalid: {e}")
-            except Exception as e:
-                logger.warning(f"⚠️ Group access issue: {e}")
-
         except Exception as e:
             logger.error(f"❌ Connection test failed: {e}")
             return
@@ -157,27 +126,20 @@ async def run_telegram_client():
                         "timestamp": date.isoformat(),
                         "full_message": text
                     })
-
                     logger.info(f"✅ Signal detected: {pair} {setup_type}")
-
                 else:
                     sender = event.message.sender.first_name if event.message.sender else "Unknown"
-
                     await send_to_clients({
                         "type": "market", "sender": sender,
                         "text": text, "timestamp": date.isoformat()
                     })
-
                     logger.info(f"📊 Market message: {text[:100]}...")
-
             except Exception as e:
                 logger.error(f"❌ Error processing message: {e}")
 
         logger.info("👂 Listening for Telegram messages...")
         await client.run_until_disconnected()
 
-    except asyncio.TimeoutError:
-        logger.error("⏰ Telegram connection timeout - check network/firewall")
     except Exception as e:
         logger.error(f"💥 Telegram client error: {e}")
         import traceback
@@ -190,28 +152,23 @@ async def run_telegram_client():
 async def main():
     try:
         logger.info("🚀 Starting application...")
-
-        # Check if we're on Render
         if 'RENDER' in os.environ:
             logger.info("🌐 Running on Render environment")
         else:
             logger.info("💻 Running locally")
 
-        # Use WebSocket port
-        ws_port = 6789
+        # ✅ Use Render-assigned port if available
+        ws_port = int(os.getenv("PORT", 6789))
 
         logger.info(f"🌐 Starting WebSocket server on port {ws_port}")
 
-        # Start WebSocket server
-        server = await websockets.serve(
+        await websockets.serve(
             websocket_handler, "0.0.0.0", ws_port,
             ping_interval=20, ping_timeout=120, max_size=1000000
         )
         logger.info(f"✅ WebSocket server started on port {ws_port}")
 
-        # Start Telegram client
         await run_telegram_client()
-
     except Exception as e:
         logger.error(f"💥 Fatal error in main: {e}")
         import traceback
@@ -220,7 +177,6 @@ async def main():
         logger.info("🛑 Shutdown complete")
 
 if __name__ == "__main__":
-    # Print environment info
     print("=" * 50)
     print("Telegram Signal Bot Starting...")
     print("=" * 50)

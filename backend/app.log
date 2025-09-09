@@ -9,3 +9,41 @@
 2025-09-08 23:52:30,022 - INFO - ✅ Telegram client started successfully!
 2025-09-08 23:52:30,098 - INFO - 👤 Connected as: RegieL (ID: 6744450059)
 2025-09-08 23:52:30,098 - INFO - 👂 Listening for Telegram messages...
+2025-09-09 00:07:30,416 - WARNING - Cannot get difference since the account is likely misusing the session: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 0aadfc8f. See the FAQ for more details. Remaining bytes: b'\x8f\xfc\xad\n` \x00\x00\x08\x00\x00\x00\x7f\xceL\x9e\x00\x00\x00\x00\xbc\xecB\x87\xd3/\xd9C\x13Mr. P Circle \xe2\xad\x95\xef\xb8\x8f\x15ProfitCircle_Official\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00\xae\xca1\x1bNm\xc9P\x10\x01\x08\x08\xce-\xbb\x05\x06\x00\xf5\xa2\x8a)\\\x1cQ\x00\x00\x00\x04\x00\x00\x00\x98\x13dh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x0c\x08\x00\x00\x00\x00\x00\x00j"\xbfhu\x07\x00\x00(\x00\x00\x00\xfc.\x93\xef\xbb\x85\xcb\xc9f\x06\x0e\xed\xae\x8a\xef\xdd:\xea|\x1awRj\xb7'
+2025-09-09 00:07:30,416 - INFO - Disconnecting from 91.108.56.150:443/TcpFull...
+2025-09-09 00:07:30,417 - INFO - Disconnection from 91.108.56.150:443/TcpFull complete!
+2025-09-09 00:07:30,417 - INFO - Not disconnecting (already have no connection)
+2025-09-09 00:07:30,417 - ERROR - 💥 Telegram client error: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 0aadfc8f. See the FAQ for more details. Remaining bytes: b'\x8f\xfc\xad\n` \x00\x00\x08\x00\x00\x00\x7f\xceL\x9e\x00\x00\x00\x00\xbc\xecB\x87\xd3/\xd9C\x13Mr. P Circle \xe2\xad\x95\xef\xb8\x8f\x15ProfitCircle_Official\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00\xae\xca1\x1bNm\xc9P\x10\x01\x08\x08\xce-\xbb\x05\x06\x00\xf5\xa2\x8a)\\\x1cQ\x00\x00\x00\x04\x00\x00\x00\x98\x13dh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x0c\x08\x00\x00\x00\x00\x00\x00j"\xbfhu\x07\x00\x00(\x00\x00\x00\xfc.\x93\xef\xbb\x85\xcb\xc9f\x06\x0e\xed\xae\x8a\xef\xdd:\xea|\x1awRj\xb7'
+2025-09-09 00:07:30,422 - ERROR - Traceback (most recent call last):
+  File "/home/thisal/Documents/Telegram_Signals/backend/telethon_message_collector.py", line 141, in run_telegram_client
+    await client.run_until_disconnected()
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/client/updates.py", line 38, in _run_until_disconnected
+    raise self._updates_error
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/client/updates.py", line 308, in _update_loop
+    diff = await self(get_diff)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/client/users.py", line 92, in _call
+    result = await future
+             ^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/network/mtprotosender.py", line 641, in _handle_rpc_result
+    result = state.request.read_result(reader)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/tl/tlobject.py", line 219, in read_result
+    return reader.tgread_object()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/extensions/binaryreader.py", line 142, in tgread_object
+    return clazz.from_reader(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/tl/types/updates.py", line 259, in from_reader
+    _x = reader.tgread_object()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/thisal/Documents/Telegram_Signals/backend/venv/lib/python3.12/site-packages/telethon/extensions/binaryreader.py", line 140, in tgread_object
+    raise error
+telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 0aadfc8f. See the FAQ for more details. Remaining bytes: b'\x8f\xfc\xad\n` \x00\x00\x08\x00\x00\x00\x7f\xceL\x9e\x00\x00\x00\x00\xbc\xecB\x87\xd3/\xd9C\x13Mr. P Circle \xe2\xad\x95\xef\xb8\x8f\x15ProfitCircle_Official\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00\xae\xca1\x1bNm\xc9P\x10\x01\x08\x08\xce-\xbb\x05\x06\x00\xf5\xa2\x8a)\\\x1cQ\x00\x00\x00\x04\x00\x00\x00\x98\x13dh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x0c\x08\x00\x00\x00\x00\x00\x00j"\xbfhu\x07\x00\x00(\x00\x00\x00\xfc.\x93\xef\xbb\x85\xcb\xc9f\x06\x0e\xed\xae\x8a\xef\xdd:\xea|\x1awRj\xb7'
+
+2025-09-09 00:07:30,422 - INFO - Not disconnecting (already have no connection)
+2025-09-09 00:07:30,422 - INFO - 🔌 Client disconnected
+2025-09-09 00:07:30,422 - INFO - 🛑 Shutdown complete

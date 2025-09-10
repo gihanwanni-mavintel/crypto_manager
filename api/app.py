@@ -25,4 +25,3 @@ async def fetch_past_endpoint():
     return {"status": "success", "message": "Fetched past messages"}
 
 
-

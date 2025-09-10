@@ -2,6 +2,7 @@ import os
 import asyncio
 import json
 import logging
+import re
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 from dotenv import load_dotenv
@@ -9,9 +10,9 @@ import websockets
 from websockets.exceptions import ConnectionClosed
 import asyncpg
 
-# -------------------------------------------------
+# ----------------------------
 # Logging
-# -------------------------------------------------
+# ----------------------------
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -19,9 +20,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# -------------------------------------------------
+# ----------------------------
 # Environment
-# -------------------------------------------------
+# ----------------------------
 load_dotenv()
 API_ID = int(os.getenv("API_ID", 0))
 API_HASH = os.getenv("API_HASH", "")
@@ -29,9 +30,13 @@ GROUP_ID = int(os.getenv("GROUP_ID", 0))
 SESSION_STRING = os.getenv("SESSION_STRING", "")
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 
-# -------------------------------------------------
+if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
+    logger.error("❌ Missing critical environment variables. Exiting.")
+    exit(1)
+
+# ----------------------------
 # WebSocket
-# -------------------------------------------------
+# ----------------------------
 connected_clients = set()
 MAX_CONNECTIONS = 100
 
@@ -42,8 +47,8 @@ async def websocket_handler(ws):
     connected_clients.add(ws)
     logger.info(f"🌐 WebSocket client connected. Total: {len(connected_clients)}")
     try:
-        async for msg in ws:
-            logger.debug(f"Received from client: {msg}")
+        async for _ in ws:
+            pass
     except ConnectionClosed:
         pass
     finally:
@@ -53,20 +58,22 @@ async def websocket_handler(ws):
 async def send_to_clients(data):
     if connected_clients:
         message = json.dumps(data, default=str)
-        await asyncio.gather(*[client.send(message) for client in connected_clients], return_exceptions=True)
+        dead_clients = set()
+        for client in connected_clients:
+            try:
+                await client.send(message)
+            except Exception:
+                dead_clients.add(client)
+        connected_clients.difference_update(dead_clients)
 
-# -------------------------------------------------
+# ----------------------------
 # Database
-# -------------------------------------------------
+# ----------------------------
 db_pool = None
-signal_queue = asyncio.Queue()  # queue for batching signals
+signal_queue = asyncio.Queue()
 
 async def init_db():
     global db_pool
-    if not DATABASE_URL:
-        logger.error("❌ DATABASE_URL is missing!")
-        return
-
     db_pool = await asyncpg.create_pool(dsn=DATABASE_URL)
     logger.info("✅ Connected to PostgreSQL")
 
@@ -84,7 +91,7 @@ async def init_db():
             tp4 TEXT,
             stop_loss TEXT,
             timestamp TIMESTAMPTZ,
-            full_message TEXT
+            full_message TEXT UNIQUE
         )
         """)
         await conn.execute("""
@@ -97,7 +104,6 @@ async def init_db():
         """)
     logger.info("✅ Tables ready")
 
-# Batch worker for signals
 async def signal_db_worker(batch_size=50):
     while True:
         batch = []
@@ -111,8 +117,8 @@ async def signal_db_worker(batch_size=50):
                 except asyncio.QueueEmpty:
                     break
 
-            # Insert batch
             async with db_pool.acquire() as conn:
+                # Avoid duplicates using ON CONFLICT
                 values = [
                     (m["pair"], m["setup_type"], m["entry"], m["leverage"],
                      m["tp1"], m["tp2"], m["tp3"], m["tp4"], m["stop_loss"],
@@ -121,11 +127,12 @@ async def signal_db_worker(batch_size=50):
                 ]
                 if values:
                     await conn.executemany("""
-                        INSERT INTO signal_messages (
-                            pair, setup_type, entry, leverage,
-                            tp1, tp2, tp3, tp4, stop_loss,
-                            timestamp, full_message
-                        ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+                    INSERT INTO signal_messages (
+                        pair, setup_type, entry, leverage,
+                        tp1, tp2, tp3, tp4, stop_loss,
+                        timestamp, full_message
+                    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+                    ON CONFLICT (full_message) DO NOTHING
                     """, values)
                     logger.info(f"✅ Batch inserted {len(values)} signals")
         except Exception as e:
@@ -138,35 +145,21 @@ async def save_market(data):
             VALUES ($1,$2,$3)
         """, data["sender"], data["text"], data["timestamp"])
 
-# -------------------------------------------------
+# ----------------------------
 # Telegram
-# -------------------------------------------------
+# ----------------------------
 def extract_value(label, lines):
+    pattern = re.compile(rf"{label}\s*:\s*(.+)", re.IGNORECASE)
     for line in lines:
-        if label.lower() in line.lower():
-            parts = line.split(":")
-            if len(parts) > 1:
-                value = parts[1].strip().replace("•", "").strip()
-                if "stop loss" in label.lower() or "sl" in label.lower():
-                    value = value.split("☠️")[0].strip()
-                return value
+        match = pattern.search(line)
+        if match:
+            value = match.group(1).strip().replace("•", "").split("☠️")[0].strip()
+            return value
     return None
 
 async def run_telegram_client():
-    logger.info("🔄 Starting Telegram client...")
-
-    if not SESSION_STRING:
-        logger.error("❌ SESSION_STRING is missing!")
-        return
-    if not API_ID or not API_HASH:
-        logger.error("❌ API_ID or API_HASH is missing!")
-        return
-
     client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
-
     await client.start()
-    logger.info("✅ Telegram client started")
-
     me = await client.get_me()
     logger.info(f"👤 Connected as: {me.first_name} (ID: {me.id})")
 
@@ -187,9 +180,7 @@ async def run_telegram_client():
             if is_signal:
                 first_line = lines[0] if lines else ""
                 pair = first_line.split()[0].strip("#") if first_line else "UNKNOWN"
-                setup_type = ("LONG" if "LONG" in first_line.upper()
-                              else "SHORT" if "SHORT" in first_line.upper()
-                              else "UNKNOWN")
+                setup_type = "LONG" if "LONG" in first_line.upper() else "SHORT" if "SHORT" in first_line.upper() else "UNKNOWN"
 
                 entry = extract_value("Entry", lines)
                 leverage = extract_value("Leverage", lines)
@@ -208,18 +199,12 @@ async def run_telegram_client():
                     "full_message": text
                 }
 
-                # Add to batch queue instead of inserting individually
                 await signal_queue.put(data)
                 await send_to_clients(data)
                 logger.info(f"✅ Signal queued: {pair} {setup_type}")
             else:
                 sender = event.message.sender.first_name if event.message.sender else "Unknown"
-                data = {
-                    "sender": sender,
-                    "text": text,
-                    "timestamp": date
-                }
-
+                data = {"sender": sender, "text": text, "timestamp": date}
                 await save_market(data)
                 await send_to_clients(data)
                 logger.info(f"📊 Market message saved: {text[:100]}...")
@@ -229,40 +214,30 @@ async def run_telegram_client():
     logger.info("👂 Listening for Telegram messages...")
     await client.run_until_disconnected()
 
-# -------------------------------------------------
+# ----------------------------
 # Main
-# -------------------------------------------------
+# ----------------------------
 async def main():
+    await init_db()
+    db_worker_task = asyncio.create_task(signal_db_worker())
+
+    ws_port = int(os.getenv("PORT", 6789))
+    ws_server = await websockets.serve(websocket_handler, "0.0.0.0", ws_port)
+    logger.info(f"🌐 WebSocket server started on port {ws_port}")
+
     try:
-        logger.info("🚀 Starting application...")
-        ws_port = int(os.getenv("PORT", 6789))
-
-        await init_db()
-
-        # Start signal batch worker
-        asyncio.create_task(signal_db_worker())
-
-        logger.info(f"🌐 Starting WebSocket server on port {ws_port}")
-        await websockets.serve(
-            websocket_handler, "0.0.0.0", ws_port,
-            ping_interval=20, ping_timeout=120, max_size=1000000
-        )
-        logger.info(f"✅ WebSocket server started on port {ws_port}")
-
         await run_telegram_client()
     except Exception as e:
-        logger.error(f"💥 Fatal error in main: {e}")
+        logger.error(f"💥 Fatal error: {e}")
     finally:
+        ws_server.close()
+        await ws_server.wait_closed()
+        db_worker_task.cancel()
+        await asyncio.sleep(0.1)
         logger.info("🛑 Shutdown complete")
 
 if __name__ == "__main__":
-    print("=" * 50)
+    print("="*50)
     print("Telegram Signal Bot Starting...")
-    print("=" * 50)
-    print(f"API_ID: {API_ID}")
-    print(f"GROUP_ID: {GROUP_ID}")
-    print(f"SESSION_STRING: {'SET' if SESSION_STRING else 'MISSING'}")
-    print(f"DATABASE_URL: {'SET' if DATABASE_URL else 'MISSING'}")
-    print("=" * 50)
-
+    print("="*50)
     asyncio.run(main())

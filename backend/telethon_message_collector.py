@@ -3,6 +3,7 @@ import asyncio
 import json
 import logging
 import re
+from decimal import Decimal, InvalidOperation
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 from dotenv import load_dotenv
@@ -10,11 +11,6 @@ import websockets
 from websockets.exceptions import ConnectionClosed
 import asyncpg
 from aiohttp import web
-import aiohttp
-
-async def http_handler(request):
-    """Simple health check endpoint"""
-    return web.Response(text="✅ Telegram Signal Bot is running")
 
 # ----------------------------
 # Logging
@@ -35,10 +31,18 @@ API_HASH = os.getenv("API_HASH", "")
 GROUP_ID = int(os.getenv("GROUP_ID", 0))
 SESSION_STRING = os.getenv("SESSION_STRING", "")
 DATABASE_URL = os.getenv("DATABASE_URL", "")
+HTTP_PORT = int(os.getenv("HTTP_PORT", 8080))
+WS_PORT = int(os.getenv("WS_PORT", 6789))
 
 if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
     logger.error("❌ Missing critical environment variables. Exiting.")
     exit(1)
+
+# ----------------------------
+# Health check
+# ----------------------------
+async def http_handler(request):
+    return web.Response(text="✅ Telegram Signal Bot is running")
 
 # ----------------------------
 # WebSocket
@@ -53,8 +57,8 @@ async def websocket_handler(ws):
     connected_clients.add(ws)
     logger.info(f"🌐 WebSocket client connected. Total: {len(connected_clients)}")
     try:
-        async for _ in ws:
-            pass
+        async for message in ws:
+            logger.debug(f"WS client said: {message}")
     except ConnectionClosed:
         pass
     finally:
@@ -89,13 +93,13 @@ async def init_db():
             id SERIAL PRIMARY KEY,
             pair TEXT,
             setup_type TEXT,
-            entry TEXT,
-            leverage TEXT,
-            tp1 TEXT,
-            tp2 TEXT,
-            tp3 TEXT,
-            tp4 TEXT,
-            stop_loss TEXT,
+            entry NUMERIC(18,8),
+            leverage NUMERIC(18,8),
+            tp1 NUMERIC(18,8),
+            tp2 NUMERIC(18,8),
+            tp3 NUMERIC(18,8),
+            tp4 NUMERIC(18,8),
+            stop_loss NUMERIC(18,8),
             timestamp TIMESTAMPTZ,
             full_message TEXT UNIQUE
         )
@@ -124,7 +128,6 @@ async def signal_db_worker(batch_size=50):
                     break
 
             async with db_pool.acquire() as conn:
-                # Avoid duplicates using ON CONFLICT
                 values = [
                     (m["pair"], m["setup_type"], m["entry"], m["leverage"],
                      m["tp1"], m["tp2"], m["tp3"], m["tp4"], m["stop_loss"],
@@ -152,8 +155,16 @@ async def save_market(data):
         """, data["sender"], data["text"], data["timestamp"])
 
 # ----------------------------
-# Telegram
+# Helpers
 # ----------------------------
+def parse_decimal(value: str):
+    if value is None:
+        return None
+    try:
+        return Decimal(value.replace(",", "").strip())
+    except (InvalidOperation, AttributeError):
+        return None
+
 def extract_value(label, lines):
     pattern = re.compile(rf"{label}\s*:\s*(.+)", re.IGNORECASE)
     for line in lines:
@@ -163,6 +174,9 @@ def extract_value(label, lines):
             return value
     return None
 
+# ----------------------------
+# Telegram
+# ----------------------------
 async def run_telegram_client():
     client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
     await client.start()
@@ -188,13 +202,13 @@ async def run_telegram_client():
                 pair = first_line.split()[0].strip("#") if first_line else "UNKNOWN"
                 setup_type = "LONG" if "LONG" in first_line.upper() else "SHORT" if "SHORT" in first_line.upper() else "UNKNOWN"
 
-                entry = extract_value("Entry", lines)
-                leverage = extract_value("Leverage", lines)
-                tp1 = extract_value("Target 1", lines) or extract_value("TP1", lines)
-                tp2 = extract_value("Target 2", lines) or extract_value("TP2", lines)
-                tp3 = extract_value("Target 3", lines) or extract_value("TP3", lines)
-                tp4 = extract_value("Target 4", lines) or extract_value("TP4", lines)
-                stop_loss = extract_value("Stop Loss", lines) or extract_value("SL", lines)
+                entry = parse_decimal(extract_value("Entry", lines))
+                leverage = parse_decimal(extract_value("Leverage", lines))
+                tp1 = parse_decimal(extract_value("Target 1", lines) or extract_value("TP1", lines))
+                tp2 = parse_decimal(extract_value("Target 2", lines) or extract_value("TP2", lines))
+                tp3 = parse_decimal(extract_value("Target 3", lines) or extract_value("TP3", lines))
+                tp4 = parse_decimal(extract_value("Target 4", lines) or extract_value("TP4", lines))
+                stop_loss = parse_decimal(extract_value("Stop Loss", lines) or extract_value("SL", lines))
 
                 data = {
                     "pair": pair, "setup_type": setup_type,
@@ -227,19 +241,17 @@ async def main():
     await init_db()
     db_worker_task = asyncio.create_task(signal_db_worker())
 
-    ws_port = int(os.getenv("PORT", 6789))
-
     app = web.Application()
-        app.router.add_get('/', http_handler)
-        app.router.add_get('/health', http_handler)
-        runner = web.AppRunner(app)
-        await runner.setup()
-        site = web.TCPSite(runner, "0.0.0.0", ws_port)
-        await site.start()
-        logger.info(f"🌐 HTTP health server started on port {ws_port}")
+    app.router.add_get('/', http_handler)
+    app.router.add_get('/health', http_handler)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", HTTP_PORT)
+    await site.start()
+    logger.info(f"🌐 HTTP health server started on port {HTTP_PORT}")
 
-    ws_server = await websockets.serve(websocket_handler, "0.0.0.0", ws_port)
-    logger.info(f"🌐 WebSocket server started on port {ws_port}")
+    ws_server = await websockets.serve(websocket_handler, "0.0.0.0", WS_PORT)
+    logger.info(f"🌐 WebSocket server started on port {WS_PORT}")
 
     try:
         await run_telegram_client()

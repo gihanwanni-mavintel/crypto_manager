@@ -60,3 +60,12 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-09-11 03:01:32,250 - INFO - server closing
 2025-09-11 03:01:32,250 - INFO - server closed
 2025-09-11 03:01:32,350 - INFO - 🛑 Shutdown complete
+2025-09-12 08:26:55,184 - INFO - ✅ Connected to PostgreSQL
+2025-09-12 08:26:55,460 - INFO - ✅ Tables ready
+2025-09-12 08:26:55,461 - INFO - 🌐 HTTP health server started on port 8080
+2025-09-12 08:26:55,470 - INFO - server listening on 0.0.0.0:6789
+2025-09-12 08:26:55,471 - INFO - 🌐 WebSocket server started on port 6789
+2025-09-12 08:26:55,471 - INFO - Connecting to 91.108.56.150:443/TcpFull...
+2025-09-12 08:26:55,680 - INFO - Connection to 91.108.56.150:443/TcpFull complete!
+2025-09-12 08:26:57,114 - INFO - 👤 Connected as: RegieL (ID: 6744450059)
+2025-09-12 08:26:57,114 - INFO - 👂 Listening for Telegram messages...

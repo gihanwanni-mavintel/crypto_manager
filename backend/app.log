@@ -47,3 +47,16 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-09-09 00:07:30,422 - INFO - Not disconnecting (already have no connection)
 2025-09-09 00:07:30,422 - INFO - 🔌 Client disconnected
 2025-09-09 00:07:30,422 - INFO - 🛑 Shutdown complete
+2025-09-11 02:58:38,407 - INFO - ✅ Connected to PostgreSQL
+2025-09-11 02:58:38,633 - INFO - ✅ Tables ready
+2025-09-11 02:58:38,638 - INFO - server listening on 0.0.0.0:6789
+2025-09-11 02:58:38,638 - INFO - 🌐 WebSocket server started on port 6789
+2025-09-11 02:58:38,639 - INFO - Connecting to 91.108.56.150:443/TcpFull...
+2025-09-11 02:58:38,757 - INFO - Connection to 91.108.56.150:443/TcpFull complete!
+2025-09-11 02:58:39,690 - INFO - 👤 Connected as: RegieL (ID: 6744450059)
+2025-09-11 02:58:39,690 - INFO - 👂 Listening for Telegram messages...
+2025-09-11 03:01:32,249 - INFO - Disconnecting from 91.108.56.150:443/TcpFull...
+2025-09-11 03:01:32,249 - INFO - Disconnection from 91.108.56.150:443/TcpFull complete!
+2025-09-11 03:01:32,250 - INFO - server closing
+2025-09-11 03:01:32,250 - INFO - server closed
+2025-09-11 03:01:32,350 - INFO - 🛑 Shutdown complete

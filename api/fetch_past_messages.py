@@ -140,7 +140,7 @@ async def flush_buffers(pool):
             """, market_buffer)
             market_buffer = []
 
-# ------------------- Main -------------------
+# ------------------- Fetch Past Messages -------------------
 async def fetch_past_messages():
     pool = await asyncpg.create_pool(DATABASE_URL, min_size=1, max_size=10)
     await create_tables(pool)
@@ -162,8 +162,11 @@ async def fetch_past_messages():
 
             sender_name = "Unknown"
             if message.sender_id:
-                sender_entity = await client.get_entity(message.sender_id)
-                sender_name = getattr(sender_entity, 'first_name', None) or getattr(sender_entity, 'username', 'Unknown')
+                try:
+                    sender_entity = await client.get_entity(message.sender_id)
+                    sender_name = getattr(sender_entity, 'first_name', None) or getattr(sender_entity, 'username', 'Unknown')
+                except:
+                    sender_name = "Unknown"
 
             process_message(message.message.strip(), message.date, sender_name)
 
@@ -171,6 +174,21 @@ async def fetch_past_messages():
         await flush_buffers(pool)
     await pool.close()
 
+# ------------------- Periodic Fetch Task -------------------
+async def periodic_fetch():
+    """Fetch past messages every 15 minutes"""
+    while True:
+        try:
+            print(f"🔄 Starting periodic fetch at {datetime.datetime.now()}")
+            await fetch_past_messages()
+            print(f"✅ Periodic fetch completed at {datetime.datetime.now()}")
+        except Exception as e:
+            print(f"❌ Error in periodic fetch: {e}")
+
+        # Wait 15 minutes before next fetch
+        await asyncio.sleep(15 * 60)  # 15 minutes in seconds
+
 # ------------------- Run -------------------
 if __name__ == "__main__":
-    asyncio.run(fetch_past_messages())
+    # Start the periodic fetch task
+    asyncio.run(periodic_fetch())

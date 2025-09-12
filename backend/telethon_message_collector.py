@@ -9,6 +9,12 @@ from dotenv import load_dotenv
 import websockets
 from websockets.exceptions import ConnectionClosed
 import asyncpg
+from aiohttp import web
+import aiohttp
+
+async def http_handler(request):
+    """Simple health check endpoint"""
+    return web.Response(text="✅ Telegram Signal Bot is running")
 
 # ----------------------------
 # Logging
@@ -222,6 +228,16 @@ async def main():
     db_worker_task = asyncio.create_task(signal_db_worker())
 
     ws_port = int(os.getenv("PORT", 6789))
+
+    app = web.Application()
+        app.router.add_get('/', http_handler)
+        app.router.add_get('/health', http_handler)
+        runner = web.AppRunner(app)
+        await runner.setup()
+        site = web.TCPSite(runner, "0.0.0.0", ws_port)
+        await site.start()
+        logger.info(f"🌐 HTTP health server started on port {ws_port}")
+
     ws_server = await websockets.serve(websocket_handler, "0.0.0.0", ws_port)
     logger.info(f"🌐 WebSocket server started on port {ws_port}")
 
@@ -232,6 +248,7 @@ async def main():
     finally:
         ws_server.close()
         await ws_server.wait_closed()
+        await runner.cleanup()
         db_worker_task.cancel()
         await asyncio.sleep(0.1)
         logger.info("🛑 Shutdown complete")

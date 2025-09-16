@@ -69,3 +69,22 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-09-12 08:26:55,680 - INFO - Connection to 91.108.56.150:443/TcpFull complete!
 2025-09-12 08:26:57,114 - INFO - 👤 Connected as: RegieL (ID: 6744450059)
 2025-09-12 08:26:57,114 - INFO - 👂 Listening for Telegram messages...
+2025-09-12 08:43:58,257 - INFO - Cannot get difference since the account is not logged in: AuthKeyDuplicatedError
+2025-09-12 08:43:58,257 - INFO - Disconnecting from 91.108.56.150:443/TcpFull...
+2025-09-12 08:43:58,258 - INFO - Disconnection from 91.108.56.150:443/TcpFull complete!
+2025-09-12 08:43:58,258 - INFO - Not disconnecting (already have no connection)
+2025-09-12 08:43:58,258 - ERROR - 💥 Fatal error: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by GetDifferenceRequest)
+2025-09-12 08:43:58,258 - INFO - server closing
+2025-09-12 08:43:58,258 - INFO - server closed
+2025-09-12 08:43:58,358 - INFO - 🛑 Shutdown complete
+2025-09-14 08:31:25,490 - INFO - ✅ Connected to PostgreSQL
+2025-09-14 08:31:25,731 - INFO - ✅ Tables ready
+2025-09-14 08:31:25,732 - INFO - 🌐 HTTP health server started on port 8080
+2025-09-14 08:31:25,740 - INFO - server listening on 0.0.0.0:6789
+2025-09-14 08:31:25,740 - INFO - 🌐 WebSocket server started on port 6789
+2025-09-14 08:31:25,741 - INFO - Connecting to 91.108.56.150:443/TcpFull...
+2025-09-14 08:31:25,851 - INFO - Connection to 91.108.56.150:443/TcpFull complete!
+2025-09-14 08:31:26,259 - ERROR - 💥 Fatal error: The authorization key (session file) was used under two different IP addresses simultaneously, and can no longer be used. Use the same session exclusively, or use different sessions (caused by InvokeWithLayerRequest(InitConnectionRequest(GetConfigRequest)))
+2025-09-14 08:31:26,260 - INFO - server closing
+2025-09-14 08:31:26,260 - INFO - server closed
+2025-09-14 08:31:26,360 - INFO - 🛑 Shutdown complete

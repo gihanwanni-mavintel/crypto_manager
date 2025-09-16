@@ -45,25 +45,31 @@ async def http_handler(request):
     return web.Response(text="✅ Telegram Signal Bot is running")
 
 # ----------------------------
-# WebSocket
+# WebSocket (aiohttp version)
 # ----------------------------
 connected_clients = set()
 MAX_CONNECTIONS = 100
 
-async def websocket_handler(ws):
+async def websocket_handler(request):
+    ws = web.WebSocketResponse()
+    await ws.prepare(request)
+
     if len(connected_clients) >= MAX_CONNECTIONS:
-        await ws.close(code=1008, reason="Max connections reached")
-        return
+        await ws.close(code=1008, message=b"Max connections reached")
+        return ws
+
     connected_clients.add(ws)
     logger.info(f"🌐 WebSocket client connected. Total: {len(connected_clients)}")
+
     try:
-        async for message in ws:
-            logger.debug(f"WS client said: {message}")
-    except ConnectionClosed:
-        pass
+        async for msg in ws:
+            if msg.type == web.WSMsgType.TEXT:
+                logger.debug(f"WS client said: {msg.data}")
     finally:
         connected_clients.discard(ws)
         logger.info(f"🌐 WebSocket client disconnected. Total: {len(connected_clients)}")
+
+    return ws
 
 async def send_to_clients(data):
     if connected_clients:
@@ -71,10 +77,11 @@ async def send_to_clients(data):
         dead_clients = set()
         for client in connected_clients:
             try:
-                await client.send(message)
+                await client.send_str(message)  # 👈 aiohttp WS uses send_str
             except Exception:
                 dead_clients.add(client)
         connected_clients.difference_update(dead_clients)
+
 
 # ----------------------------
 # Database
@@ -244,13 +251,14 @@ async def main():
     app = web.Application()
     app.router.add_get('/', http_handler)
     app.router.add_get('/health', http_handler)
+    app.router.add_get("/ws", websocket_handler)
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", HTTP_PORT)
     await site.start()
     logger.info(f"🌐 HTTP health server started on port {HTTP_PORT}")
 
-    ws_server = await websockets.serve(websocket_handler, "0.0.0.0", WS_PORT)
+
     logger.info(f"🌐 WebSocket server started on port {WS_PORT}")
 
     try:

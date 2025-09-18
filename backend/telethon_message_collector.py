@@ -9,6 +9,7 @@ from telethon.sessions import StringSession
 from dotenv import load_dotenv
 import asyncpg
 from aiohttp import web
+from datetime import timezone
 
 # ----------------------------
 # Logging
@@ -34,6 +35,41 @@ HTTP_PORT = int(os.getenv("HTTP_PORT", 8080))
 if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
     logger.error("❌ Missing critical environment variables. Exiting.")
     exit(1)
+
+# ----------------------------
+# Helpers
+# ----------------------------
+def ensure_tz(dt):
+    """Force UTC timezone if datetime is naive"""
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+def parse_decimal(value: str):
+    if value is None:
+        return None
+    try:
+        return Decimal(value.replace(",", "").strip())
+    except (InvalidOperation, AttributeError):
+        return None
+
+def extract_value(label, lines):
+    pattern = re.compile(rf"{label}\s*:\s*(.+)", re.IGNORECASE)
+    for line in lines:
+        match = pattern.search(line)
+        if match:
+            value = match.group(1).strip().replace("•", "").split("☠️")[0].strip()
+            return value
+    return None
+
+async def get_sender_name(message):
+    sender = await message.get_sender()
+    if sender:
+        if hasattr(sender, 'first_name'):
+            return sender.first_name
+        elif hasattr(sender, 'title'):
+            return sender.title
+        else:
+            return str(sender.id)
+    return "Unknown"
 
 # ----------------------------
 # Health check
@@ -135,7 +171,7 @@ async def signal_db_worker(batch_size=50):
                 values = [
                     (m["pair"], m["setup_type"], m["entry"], m["leverage"],
                      m["tp1"], m["tp2"], m["tp3"], m["tp4"], m["stop_loss"],
-                     m["timestamp"], m["full_message"])
+                     ensure_tz(m["timestamp"]), m["full_message"])
                     for m in batch
                 ]
                 if values:
@@ -157,45 +193,17 @@ async def save_market(data):
             INSERT INTO market_messages (sender, text, timestamp)
             VALUES ($1,$2,$3)
             ON CONFLICT (text, timestamp) DO NOTHING
-        """, data["sender"], data["text"], data["timestamp"])
+        """, data["sender"], data["text"], ensure_tz(data["timestamp"]))
 
 # ----------------------------
-# Helpers
+# Telegram Helpers
 # ----------------------------
-def parse_decimal(value: str):
-    if value is None:
-        return None
-    try:
-        return Decimal(value.replace(",", "").strip())
-    except (InvalidOperation, AttributeError):
-        return None
-
-def extract_value(label, lines):
-    pattern = re.compile(rf"{label}\s*:\s*(.+)", re.IGNORECASE)
-    for line in lines:
-        match = pattern.search(line)
-        if match:
-            value = match.group(1).strip().replace("•", "").split("☠️")[0].strip()
-            return value
-    return None
-
-async def get_sender_name(message):
-    sender = await message.get_sender()
-    if sender:
-        if hasattr(sender, 'first_name'):
-            return sender.first_name
-        elif hasattr(sender, 'title'):
-            return sender.title
-        else:
-            return str(sender.id)
-    return "Unknown"
-
 async def fetch_last_messages(client, group_id, limit=15):
     messages = await client.get_messages(group_id, limit=limit)
     result = []
     for msg in reversed(messages):  # oldest first
         sender_name = await get_sender_name(msg)
-        data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
+        data = {"sender": sender_name, "text": msg.message, "timestamp": ensure_tz(msg.date)}
         result.append(data)
         await send_to_clients(data)
     logger.info(f"✅ Fetched and sent last {len(result)} messages to WS clients")
@@ -213,7 +221,7 @@ async def periodic_fetch(client, group_id, interval=900):
 
             for msg in reversed(new_messages):
                 sender_name = await get_sender_name(msg)
-                data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
+                data = {"sender": sender_name, "text": msg.message, "timestamp": ensure_tz(msg.date)}
 
                 await save_market(data)
                 await send_to_clients(data)
@@ -249,7 +257,7 @@ async def run_telegram_client():
     async def handler(event):
         try:
             text = event.message.message
-            date = event.message.date
+            date = ensure_tz(event.message.date)
             lines = [line.strip() for line in text.splitlines() if line.strip()]
 
             is_signal = (

@@ -22,10 +22,10 @@ logging.basicConfig(
 # Load env
 # ----------------------------
 load_dotenv()
-API_ID = int(os.getenv("TELEGRAM_API_ID"))
-API_HASH = os.getenv("TELEGRAM_API_HASH")
-SESSION_STRING = os.getenv("TELEGRAM_SESSION")
-POSTGRES_URL = os.getenv("POSTGRES_URL")
+API_ID = int(os.getenv("API_ID"))
+API_HASH = os.getenv("API_HASH")
+SESSION_STRING = os.getenv("SESSION_STRING")
+DB_URL = os.getenv("DATABASE_URL")
 MARKET_CHAT = os.getenv("MARKET_CHAT", "MarketChatName")
 SIGNAL_CHAT = os.getenv("SIGNAL_CHAT", "SignalChatName")
 WS_PORT = int(os.getenv("WS_PORT", 8765))

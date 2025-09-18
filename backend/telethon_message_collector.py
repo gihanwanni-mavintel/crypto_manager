@@ -30,7 +30,6 @@ GROUP_ID = int(os.getenv("GROUP_ID", 0))
 SESSION_STRING = os.getenv("SESSION_STRING", "")
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 HTTP_PORT = int(os.getenv("HTTP_PORT", 8080))
-WS_PORT = int(os.getenv("WS_PORT", 6789))
 
 if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
     logger.error("❌ Missing critical environment variables. Exiting.")
@@ -180,12 +179,22 @@ def extract_value(label, lines):
             return value
     return None
 
+async def get_sender_name(message):
+    sender = await message.get_sender()
+    if sender:
+        if hasattr(sender, 'first_name'):
+            return sender.first_name
+        elif hasattr(sender, 'title'):
+            return sender.title
+        else:
+            return str(sender.id)
+    return "Unknown"
+
 async def fetch_last_messages(client, group_id, limit=15):
     messages = await client.get_messages(group_id, limit=limit)
     result = []
     for msg in reversed(messages):  # oldest first
-        sender = await msg.get_sender()
-        sender_name = sender.first_name if sender else "Unknown"
+        sender_name = await get_sender_name(msg)
         data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
         result.append(data)
         await send_to_clients(data)
@@ -203,13 +212,10 @@ async def periodic_fetch(client, group_id, interval=900):
             new_messages = [m for m in messages if m.id > last_message_id]
 
             for msg in reversed(new_messages):
-                sender_obj = await msg.get_sender()
-                sender_name = sender_obj.first_name if sender_obj else "Unknown"
+                sender_name = await get_sender_name(msg)
                 data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
 
-                # Save to DB
                 await save_market(data)
-                # Send to WS
                 await send_to_clients(data)
                 logger.info(f"📨 Periodic fetch stored and sent: {data['text'][:50]}...")
 
@@ -230,7 +236,7 @@ async def run_telegram_client():
     me = await client.get_me()
     logger.info(f"👤 Connected as: {me.first_name} (ID: {me.id})")
 
-    # Fetch last 15 messages on startup and store in DB
+    # Fetch last 15 messages on startup
     last_messages = await fetch_last_messages(client, GROUP_ID, limit=15)
     for msg in last_messages:
         await save_market(msg)
@@ -279,8 +285,8 @@ async def run_telegram_client():
                 await send_to_clients(data)
                 logger.info(f"✅ Signal queued: {pair} {setup_type}")
             else:
-                sender = event.message.sender.first_name if event.message.sender else "Unknown"
-                data = {"sender": sender, "text": text, "timestamp": date}
+                sender_name = await get_sender_name(event.message)
+                data = {"sender": sender_name, "text": text, "timestamp": date}
                 await save_market(data)
                 await send_to_clients(data)
                 logger.info(f"📊 Market message saved: {text[:100]}...")

@@ -7,8 +7,6 @@ from decimal import Decimal, InvalidOperation
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
 from dotenv import load_dotenv
-import websockets
-from websockets.exceptions import ConnectionClosed
 import asyncpg
 from aiohttp import web
 
@@ -45,7 +43,7 @@ async def http_handler(request):
     return web.Response(text="✅ Telegram Signal Bot is running")
 
 # ----------------------------
-# WebSocket (aiohttp version)
+# WebSocket
 # ----------------------------
 connected_clients = set()
 MAX_CONNECTIONS = 100
@@ -77,11 +75,10 @@ async def send_to_clients(data):
         dead_clients = set()
         for client in connected_clients:
             try:
-                await client.send_str(message)  # 👈 aiohttp WS uses send_str
+                await client.send_str(message)
             except Exception:
                 dead_clients.add(client)
         connected_clients.difference_update(dead_clients)
-
 
 # ----------------------------
 # Database
@@ -116,7 +113,8 @@ async def init_db():
             id SERIAL PRIMARY KEY,
             sender TEXT,
             text TEXT,
-            timestamp TIMESTAMPTZ
+            timestamp TIMESTAMPTZ,
+            UNIQUE(text, timestamp)
         )
         """)
     logger.info("✅ Tables ready")
@@ -159,6 +157,7 @@ async def save_market(data):
         await conn.execute("""
             INSERT INTO market_messages (sender, text, timestamp)
             VALUES ($1,$2,$3)
+            ON CONFLICT (text, timestamp) DO NOTHING
         """, data["sender"], data["text"], data["timestamp"])
 
 # ----------------------------
@@ -181,6 +180,47 @@ def extract_value(label, lines):
             return value
     return None
 
+async def fetch_last_messages(client, group_id, limit=15):
+    messages = await client.get_messages(group_id, limit=limit)
+    result = []
+    for msg in reversed(messages):  # oldest first
+        sender = await msg.get_sender()
+        sender_name = sender.first_name if sender else "Unknown"
+        data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
+        result.append(data)
+        await send_to_clients(data)
+    logger.info(f"✅ Fetched and sent last {len(result)} messages to WS clients")
+    return result
+
+# ----------------------------
+# Periodic fetch every 15 minutes
+# ----------------------------
+async def periodic_fetch(client, group_id, interval=900):
+    last_message_id = 0
+    while True:
+        try:
+            messages = await client.get_messages(group_id, limit=15)
+            new_messages = [m for m in messages if m.id > last_message_id]
+
+            for msg in reversed(new_messages):
+                sender_obj = await msg.get_sender()
+                sender_name = sender_obj.first_name if sender_obj else "Unknown"
+                data = {"sender": sender_name, "text": msg.message, "timestamp": msg.date}
+
+                # Save to DB
+                await save_market(data)
+                # Send to WS
+                await send_to_clients(data)
+                logger.info(f"📨 Periodic fetch stored and sent: {data['text'][:50]}...")
+
+            if new_messages:
+                last_message_id = max(m.id for m in new_messages)
+
+        except Exception as e:
+            logger.error(f"❌ Error in periodic fetch: {e}")
+
+        await asyncio.sleep(interval)
+
 # ----------------------------
 # Telegram
 # ----------------------------
@@ -190,6 +230,15 @@ async def run_telegram_client():
     me = await client.get_me()
     logger.info(f"👤 Connected as: {me.first_name} (ID: {me.id})")
 
+    # Fetch last 15 messages on startup and store in DB
+    last_messages = await fetch_last_messages(client, GROUP_ID, limit=15)
+    for msg in last_messages:
+        await save_market(msg)
+
+    # Start periodic fetch every 15 minutes
+    asyncio.create_task(periodic_fetch(client, GROUP_ID, interval=900))
+
+    # Live listener
     @client.on(events.NewMessage(chats=GROUP_ID))
     async def handler(event):
         try:
@@ -258,19 +307,14 @@ async def main():
     await site.start()
     logger.info(f"🌐 HTTP health server started on port {HTTP_PORT}")
 
-
-    logger.info(f"🌐 WebSocket server started on port {WS_PORT}")
-
     try:
         await run_telegram_client()
     except Exception as e:
         logger.error(f"💥 Fatal error: {e}")
     finally:
-        ws_server.close()
-        await ws_server.wait_closed()
-        await runner.cleanup()
         db_worker_task.cancel()
         await asyncio.sleep(0.1)
+        await runner.cleanup()
         logger.info("🛑 Shutdown complete")
 
 if __name__ == "__main__":

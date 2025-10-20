@@ -22,6 +22,7 @@ public class BinanceService {
     public double getBalance() {
         try {
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("recvWindow", 60000); // add recvWindow
             String result = futuresClient.account().futuresAccountBalance(params);
             var balances = new org.json.JSONArray(result);
             for (int i = 0; i < balances.length(); i++) {
@@ -54,6 +55,7 @@ public class BinanceService {
             LinkedHashMap<String, Object> leverageParams = new LinkedHashMap<>();
             leverageParams.put("symbol", symbol);
             leverageParams.put("leverage", signal.getLeverage());
+            leverageParams.put("recvWindow", 60000);
             futuresClient.account().changeInitialLeverage(leverageParams);
             log.info("Leverage set to {}x for {}", signal.getLeverage(), symbol);
 
@@ -61,7 +63,6 @@ public class BinanceService {
             double riskAmount = balance * 0.01;
             double riskPerUnit = Math.abs(signal.getEntry() - signal.getStopLoss());
 
-            // Avoid 0 quantity by rounding to 6 decimal places
             double qty = Math.floor((riskAmount / riskPerUnit) * 1000) / 1000;
             if (qty <= 0) {
                 log.error("Quantity too small to trade. Qty={}", qty);
@@ -74,6 +75,7 @@ public class BinanceService {
             orderParams.put("side", side);
             orderParams.put("type", "MARKET");
             orderParams.put("quantity", qty);
+            orderParams.put("recvWindow", 60000);
 
             String orderResponse = futuresClient.account().newOrder(orderParams);
             JSONObject resp = new JSONObject(orderResponse);
@@ -82,7 +84,6 @@ public class BinanceService {
 
             log.info("Order placed: {} {} Qty={} Status={}", side, symbol, qty, status);
 
-            // Handle testnet behavior where MARKET orders may show NEW with 0 executedQty
             if ("NEW".equals(status) && executedQty == 0.0) {
                 log.warn("Testnet MARKET order not executed yet. Qty={}, consider retrying or using LIMIT.", qty);
                 return;
@@ -118,6 +119,7 @@ public class BinanceService {
             slParams.put("quantity", qty);
             slParams.put("stopPrice", stopPrice);
             slParams.put("timeInForce", "GTC");
+            slParams.put("recvWindow", 60000);
 
             String resp = futuresClient.account().newOrder(slParams);
             log.info("Stop-Loss placed: {}", resp);
@@ -139,6 +141,7 @@ public class BinanceService {
             tpParams.put("quantity", qty);
             tpParams.put("stopPrice", tpPrice);
             tpParams.put("timeInForce", "GTC");
+            tpParams.put("recvWindow", 60000);
 
             String resp = futuresClient.account().newOrder(tpParams);
             log.info("{} placed: {}", label, resp);

@@ -28,38 +28,43 @@ export default function CryptoPositionManagement() {
   // Check authentication and load data
   useEffect(() => {
     const checkAuth = async () => {
-      const token = getAuthToken()
-      if (!token) {
-        // Set a test token for frontend-only deployment (before backend is ready)
-        setAuthToken('test-token-frontend-only')
-      }
-
       try {
+        const token = getAuthToken()
+        if (!token) {
+          // Set a test token for frontend-only deployment (before backend is ready)
+          setAuthToken('test-token-frontend-only')
+        }
+
         setIsLoading(true)
 
-        // Fetch trading signals from Neon database
-        const fetchedSignals = await signalsAPI.getAllSignals()
-        console.log("[OK] Signals fetched:", fetchedSignals)
+        try {
+          // Fetch trading signals from Neon database
+          const fetchedSignals = await signalsAPI.getAllSignals()
+          console.log("[OK] Signals fetched:", fetchedSignals)
 
-        // Transform backend signal data to frontend Signal type
-        const transformedSignals: Signal[] = fetchedSignals.map((signal: any) => ({
-          id: signal.id.toString(),
-          pair: signal.pair || "UNKNOWN",
-          action: signal.setupType === "LONG" ? "BUY" : signal.setupType === "SHORT" ? "SELL" : "BUY",
-          entry: signal.entry || 0,
-          stopLoss: signal.stopLoss || 0,
-          takeProfit: [signal.tp1, signal.tp2, signal.tp3, signal.tp4].filter(tp => tp != null),
-          timestamp: new Date(signal.timestamp),
-          source: signal.channel || "Telegram",
-          status: "active",
-        }))
+          // Transform backend signal data to frontend Signal type
+          const transformedSignals: Signal[] = fetchedSignals.map((signal: any) => ({
+            id: signal.id.toString(),
+            pair: signal.pair || "UNKNOWN",
+            action: signal.setupType === "LONG" ? "BUY" : signal.setupType === "SHORT" ? "SELL" : "BUY",
+            entry: signal.entry || 0,
+            stopLoss: signal.stopLoss || 0,
+            takeProfit: [signal.tp1, signal.tp2, signal.tp3, signal.tp4].filter(tp => tp != null),
+            timestamp: new Date(signal.timestamp),
+            source: signal.channel || "Telegram",
+            status: "active",
+          }))
 
-        setSignals(transformedSignals)
+          setSignals(transformedSignals)
+        } catch (apiErr) {
+          console.warn("Backend not available - running in frontend-only mode", apiErr)
+          // Continue without backend data
+        }
+
         console.log("[OK] User authenticated successfully")
         setIsLoading(false)
       } catch (err) {
-        console.error("Failed to load data:", err)
-        // Don't treat this as a fatal error during development
+        console.error("Failed during auth check:", err)
         setIsLoading(false)
       }
     }

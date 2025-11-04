@@ -1,120 +1,62 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
 import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
 import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
-import { createReconnectingWebSocket, tradingAPI, signalsAPI, getAuthToken, setAuthToken } from "@/lib/api"
+import { tradingAPI, signalsAPI } from "@/lib/api"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
 
 export default function CryptoPositionManagement() {
-  const router = useRouter()
   const [activeSection, setActiveSection] = useState("signals")
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("All")
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const wsRef = useRef<WebSocket | null>(null)
 
   const [signals, setSignals] = useState<Signal[]>([])
   const [positions, setPositions] = useState<Position[]>([])
   const [tradeHistory, setTradeHistory] = useState<TradeHistory[]>([])
 
-  // Check authentication and load data
+  // Load data (frontend-only mode - no authentication required)
   useEffect(() => {
-    const checkAuth = async () => {
+    const loadData = async () => {
+      setIsLoading(true)
+
       try {
-        const token = getAuthToken()
-        if (!token) {
-          // Set a test token for frontend-only deployment (before backend is ready)
-          setAuthToken('test-token-frontend-only')
-        }
+        // Fetch trading signals from backend (if available)
+        const fetchedSignals = await signalsAPI.getAllSignals()
+        console.log("[OK] Signals fetched:", fetchedSignals)
 
-        setIsLoading(true)
+        // Transform backend signal data to frontend Signal type
+        const transformedSignals: Signal[] = fetchedSignals.map((signal: any) => ({
+          id: signal.id.toString(),
+          pair: signal.pair || "UNKNOWN",
+          action: signal.setupType === "LONG" ? "BUY" : signal.setupType === "SHORT" ? "SELL" : "BUY",
+          entry: signal.entry || 0,
+          stopLoss: signal.stopLoss || 0,
+          takeProfit: [signal.tp1, signal.tp2, signal.tp3, signal.tp4].filter(tp => tp != null),
+          timestamp: new Date(signal.timestamp),
+          source: signal.channel || "Telegram",
+          status: "active",
+        }))
 
-        try {
-          // Fetch trading signals from Neon database
-          const fetchedSignals = await signalsAPI.getAllSignals()
-          console.log("[OK] Signals fetched:", fetchedSignals)
-
-          // Transform backend signal data to frontend Signal type
-          const transformedSignals: Signal[] = fetchedSignals.map((signal: any) => ({
-            id: signal.id.toString(),
-            pair: signal.pair || "UNKNOWN",
-            action: signal.setupType === "LONG" ? "BUY" : signal.setupType === "SHORT" ? "SELL" : "BUY",
-            entry: signal.entry || 0,
-            stopLoss: signal.stopLoss || 0,
-            takeProfit: [signal.tp1, signal.tp2, signal.tp3, signal.tp4].filter(tp => tp != null),
-            timestamp: new Date(signal.timestamp),
-            source: signal.channel || "Telegram",
-            status: "active",
-          }))
-
-          setSignals(transformedSignals)
-        } catch (apiErr) {
-          console.warn("Backend not available - running in frontend-only mode", apiErr)
-          // Continue without backend data
-        }
-
-        console.log("[OK] User authenticated successfully")
-        setIsLoading(false)
-      } catch (err) {
-        console.error("Failed during auth check:", err)
-        setIsLoading(false)
+        setSignals(transformedSignals)
+      } catch (apiErr) {
+        console.log("Backend not available - running in frontend-only mode")
       }
+
+      setIsLoading(false)
     }
 
-    checkAuth()
-  }, [router])
-
-  // WebSocket connection for real-time signals
-  // TODO: Enable once backend WebSocket endpoint is implemented
-  useEffect(() => {
-    const token = getAuthToken()
-    if (!token) return
-
-    // WebSocket endpoint not yet implemented on backend
-    // Uncomment this code once ws://localhost:8081/ws is available:
-    /*
-    wsRef.current = createReconnectingWebSocket((data) => {
-      try {
-        // Handle incoming signal data
-        if (data.type === "signal") {
-          const newSignal: Signal = {
-            id: data.id || Date.now().toString(),
-            pair: data.pair || "UNKNOWN",
-            action: data.action || "BUY",
-            entry: data.entry || 0,
-            stopLoss: data.stopLoss || 0,
-            takeProfit: data.takeProfit || [],
-            timestamp: new Date(data.timestamp || Date.now()),
-            source: data.source || "Telegram",
-            status: "active",
-          }
-          setSignals((prev) => [newSignal, ...prev])
-        } else if (data.type === "position_update") {
-          // Handle position updates
-          setPositions((prev) =>
-            prev.map((p) => (p.id === data.id ? { ...p, ...data } : p))
-          )
-        }
-      } catch (err) {
-        console.error("Error processing WebSocket message:", err)
-      }
-    })
-
-    return () => {
-      wsRef.current?.close()
-    }
-    */
-
-    console.log("ℹ️ WebSocket real-time signals not yet enabled")
+    loadData()
   }, [])
+
+  // WebSocket connection disabled - will be enabled when backend is ready
 
   const handleAddPosition = async (trade: Trade) => {
     try {

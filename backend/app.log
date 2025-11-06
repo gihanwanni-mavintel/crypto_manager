@@ -550,3 +550,77 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-11-04 12:46:49,639 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
 2025-11-04 12:46:49,641 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
 2025-11-04 12:46:49,642 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-11-06 12:12:53,651 - INFO - [OK] Connected to PostgreSQL
+2025-11-06 12:12:55,381 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-06 12:12:55,383 - INFO - HTTP health server started on port 8082
+2025-11-06 12:12:55,383 - INFO - WebSocket server started on port 6789
+2025-11-06 12:12:55,385 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-06 12:12:55,471 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-06 12:12:56,251 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-06 12:12:56,252 - INFO - Listening for Telegram messages...
+2025-11-06 12:16:57,997 - INFO - 
+============================================================
+2025-11-06 12:16:57,997 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-06 06:46:57+00:00
+2025-11-06 12:16:58,059 - INFO - Total lines in message: 11
+2025-11-06 12:16:58,059 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-06 12:16:58,060 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-11-06 12:16:58,060 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-06 12:16:58,063 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-06 12:16:58,063 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-06 12:16:58,065 - INFO - [PARSING] Extracted ENTRY: 189.0000
+2025-11-06 12:16:58,065 - INFO - [PARSING] Extracted LEVERAGE: 20 (raw: 20x)
+2025-11-06 12:16:58,066 - INFO - [PARSING] Extracted TP1: 189.5000
+2025-11-06 12:16:58,066 - INFO - [PARSING] Extracted TP2: 190.0000
+2025-11-06 12:16:58,066 - INFO - [PARSING] Extracted TP3: 190.5000
+2025-11-06 12:16:58,067 - INFO - [PARSING] Extracted TP4: 191.0000
+2025-11-06 12:16:58,067 - INFO - [PARSING] Extracted STOP_LOSS: 188.0000
+2025-11-06 12:16:58,068 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-06 12:16:58,068 - INFO -   Pair: SOLUSDT.P
+2025-11-06 12:16:58,068 - INFO -   Setup: LONG
+2025-11-06 12:16:58,068 - INFO -   Entry: 189.0000
+2025-11-06 12:16:58,068 - INFO -   Leverage: 20
+2025-11-06 12:16:58,069 - INFO -   TP1: 189.5000, TP2: 190.0000, TP3: 190.5000, TP4: 191.0000
+2025-11-06 12:16:58,069 - INFO -   Stop Loss: 188.0000
+2025-11-06 12:16:58,069 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-06 12:16:58,069 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-11-06 12:16:58,069 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-06 12:16:58,069 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-11-06 12:16:58,070 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-06 12:16:58,070 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-06 12:16:58,070 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=189.0000
+2025-11-06 12:16:58,070 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-06 12:17:01,130 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-11-06 12:17:01,130 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: SOLUSDT.P
+2025-11-06 12:17:01,130 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":2,"trade_status":"FAILED","signal_id":1,"message":"Signal received and trade executed","status":"success"}
+2025-11-06 12:17:01,131 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-06 12:17:01,131 - INFO - [OK] Signal fully processed: SOLUSDT.P LONG [SUCCESS]
+2025-11-06 12:17:01,132 - INFO - ============================================================
+
+2025-11-06 12:17:01,132 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-06 12:17:01,132 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-06 12:17:01,132 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-06 12:17:01,825 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-11-06 12:17:01,825 - INFO - ============================================================
+
+2025-11-06 12:23:08,360 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:08,374 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:08,394 - INFO - Closing current connection to begin reconnect...
+2025-11-06 12:23:08,405 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:08,412 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-06 12:23:08,438 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-11-06 12:23:09,514 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-06 12:23:47,795 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:47,808 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:47,833 - INFO - Closing current connection to begin reconnect...
+2025-11-06 12:23:47,848 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-11-06 12:23:47,848 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-06 12:23:47,935 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-06 12:30:28,380 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-06 12:30:28,381 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-06 12:30:28,382 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-11-06 12:30:28,495 - INFO - [STOP] Shutdown complete

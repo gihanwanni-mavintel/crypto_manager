@@ -893,3 +893,55 @@ org.postgresql.util.PSQLException: ERROR: column s1_0.channel does not exist
 2025-11-04 12:46:42.975[1762240602975] | INFO  | SpringApplicationShutdownHook | o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-04 12:46:42.998[1762240602998] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown initiated...
 2025-11-04 12:46:43.379[1762240603379] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown completed.
+2025-11-06 12:13:08.530[1762411388530] | INFO  | background-preinit | o.h.validator.internal.util.Version  - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-06 12:13:08.585[1762411388585] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Starting IntelligentCryptoUserManagementApplication using Java 24.0.1 with PID 23032 (D:\Projects\Kanchana ayya\tg_message_extractor\Intelligent_Crypto_User_Management\target\classes started by DELL in D:\Projects\Kanchana ayya\tg_message_extractor\Intelligent_Crypto_User_Management)
+2025-11-06 12:13:08.586[1762411388586] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-11-06 12:13:09.183[1762411389183] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-06 12:13:09.241[1762411389241] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 3 JPA repository interfaces.
+2025-11-06 12:13:09.732[1762411389732] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat initialized with port 8081 (http)
+2025-11-06 12:13:09.745[1762411389745] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Initializing ProtocolHandler ["http-nio-8081"]
+2025-11-06 12:13:09.748[1762411389748] | INFO  | main       | o.a.catalina.core.StandardService    - Starting service [Tomcat]
+2025-11-06 12:13:09.749[1762411389749] | INFO  | main       | o.a.catalina.core.StandardEngine     - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-11-06 12:13:09.812[1762411389812] | INFO  | main       | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring embedded WebApplicationContext
+2025-11-06 12:13:09.813[1762411389813] | INFO  | main       | o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1182 ms
+2025-11-06 12:13:09.920[1762411389920] | INFO  | main       | o.h.jpa.internal.util.LogHelper      - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-06 12:13:09.969[1762411389969] | INFO  | main       | org.hibernate.Version                - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-11-06 12:13:10.003[1762411390003] | INFO  | main       | o.h.c.i.RegionFactoryInitiator       - HHH000026: Second-level cache disabled
+2025-11-06 12:13:10.288[1762411390288] | INFO  | main       | o.s.o.j.p.SpringPersistenceUnitInfo  - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-06 12:13:10.316[1762411390316] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Starting...
+2025-11-06 12:13:13.869[1762411393869] | INFO  | main       | com.zaxxer.hikari.pool.HikariPool    - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@71b3ba5a
+2025-11-06 12:13:13.871[1762411393871] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Start completed.
+2025-11-06 12:13:14.240[1762411394240] | WARN  | main       | org.hibernate.orm.deprecation        - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-06 12:13:15.217[1762411395217] | INFO  | main       | o.hibernate.orm.connections.pooling  - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-06 12:13:16.002[1762411396002] | INFO  | main       | o.h.e.t.j.p.i.JtaPlatformInitiator   - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-06 12:13:22.203[1762411402203] | INFO  | main       | o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-06 12:13:22.513[1762411402513] | INFO  | main       | o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-06 12:13:22.559[1762411402559] | INFO  | main       | m.c.I.config.BinanceConfig           - ✅ Binance Futures client initialized in LIVE mode
+2025-11-06 12:13:22.586[1762411402586] | WARN  | main       | o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-06 12:13:22.969[1762411402969] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Starting ProtocolHandler ["http-nio-8081"]
+2025-11-06 12:13:22.994[1762411402994] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat started on port 8081 (http) with context path '/'
+2025-11-06 12:13:22.999[1762411402999] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Started IntelligentCryptoUserManagementApplication in 14.767 seconds (process running for 15.311)
+2025-11-06 12:15:55.381[1762411555381] | INFO  | http-nio-8081-exec-1 | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-06 12:15:55.381[1762411555381] | INFO  | http-nio-8081-exec-1 | o.s.web.servlet.DispatcherServlet    - Initializing Servlet 'dispatcherServlet'
+2025-11-06 12:15:55.382[1762411555382] | INFO  | http-nio-8081-exec-1 | o.s.web.servlet.DispatcherServlet    - Completed initialization in 1 ms
+2025-11-06 12:16:58.107[1762411618107] | INFO  | http-nio-8081-exec-5 | m.c.I.c.SignalWebhookController      - 📡 Received signal from Python backend: SOLUSDT.P
+2025-11-06 12:16:59.106[1762411619106] | INFO  | http-nio-8081-exec-5 | m.c.I.c.SignalWebhookController      - ✅ Signal saved to database with ID: 1
+2025-11-06 12:16:59.107[1762411619107] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 🚀 Executing trade: BUY SOLUSDT.P @ $189.0
+2025-11-06 12:16:59.731[1762411619731] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Trade record created with ID: 2
+2025-11-06 12:16:59.740[1762411619740] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/balance?recvWindow=60000&timestamp=1762411619734&signature=471e347151c1f1e9b0ca03203c9350807eebd68ee601fade1bf3ef9517665e62
+2025-11-06 12:17:00.458[1762411620458] | ERROR | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ❌ Error fetching balance: {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action, request ip: 61.245.171.119"}
+2025-11-06 12:17:00.459[1762411620459] | ERROR | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ❌ Insufficient balance. USDT=0.0
+2025-11-06 12:17:01.117[1762411621117] | INFO  | http-nio-8081-exec-5 | m.c.I.c.SignalWebhookController      - 🎯 Trade auto-executed for signal 1
+2025-11-06 12:23:17.418[1762411997418] | WARN  | HikariPool-1:housekeeper | com.zaxxer.hikari.pool.PoolBase      - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@42e9a098 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2025-11-06 12:30:34.336[1762412434336] | INFO  | SpringApplicationShutdownHook | o.s.b.w.e.tomcat.GracefulShutdown    - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-06 12:30:34.357[1762412434357] | INFO  | tomcat-shutdown | o.s.b.w.e.tomcat.GracefulShutdown    - Graceful shutdown complete
+2025-11-06 12:30:34.360[1762412434360] | INFO  | SpringApplicationShutdownHook | o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-06 12:30:34.363[1762412434363] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown initiated...
+2025-11-06 12:30:34.693[1762412434693] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown completed.

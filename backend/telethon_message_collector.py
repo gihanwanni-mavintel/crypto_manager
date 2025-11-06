@@ -20,7 +20,10 @@ import requests
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler(), logging.FileHandler("app.log")]
+    handlers=[
+        logging.StreamHandler(encoding='utf-8'),
+        logging.FileHandler("app.log", encoding='utf-8')
+    ]
 )
 logger = logging.getLogger(__name__)
 
@@ -413,8 +416,6 @@ async def main():
     except Exception as e:
         logger.error(f"Fatal error: {e}")
     finally:
-        ws_server.close()
-        await ws_server.wait_closed()
         await runner.cleanup()
         db_worker_task.cancel()
         await asyncio.sleep(0.1)

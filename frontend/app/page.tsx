@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
 import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
-import { tradingAPI, signalsAPI } from "@/lib/api"
+import { tradingAPI, signalsAPI, createWebSocketConnection } from "@/lib/api"
 import { Radio, TrendingUp, ArrowLeftRight, History } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
@@ -22,8 +22,9 @@ export default function CryptoPositionManagement() {
   const [signals, setSignals] = useState<Signal[]>([])
   const [positions, setPositions] = useState<Position[]>([])
   const [tradeHistory, setTradeHistory] = useState<TradeHistory[]>([])
+  const wsRef = useRef<WebSocket | null>(null)
 
-  // Load data (frontend-only mode - no authentication required)
+  // Load initial data
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true)
@@ -57,7 +58,61 @@ export default function CryptoPositionManagement() {
     loadData()
   }, [])
 
-  // WebSocket connection disabled - will be enabled when backend is ready
+  // WebSocket connection for real-time signals
+  useEffect(() => {
+    const connectWebSocket = () => {
+      try {
+        wsRef.current = createWebSocketConnection(
+          (data) => {
+            // Handle incoming signal from WebSocket
+            console.log("[WebSocket] Received signal:", data)
+
+            if (data && data.pair) {
+              const newSignal: Signal = {
+                id: data.id ? data.id.toString() : Date.now().toString(),
+                pair: data.pair || "UNKNOWN",
+                action: data.setupType === "LONG" ? "BUY" : data.setupType === "SHORT" ? "SELL" : "BUY",
+                entry: parseFloat(data.entry) || 0,
+                stopLoss: parseFloat(data.stopLoss) || 0,
+                takeProfit: [data.tp1, data.tp2, data.tp3, data.tp4]
+                  .filter(tp => tp != null && tp !== undefined)
+                  .map(tp => parseFloat(tp)),
+                timestamp: new Date(data.timestamp || Date.now()),
+                source: data.channel || "Telegram",
+                status: "active",
+              }
+
+              // Add new signal to the beginning of the list
+              setSignals((prevSignals) => {
+                // Avoid duplicates by checking if signal already exists
+                const isDuplicate = prevSignals.some(s => s.id === newSignal.id)
+                if (isDuplicate) return prevSignals
+                return [newSignal, ...prevSignals]
+              })
+            }
+          },
+          (error) => {
+            console.error("[WebSocket] Connection error:", error)
+          },
+          () => {
+            console.log("[WebSocket] Connection closed, will attempt to reconnect...")
+          }
+        )
+      } catch (err) {
+        console.error("[WebSocket] Failed to connect:", err)
+      }
+    }
+
+    connectWebSocket()
+
+    // Cleanup on unmount
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.close()
+        wsRef.current = null
+      }
+    }
+  }, [])
 
   const handleAddPosition = async (trade: Trade) => {
     try {

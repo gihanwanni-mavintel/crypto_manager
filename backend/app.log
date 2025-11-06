@@ -88,3 +88,465 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-09-14 08:31:26,260 - INFO - server closing
 2025-09-14 08:31:26,260 - INFO - server closed
 2025-09-14 08:31:26,360 - INFO - ðŸ›‘ Shutdown complete
+2025-11-02 11:09:41,742 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:09:41,915 - INFO - [OK] Tables ready
+2025-11-02 11:12:33,176 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:12:33,305 - INFO - [OK] Tables ready
+2025-11-02 11:12:33,318 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:12:33,367 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:12:33,824 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:23:25,571 - INFO - [OK] Signal queued: BTCUSDT.P LONG
+2025-11-02 11:23:26,624 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 5, 53, 26... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:26:45,062 - INFO - [OK] Signal queued: ETHUSDT.P LONG
+2025-11-02 11:26:45,125 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 5, 56, 45... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:26:52,800 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 11:26:52,801 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:26:57,219 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:26:57,350 - INFO - [OK] Tables ready
+2025-11-02 11:26:57,360 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:26:57,409 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:26:57,966 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:27:31,453 - INFO - [OK] Signal queued: BNBUSDT.P LONG
+2025-11-02 11:27:31,538 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 5, 57, 32... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:28:25,310 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 11:28:25,311 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:36:55,728 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:36:55,925 - INFO - [OK] Tables ready
+2025-11-02 11:36:55,938 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:36:55,983 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:36:56,378 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:37:36,226 - INFO - [OK] Signal queued: XRPUSDT.P LONG
+2025-11-02 11:37:36,361 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 7, 36,... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:39:34,065 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 11:39:34,066 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:39:40,259 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:39:40,386 - INFO - [OK] Tables ready
+2025-11-02 11:39:40,395 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:39:40,443 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:39:40,888 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:40:08,440 - INFO - [OK] Signal queued: ADAUSDT.P LONG
+2025-11-02 11:40:08,526 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 10, 9,... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:43:51,406 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 11:43:51,407 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:44:17,869 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:44:18,018 - INFO - [OK] Tables ready
+2025-11-02 11:44:18,027 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:44:18,070 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:44:18,500 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:44:39,132 - INFO - [OK] Signal queued: AVAXUSDT.P LONG
+2025-11-02 11:44:39,232 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 14, 39... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 11:47:07,126 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 11:47:07,127 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:47:26,286 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 11:47:26,414 - INFO - [OK] Tables ready
+2025-11-02 11:47:26,427 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 11:47:26,477 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 11:47:26,936 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 11:47:49,065 - INFO - [OK] Signal queued: DOGEUSDT.P LONG
+2025-11-02 11:47:49,150 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 17, 49... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 12:06:15,510 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 12:06:15,511 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:06:27,494 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 12:06:27,633 - INFO - [OK] Tables ready
+2025-11-02 12:06:27,647 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 12:06:27,689 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:06:28,094 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 12:07:53,490 - INFO - [OK] Signal queued: LINKUSDT.P LONG
+2025-11-02 12:07:53,584 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 37, 54... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 12:09:51,352 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 12:09:51,353 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:09:51,465 - INFO - [STOP] Shutdown complete
+2025-11-02 12:09:55,376 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 12:09:55,562 - INFO - [OK] Tables ready
+2025-11-02 12:09:55,564 - INFO - [WEB] HTTP health server started on port 8082
+2025-11-02 12:09:55,565 - INFO - [WEB] WebSocket server started on port 6789
+2025-11-02 12:09:55,566 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 12:09:55,616 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:09:56,043 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 12:09:56,043 - INFO - [LISTENING] Listening for Telegram messages...
+2025-11-02 12:10:03,176 - INFO - [OK] Signal queued: MATICUSDT.P LONG
+2025-11-02 12:10:03,301 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 40, 3,... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 12:13:17,479 - INFO - [OK] Signal queued: SOLUSDT.P LONG
+2025-11-02 12:13:17,541 - ERROR - DB Worker error: invalid input for query argument $10 in element #0 of executemany() sequence: datetime.datetime(2025, 11, 2, 6, 43, 18... (can't subtract offset-naive and offset-aware datetimes)
+2025-11-02 12:13:27,952 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 12:13:27,953 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:13:28,066 - INFO - [STOP] Shutdown complete
+2025-11-02 12:18:01,844 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 12:18:02,630 - INFO - [OK] Tables ready
+2025-11-02 12:18:02,632 - INFO - HTTP health server started on port 8082
+2025-11-02 12:18:02,633 - INFO - WebSocket server started on port 6789
+2025-11-02 12:18:02,634 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 12:18:02,684 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:18:03,115 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 12:18:03,115 - INFO - Listening for Telegram messages...
+2025-11-02 12:18:08,033 - INFO - [OK] Signal queued: ARBUSDT.P LONG
+2025-11-02 12:18:08,821 - ERROR - DB Worker error: value too long for type character varying(255)
+2025-11-02 12:25:17,159 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 12:25:17,159 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:25:26,340 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 12:25:27,658 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-02 12:25:27,660 - INFO - HTTP health server started on port 8082
+2025-11-02 12:25:27,661 - INFO - WebSocket server started on port 6789
+2025-11-02 12:25:27,662 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 12:25:27,712 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 12:25:28,176 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 12:25:28,177 - INFO - Listening for Telegram messages...
+2025-11-02 12:25:45,472 - ERROR - [ERROR] Error processing message: name 'ensure_timezone_aware' is not defined
+2025-11-02 14:51:01,837 - WARNING - Server closed the connection: [WinError 64] The specified network name is no longer available
+2025-11-02 14:51:01,838 - INFO - Connection closed while receiving data: [WinError 64] The specified network name is no longer available
+2025-11-02 14:51:01,838 - INFO - Closing current connection to begin reconnect...
+2025-11-02 14:51:01,838 - INFO - <class 'ConnectionResetError'> during disconnect: [WinError 64] The specified network name is no longer available
+2025-11-02 14:51:01,839 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 14:51:01,887 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 14:51:02,062 - INFO - Got difference for account updates
+2025-11-02 14:51:11,526 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 14:51:11,527 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-02 14:51:19,919 - INFO - [OK] Connected to PostgreSQL
+2025-11-02 14:51:21,922 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-02 14:51:21,924 - INFO - HTTP health server started on port 8082
+2025-11-02 14:51:21,925 - INFO - WebSocket server started on port 6789
+2025-11-02 14:51:21,926 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-02 14:51:21,995 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-02 14:51:23,463 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-02 14:51:23,464 - INFO - Listening for Telegram messages...
+2025-11-02 14:51:26,612 - INFO - [OK] Signal queued: NEARUSDT.P LONG
+2025-11-02 14:51:27,260 - INFO - [OK] Batch inserted 1 signals
+2025-11-02 14:55:02,323 - INFO - [INFO] Market message saved: Yah brother doesn’t affect the frontend UI at all… have to check how the trade be placed...
+2025-11-02 14:55:43,979 - INFO - [INFO] Market message saved: ...
+2025-11-02 14:56:47,265 - INFO - [OK] Signal queued: AAVEUSDT.P LONG
+2025-11-02 14:56:48,016 - INFO - [OK] Batch inserted 1 signals
+2025-11-02 14:57:00,981 - INFO - [OK] Signal queued: SANDUSDT.P LONG
+2025-11-02 14:57:01,231 - INFO - [OK] Batch inserted 1 signals
+2025-11-02 14:57:14,461 - INFO - [OK] Signal queued: FTMUSDT.P LONG
+2025-11-02 14:57:14,712 - INFO - [OK] Batch inserted 1 signals
+2025-11-02 14:57:46,311 - INFO - [INFO] Market message saved: ...
+2025-11-02 14:57:50,355 - INFO - [INFO] Market message saved: trade are being executed now?...
+2025-11-02 14:58:28,083 - INFO - [INFO] Market message saved: Not yet I’ll text you when...
+2025-11-02 15:00:19,046 - INFO - [INFO] Market message saved: this is how the TG captures trades right?...
+2025-11-02 15:00:39,028 - INFO - [INFO] Market message saved: Yah...
+2025-11-02 15:01:19,413 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-02 15:01:19,414 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-03 13:18:53,711 - INFO - [OK] Connected to PostgreSQL
+2025-11-03 13:18:56,236 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-03 13:18:56,237 - INFO - HTTP health server started on port 8082
+2025-11-03 13:18:56,238 - INFO - WebSocket server started on port 6789
+2025-11-03 13:18:56,239 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-03 13:18:56,292 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-03 13:18:56,807 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-03 13:18:56,807 - INFO - Listening for Telegram messages...
+2025-11-03 14:48:36,883 - INFO - [OK] Signal queued: SOLUSDT.P LONG
+2025-11-03 14:48:39,093 - INFO - [OK] Batch inserted 1 signals
+2025-11-03 15:05:50,054 - INFO - [OK] Signal queued: SOLUSDT.P LONG
+2025-11-03 15:05:52,169 - ERROR - DB Worker error: value too long for type character varying(255)
+2025-11-03 15:06:34,596 - INFO - [OK] Signal queued: SOLUSDT.P LONG
+2025-11-03 15:06:34,828 - INFO - [OK] Batch inserted 1 signals
+2025-11-03 15:24:36,009 - INFO - [OK] Signal queued: SOLUSDT.P LONG
+2025-11-03 15:24:38,133 - INFO - [OK] Batch inserted 1 signals
+2025-11-03 15:33:07,538 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-03 15:33:07,540 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-04 10:48:59,106 - INFO - [OK] Connected to PostgreSQL
+2025-11-04 10:49:00,382 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-04 10:49:00,384 - INFO - HTTP health server started on port 8082
+2025-11-04 10:49:00,384 - INFO - WebSocket server started on port 6789
+2025-11-04 10:49:00,386 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-04 10:49:00,436 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-04 10:49:00,896 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-04 10:49:00,897 - INFO - Listening for Telegram messages...
+2025-11-04 10:56:27,513 - INFO - 
+============================================================
+2025-11-04 10:56:27,513 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:26:28+00:00
+2025-11-04 10:56:27,577 - INFO - Total lines in message: 11
+2025-11-04 10:56:27,578 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 10:56:27,593 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 10:56:27,601 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 10:56:27,601 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 10:56:27,601 - INFO - [PARSING] Extracted ENTRY: 185.0000
+2025-11-04 10:56:27,602 - INFO - [PARSING] Extracted LEVERAGE: None
+2025-11-04 10:56:27,602 - INFO - [PARSING] Extracted TP1: 185.5000
+2025-11-04 10:56:27,603 - INFO - [PARSING] Extracted TP2: 186.0000
+2025-11-04 10:56:27,603 - INFO - [PARSING] Extracted TP3: 186.5000
+2025-11-04 10:56:27,604 - INFO - [PARSING] Extracted TP4: 187.0000
+2025-11-04 10:56:27,605 - INFO - [PARSING] Extracted STOP_LOSS: 184.0000
+2025-11-04 10:56:27,606 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 10:56:27,616 - INFO -   Pair: SOLUSDT.P
+2025-11-04 10:56:27,616 - INFO -   Setup: LONG
+2025-11-04 10:56:27,616 - INFO -   Entry: 185.0000
+2025-11-04 10:56:27,617 - INFO -   Leverage: None
+2025-11-04 10:56:27,617 - INFO -   TP1: 185.5000, TP2: 186.0000, TP3: 186.5000, TP4: 187.0000
+2025-11-04 10:56:27,617 - INFO -   Stop Loss: 184.0000
+2025-11-04 10:56:27,617 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 10:56:27,620 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 10:56:29,412 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 10:56:29,412 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 10:56:29,412 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=185.0000
+2025-11-04 10:56:29,413 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 10:56:33,617 - ERROR - [JAVA ERROR] Connection Error: HTTPConnectionPool(host='localhost', port=8081): Max retries exceeded with url: /api/webhook/signal (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002601C161D30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-11-04 10:56:33,617 - ERROR - [JAVA ERROR] Please ensure Java backend is running on port 8081
+2025-11-04 10:56:33,618 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 10:56:33,620 - INFO - ============================================================
+
+2025-11-04 10:56:33,621 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 10:56:33,621 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 10:56:35,178 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 10:56:35,626 - INFO - ============================================================
+
+2025-11-04 10:58:44,641 - INFO - 
+============================================================
+2025-11-04 10:58:44,641 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:28:45+00:00
+2025-11-04 10:58:44,645 - INFO - Total lines in message: 11
+2025-11-04 10:58:44,645 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 10:58:44,648 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 10:58:44,683 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 10:58:44,684 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 10:58:44,684 - INFO - [PARSING] Extracted ENTRY: 179.0000
+2025-11-04 10:58:44,687 - INFO - [PARSING] Extracted LEVERAGE: None
+2025-11-04 10:58:44,687 - INFO - [PARSING] Extracted TP1: 179.5000
+2025-11-04 10:58:44,687 - INFO - [PARSING] Extracted TP2: 180.0000
+2025-11-04 10:58:44,687 - INFO - [PARSING] Extracted TP3: 180.5000
+2025-11-04 10:58:44,687 - INFO - [PARSING] Extracted TP4: 181.0000
+2025-11-04 10:58:44,688 - INFO - [PARSING] Extracted STOP_LOSS: 178.0000
+2025-11-04 10:58:44,688 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 10:58:44,688 - INFO -   Pair: SOLUSDT.P
+2025-11-04 10:58:44,688 - INFO -   Setup: LONG
+2025-11-04 10:58:44,688 - INFO -   Entry: 179.0000
+2025-11-04 10:58:44,688 - INFO -   Leverage: None
+2025-11-04 10:58:44,689 - INFO -   TP1: 179.5000, TP2: 180.0000, TP3: 180.5000, TP4: 181.0000
+2025-11-04 10:58:44,689 - INFO -   Stop Loss: 178.0000
+2025-11-04 10:58:44,689 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 10:58:44,692 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 10:58:44,695 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 10:58:44,696 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 10:58:44,696 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=179.0000
+2025-11-04 10:58:44,697 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 10:58:44,803 - INFO - [JAVA RESPONSE] Status Code: 403
+2025-11-04 10:58:44,806 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 10:58:44,809 - INFO - ============================================================
+
+2025-11-04 10:58:44,809 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 10:58:44,809 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 10:58:44,809 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 10:58:45,031 - INFO - ============================================================
+
+2025-11-04 10:59:34,419 - INFO - 
+============================================================
+2025-11-04 10:59:35,932 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:29:35+00:00
+2025-11-04 10:59:35,940 - INFO - Total lines in message: 11
+2025-11-04 10:59:35,940 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 10:59:35,943 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 10:59:35,947 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 10:59:35,947 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 10:59:35,947 - INFO - [PARSING] Extracted ENTRY: 188.0000
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted LEVERAGE: None
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted TP1: 188.5000
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted TP2: 189.0000
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted TP3: 189.5000
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted TP4: 190.0000
+2025-11-04 10:59:35,948 - INFO - [PARSING] Extracted STOP_LOSS: 187.0000
+2025-11-04 10:59:35,948 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 10:59:35,949 - INFO -   Pair: SOLUSDT.P
+2025-11-04 10:59:35,949 - INFO -   Setup: LONG
+2025-11-04 10:59:35,949 - INFO -   Entry: 188.0000
+2025-11-04 10:59:35,949 - INFO -   Leverage: None
+2025-11-04 10:59:35,949 - INFO -   TP1: 188.5000, TP2: 189.0000, TP3: 189.5000, TP4: 190.0000
+2025-11-04 10:59:35,949 - INFO -   Stop Loss: 187.0000
+2025-11-04 10:59:35,949 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 10:59:35,952 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 10:59:35,953 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 10:59:35,954 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 10:59:35,954 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=188.0000
+2025-11-04 10:59:35,954 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 10:59:35,960 - INFO - [JAVA RESPONSE] Status Code: 403
+2025-11-04 10:59:35,962 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 10:59:35,964 - INFO - ============================================================
+
+2025-11-04 10:59:35,964 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 10:59:35,964 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 10:59:35,964 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 10:59:36,184 - INFO - ============================================================
+
+2025-11-04 11:07:03,538 - INFO - 
+============================================================
+2025-11-04 11:07:03,539 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:37:02+00:00
+2025-11-04 11:07:03,544 - INFO - Total lines in message: 11
+2025-11-04 11:07:03,544 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 11:07:03,546 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 11:07:03,548 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted ENTRY: 180.5000
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted LEVERAGE: None
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted TP1: 181.0000
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted TP2: 181.5000
+2025-11-04 11:07:03,549 - INFO - [PARSING] Extracted TP3: 182.0000
+2025-11-04 11:07:03,550 - INFO - [PARSING] Extracted TP4: 182.5000
+2025-11-04 11:07:03,550 - INFO - [PARSING] Extracted STOP_LOSS: 179.5000
+2025-11-04 11:07:03,550 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 11:07:03,550 - INFO -   Pair: SOLUSDT.P
+2025-11-04 11:07:03,550 - INFO -   Setup: LONG
+2025-11-04 11:07:03,550 - INFO -   Entry: 180.5000
+2025-11-04 11:07:03,550 - INFO -   Leverage: None
+2025-11-04 11:07:03,551 - INFO -   TP1: 181.0000, TP2: 181.5000, TP3: 182.0000, TP4: 182.5000
+2025-11-04 11:07:03,551 - INFO -   Stop Loss: 179.5000
+2025-11-04 11:07:03,551 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 11:07:03,553 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 11:07:03,556 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 11:07:03,556 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 11:07:03,556 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=180.5000
+2025-11-04 11:07:03,556 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 11:07:03,562 - INFO - [JAVA RESPONSE] Status Code: 403
+2025-11-04 11:07:03,564 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 11:07:03,565 - INFO - ============================================================
+
+2025-11-04 11:07:03,566 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 11:07:03,566 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 11:07:04,914 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 11:07:05,357 - INFO - ============================================================
+
+2025-11-04 11:09:16,775 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-04 11:09:16,776 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-04 11:09:16,777 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-11-04 11:10:36,444 - INFO - [OK] Connected to PostgreSQL
+2025-11-04 11:10:37,793 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-04 11:10:37,794 - INFO - HTTP health server started on port 8082
+2025-11-04 11:10:37,794 - INFO - WebSocket server started on port 6789
+2025-11-04 11:10:37,795 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-04 11:10:37,842 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-04 11:10:38,322 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-04 11:10:38,322 - INFO - Listening for Telegram messages...
+2025-11-04 11:13:20,026 - INFO - 
+============================================================
+2025-11-04 11:13:20,027 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:43:20+00:00
+2025-11-04 11:13:20,034 - INFO - Total lines in message: 11
+2025-11-04 11:13:20,035 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 11:13:20,035 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-11-04 11:13:20,035 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 11:13:20,038 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 11:13:20,038 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 11:13:20,038 - INFO - [PARSING] Extracted ENTRY: 191.0000
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted LEVERAGE: 20 (raw: 20x)
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted TP1: 191.5000
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted TP2: 192.0000
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted TP3: 192.5000
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted TP4: 193.0000
+2025-11-04 11:13:20,039 - INFO - [PARSING] Extracted STOP_LOSS: 190.0000
+2025-11-04 11:13:20,040 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 11:13:20,040 - INFO -   Pair: SOLUSDT.P
+2025-11-04 11:13:20,040 - INFO -   Setup: LONG
+2025-11-04 11:13:20,040 - INFO -   Entry: 191.0000
+2025-11-04 11:13:20,040 - INFO -   Leverage: 20
+2025-11-04 11:13:20,041 - INFO -   TP1: 191.5000, TP2: 192.0000, TP3: 192.5000, TP4: 193.0000
+2025-11-04 11:13:20,041 - INFO -   Stop Loss: 190.0000
+2025-11-04 11:13:20,041 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 11:13:20,041 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-11-04 11:13:20,041 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 11:13:20,042 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-11-04 11:13:20,042 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 11:13:20,042 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 11:13:20,042 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=191.0000
+2025-11-04 11:13:20,042 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 11:13:20,855 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-11-04 11:13:20,856 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: column \"channel\" of relation \"signal_messages\" does not exist\n  Position: 30] [insert into signal_messages (channel,entry,full_message,leverage,pair,quantity,setup_type,stop_loss,timestamp,tp1,tp2,tp3,tp4) values (?,?,?,?,?,?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,leverage,pair,quantity,setup_type,stop_loss,timestamp,tp1,tp2,tp3,tp4) values (?,?,?,?,?,?,?,?,?,?,?,?,?)]","status":"error"}
+2025-11-04 11:13:20,856 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 11:13:20,856 - INFO - [OK] Signal fully processed: SOLUSDT.P LONG [SUCCESS]
+2025-11-04 11:13:20,856 - INFO - ============================================================
+
+2025-11-04 11:13:20,856 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 11:13:20,857 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 11:13:20,857 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 11:13:21,393 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-11-04 11:13:21,394 - INFO - ============================================================
+
+2025-11-04 11:17:53,444 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-04 11:17:53,444 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-04 11:17:53,445 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-11-04 11:18:00,151 - INFO - [OK] Connected to PostgreSQL
+2025-11-04 11:18:01,416 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-11-04 11:18:01,418 - INFO - HTTP health server started on port 8082
+2025-11-04 11:18:01,419 - INFO - WebSocket server started on port 6789
+2025-11-04 11:18:01,420 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-04 11:18:01,463 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-04 11:18:01,863 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-11-04 11:18:01,864 - INFO - Listening for Telegram messages...
+2025-11-04 11:18:17,210 - INFO - 
+============================================================
+2025-11-04 11:18:17,211 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-11-04 05:48:18+00:00
+2025-11-04 11:18:17,218 - INFO - Total lines in message: 11
+2025-11-04 11:18:17,218 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-11-04 11:18:17,218 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-11-04 11:18:17,218 - INFO - 
+[PARSING] Starting to parse signal...
+2025-11-04 11:18:17,221 - INFO - [PARSING] Extracted PAIR: SOLUSDT.P
+2025-11-04 11:18:17,221 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-11-04 11:18:17,221 - INFO - [PARSING] Extracted ENTRY: 186.0000
+2025-11-04 11:18:17,221 - INFO - [PARSING] Extracted LEVERAGE: 20 (raw: 20x)
+2025-11-04 11:18:17,222 - INFO - [PARSING] Extracted TP1: 186.5000
+2025-11-04 11:18:17,222 - INFO - [PARSING] Extracted TP2: 187.0000
+2025-11-04 11:18:17,222 - INFO - [PARSING] Extracted TP3: 187.5000
+2025-11-04 11:18:17,223 - INFO - [PARSING] Extracted TP4: 188.0000
+2025-11-04 11:18:17,223 - INFO - [PARSING] Extracted STOP_LOSS: 185.0000
+2025-11-04 11:18:17,223 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-11-04 11:18:17,223 - INFO -   Pair: SOLUSDT.P
+2025-11-04 11:18:17,223 - INFO -   Setup: LONG
+2025-11-04 11:18:17,224 - INFO -   Entry: 186.0000
+2025-11-04 11:18:17,224 - INFO -   Leverage: 20
+2025-11-04 11:18:17,224 - INFO -   TP1: 186.5000, TP2: 187.0000, TP3: 187.5000, TP4: 188.0000
+2025-11-04 11:18:17,224 - INFO -   Stop Loss: 185.0000
+2025-11-04 11:18:17,224 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-11-04 11:18:17,224 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-11-04 11:18:17,224 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-11-04 11:18:17,225 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-11-04 11:18:17,225 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-11-04 11:18:17,225 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-11-04 11:18:17,225 - INFO - [JAVA SEND] Payload: Pair=SOLUSDT.P, Setup=LONG, Entry=186.0000
+2025-11-04 11:18:17,225 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-11-04 11:18:19,363 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-11-04 11:18:19,364 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: SOLUSDT.P
+2025-11-04 11:18:19,364 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":1,"trade_status":"FAILED","signal_id":1,"message":"Signal received and trade executed","status":"success"}
+2025-11-04 11:18:19,365 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-11-04 11:18:19,365 - INFO - [OK] Signal fully processed: SOLUSDT.P LONG [SUCCESS]
+2025-11-04 11:18:19,365 - INFO - ============================================================
+
+2025-11-04 11:18:19,366 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: SOLUSDT.P
+2025-11-04 11:18:19,366 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-11-04 11:18:19,366 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-11-04 11:18:19,867 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-11-04 11:18:19,868 - INFO - ============================================================
+
+2025-11-04 11:56:27,805 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-11-04 11:56:27,816 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-11-04 11:56:27,816 - INFO - Closing current connection to begin reconnect...
+2025-11-04 11:56:27,825 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-11-04 11:56:27,831 - INFO - Connecting to 91.108.56.185:443/TcpFull...
+2025-11-04 11:56:27,835 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-11-04 11:56:28,930 - INFO - Connection to 91.108.56.185:443/TcpFull complete!
+2025-11-04 12:46:49,639 - INFO - Disconnecting from 91.108.56.185:443/TcpFull...
+2025-11-04 12:46:49,641 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
+2025-11-04 12:46:49,642 - INFO - [DB WORKER] Worker cancelled, shutting down...

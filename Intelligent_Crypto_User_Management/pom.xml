@@ -84,6 +84,24 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- Binance Futures Connector -->
+        <dependency>
+            <groupId>io.github.binance</groupId>
+            <artifactId>binance-futures-connector-java</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        <!-- JSON for parsing -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+        <!-- Dotenv for loading .env files -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
 
     </dependencies>
 

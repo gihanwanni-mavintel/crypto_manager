@@ -20,7 +20,9 @@ public class WebConfig {
                             "http://127.0.0.1:3000",
                             "http://127.0.0.1:3001",
                             "http://127.0.0.1:3002",
-                            "https://telegram-signals-tau.vercel.app"
+                            "https://telegram-signals-tau.vercel.app",
+                            "https://cryptomanager-beta.vercel.app",
+                            "https://cryptomanager-ebon.vercel.app"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")

@@ -21,7 +21,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.StreamHandler(encoding='utf-8'),
+        logging.StreamHandler(),
         logging.FileHandler("app.log", encoding='utf-8')
     ]
 )
@@ -117,13 +117,9 @@ async def init_db():
     logger.info("[OK] Connected to PostgreSQL")
 
     async with db_pool.acquire() as conn:
-        # Drop tables if they exist to ensure correct schema
-        await conn.execute("DROP TABLE IF EXISTS signal_messages CASCADE")
-        await conn.execute("DROP TABLE IF EXISTS market_messages CASCADE")
-
-        # Create tables with correct schema
+        # Create tables if they don't exist (preserve existing data)
         await conn.execute("""
-        CREATE TABLE signal_messages (
+        CREATE TABLE IF NOT EXISTS signal_messages (
             id SERIAL PRIMARY KEY,
             pair TEXT,
             setup_type TEXT,
@@ -141,14 +137,14 @@ async def init_db():
         )
         """)
         await conn.execute("""
-        CREATE TABLE market_messages (
+        CREATE TABLE IF NOT EXISTS market_messages (
             id SERIAL PRIMARY KEY,
             sender TEXT,
             text TEXT,
             timestamp TIMESTAMPTZ
         )
         """)
-    logger.info("[OK] Tables ready (recreated with correct schema)")
+    logger.info("[OK] Database connected (existing data preserved)")
 
 async def signal_db_worker(batch_size=50):
     while True:

@@ -1,6 +1,78 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# IDE and Editor
 .idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.apt_generated/
+
+# Environment Variables (SECRETS)
+.env
+.env.local
 /backend/.env
 /api/.env
+/frontend/.env.local
+/Intelligent_Crypto_User_Management/.env
+
+# Build Artifacts (will be regenerated during deployment)
+**/target/
+**/.next/
+.gradle/
+*.jar
+*.class
+dist/
+build/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Log Files
+*.log
+logs/
+*.log.*
+
+# Development Scripts (local only)
+RUN_DEV.bat
+RUN_DEV.ps1
+CLEAN_INSTALL.ps1
+
+# Development Documentation (local only)
+AUTOMATIC_TRADE_EXECUTION_GUIDE.md
+CLEANUP_COMPLETED.txt
+CLEANUP_GUIDE.md
+IMPLEMENTATION_COMPLETE.txt
+IMPLEMENTATION_SUMMARY.md
+QUICK_SETUP.md
+FIX_AND_RUN.md
+INTEGRATION_GUIDE.md
+STARTUP_GUIDE.md
+npm-install-COMPLETE.txt
+HELP.md
+
+# Miscellaneous
+nul
+.claude/
+VERIFY_DATA_FLOW.sql
+frontend/pnpm-lock.yaml
+backend/index.html
+
+# OS
+.DS_Store
+Thumbs.db
+.project
+.settings/

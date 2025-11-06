@@ -69,16 +69,16 @@ export function TradeHistoryComponent({ history }: TradeHistoryProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-2xl font-bold text-foreground">Trade History</h2>
-        <p className="text-sm text-muted-foreground">View your completed trades and performance</p>
+        <h2 className="text-lg sm:text-2xl font-bold text-foreground">Trade History</h2>
+        <p className="text-xs sm:text-sm text-muted-foreground">View your completed trades and performance</p>
       </div>
 
       <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg">Filters</CardTitle>
+        <CardHeader className="pb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <CardTitle className="text-base sm:text-lg">Filters</CardTitle>
             {hasActiveFilters && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 px-2">
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 px-2 w-fit">
                 <X className="h-4 w-4 mr-1" />
                 Clear
               </Button>
@@ -86,7 +86,7 @@ export function TradeHistoryComponent({ history }: TradeHistoryProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
             {/* Currency Pair Filter */}
             <div className="space-y-2">
               <Label htmlFor="pair-filter">Currency Pair</Label>
@@ -128,10 +128,10 @@ export function TradeHistoryComponent({ history }: TradeHistoryProps) {
 
             {/* PnL Percentage Filter */}
             <div className="space-y-2">
-              <Label htmlFor="pnl-filter">P&L %</Label>
-              <div className="flex gap-2">
+              <Label htmlFor="pnl-filter" className="text-xs sm:text-sm">P&L %</Label>
+              <div className="flex gap-1 sm:gap-2">
                 <Select value={pnlComparison} onValueChange={(value: "above" | "below") => setPnlComparison(value)}>
-                  <SelectTrigger className="w-24">
+                  <SelectTrigger className="w-20 sm:w-24 text-xs sm:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -162,28 +162,28 @@ export function TradeHistoryComponent({ history }: TradeHistoryProps) {
 
       {filteredHistory.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Summary</CardTitle>
-            <CardDescription>Statistics for {hasActiveFilters ? "filtered" : "all"} trades</CardDescription>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base sm:text-lg">Summary</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Statistics for {hasActiveFilters ? "filtered" : "all"} trades</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Total Trades</p>
-                <p className="text-2xl font-bold text-foreground">{totalTrades}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Total Trades</p>
+                <p className="text-lg sm:text-2xl font-bold text-foreground">{totalTrades}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Total P&L</p>
-                <p className={cn("text-2xl font-bold font-mono", totalPnl >= 0 ? "text-success" : "text-destructive")}>
+                <p className="text-xs sm:text-sm text-muted-foreground">Total P&L</p>
+                <p className={cn("text-lg sm:text-2xl font-bold font-mono", totalPnl >= 0 ? "text-success" : "text-destructive")}>
                   {totalPnl >= 0 ? "+" : ""}$
                   {totalPnl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Average P&L %</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Average P&L %</p>
                 <p
                   className={cn(
-                    "text-2xl font-bold font-mono",
+                    "text-lg sm:text-2xl font-bold font-mono",
                     averagePnlPercentage >= 0 ? "text-success" : "text-destructive",
                   )}
                 >
@@ -208,54 +208,54 @@ export function TradeHistoryComponent({ history }: TradeHistoryProps) {
         ) : (
           filteredHistory.map((trade) => (
             <Card key={trade.id}>
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+              <CardHeader className="pb-2 sm:pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                     <div
-                      className={cn("p-2 rounded-lg", trade.side === "LONG" ? "bg-success/10" : "bg-destructive/10")}
+                      className={cn("p-2 rounded-lg flex-shrink-0", trade.side === "LONG" ? "bg-success/10" : "bg-destructive/10")}
                     >
                       {trade.side === "LONG" ? (
-                        <TrendingUp className="h-5 w-5 text-success" />
+                        <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-success" />
                       ) : (
-                        <TrendingDown className="h-5 w-5 text-destructive" />
+                        <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 text-destructive" />
                       )}
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">{trade.pair}</CardTitle>
-                      <CardDescription>
-                        {trade.closedAt.toLocaleDateString()} {trade.closedAt.toLocaleTimeString()}
+                    <div className="min-w-0">
+                      <CardTitle className="text-base sm:text-lg truncate">{trade.pair}</CardTitle>
+                      <CardDescription className="text-xs truncate">
+                        {trade.closedAt.toLocaleDateString()} {trade.closedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </CardDescription>
                     </div>
                   </div>
-                  <Badge variant={trade.side === "LONG" ? "default" : "destructive"}>{trade.side}</Badge>
+                  <Badge variant={trade.side === "LONG" ? "default" : "destructive"} className="text-xs w-fit flex-shrink-0">{trade.side}</Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground mb-1">Entry Price</p>
-                    <p className="font-mono font-semibold">${trade.entryPrice.toLocaleString()}</p>
+                    <p className="font-mono font-semibold truncate">${trade.entryPrice.toLocaleString()}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground mb-1">Exit Price</p>
-                    <p className="font-mono font-semibold">${trade.exitPrice.toLocaleString()}</p>
+                    <p className="font-mono font-semibold truncate">${trade.exitPrice.toLocaleString()}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground mb-1">Total Value</p>
-                    <p className="font-mono font-semibold">${trade.totalValue.toLocaleString()}</p>
+                    <p className="font-mono font-semibold truncate">${trade.totalValue.toLocaleString()}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground mb-1">P&L</p>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 sm:gap-2">
                       <p
-                        className={cn("font-mono font-semibold", trade.pnl >= 0 ? "text-success" : "text-destructive")}
+                        className={cn("font-mono font-semibold truncate", trade.pnl >= 0 ? "text-success" : "text-destructive")}
                       >
                         {trade.pnl >= 0 ? "+" : ""}${trade.pnl.toLocaleString()}
                       </p>
                       <Badge
                         variant={trade.pnl >= 0 ? "default" : "destructive"}
                         className={cn(
-                          "font-mono text-xs",
+                          "font-mono text-xs flex-shrink-0",
                           trade.pnl >= 0 ? "bg-success/10 text-success hover:bg-success/20" : "",
                         )}
                       >

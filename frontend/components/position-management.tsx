@@ -16,14 +16,14 @@ export function PositionManagement({ positions, onClosePosition }: PositionManag
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Active Positions</h2>
-          <p className="text-sm text-muted-foreground">Monitor and manage your open positions</p>
+          <h2 className="text-lg sm:text-2xl font-bold text-foreground">Active Positions</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">Monitor and manage your open positions</p>
         </div>
-        <div className="text-right">
-          <p className="text-sm text-muted-foreground">Total P&L</p>
-          <p className={`text-2xl font-bold font-mono ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
+        <div className="text-left sm:text-right">
+          <p className="text-xs sm:text-sm text-muted-foreground">Total P&L</p>
+          <p className={`text-lg sm:text-2xl font-bold font-mono ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
             {totalPnl >= 0 ? "+" : ""}${totalPnl.toFixed(2)}
           </p>
         </div>
@@ -37,19 +37,19 @@ export function PositionManagement({ positions, onClosePosition }: PositionManag
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {positions.map((position) => (
             <Card key={position.id}>
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-xl font-bold">{position.pair}</CardTitle>
-                    <CardDescription className="text-xs">Opened {position.openedAt.toLocaleString()}</CardDescription>
+              <CardHeader className="pb-2 sm:pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
+                  <div className="min-w-0">
+                    <CardTitle className="text-base sm:text-lg font-bold truncate">{position.pair}</CardTitle>
+                    <CardDescription className="text-xs truncate">Opened {position.openedAt.toLocaleDateString()}</CardDescription>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                     <Badge
                       variant={position.side === "LONG" ? "default" : "destructive"}
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 text-xs"
                     >
                       {position.side === "LONG" ? (
                         <TrendingUp className="h-3 w-3" />
@@ -58,29 +58,29 @@ export function PositionManagement({ positions, onClosePosition }: PositionManag
                       )}
                       {position.side}
                     </Badge>
-                    <Badge variant="outline">{position.leverage}x</Badge>
+                    <Badge variant="outline" className="text-xs">{position.leverage}x</Badge>
                   </div>
                 </div>
               </CardHeader>
 
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  <div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm">
+                  <div className="min-w-0">
                     <p className="text-muted-foreground text-xs">Entry Price</p>
-                    <p className="font-mono font-semibold">${position.entryPrice.toLocaleString()}</p>
+                    <p className="font-mono font-semibold truncate">${position.entryPrice.toLocaleString()}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-muted-foreground text-xs">Current Price</p>
-                    <p className="font-mono font-semibold">${position.currentPrice.toLocaleString()}</p>
+                    <p className="font-mono font-semibold truncate">${position.currentPrice.toLocaleString()}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-muted-foreground text-xs">Quantity</p>
-                    <p className="font-mono font-semibold">{position.quantity}</p>
+                    <p className="font-mono font-semibold truncate">{position.quantity}</p>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-muted-foreground text-xs">P&L</p>
                     <div>
-                      <p className={`font-mono font-bold ${position.pnl >= 0 ? "text-success" : "text-destructive"}`}>
+                      <p className={`font-mono font-bold truncate ${position.pnl >= 0 ? "text-success" : "text-destructive"}`}>
                         {position.pnl >= 0 ? "+" : ""}${position.pnl.toFixed(2)}
                       </p>
                       <p className={`text-xs font-mono ${position.pnl >= 0 ? "text-success" : "text-destructive"}`}>
@@ -92,7 +92,7 @@ export function PositionManagement({ positions, onClosePosition }: PositionManag
                 </div>
 
                 {(position.stopLoss || position.takeProfit) && (
-                  <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-muted rounded-lg">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-3 sm:mb-4 p-2 sm:p-3 bg-muted rounded-lg text-xs sm:text-sm">
                     {position.stopLoss && (
                       <div>
                         <p className="text-muted-foreground text-xs">Stop Loss</p>

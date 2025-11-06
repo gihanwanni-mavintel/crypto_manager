@@ -72,19 +72,19 @@ export function AccountSummary({ positions, availableBalance = 50000, selectedPe
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
       {stats.map((stat, index) => {
         const Icon = stat.icon
         return (
           <Card key={index} className="border-border">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <p className="text-sm text-muted-foreground mb-2">{stat.title}</p>
-                  <p className={`text-2xl font-bold font-mono ${stat.color}`}>{stat.value}</p>
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex items-start justify-between gap-2 sm:gap-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2 truncate">{stat.title}</p>
+                  <p className={`text-lg sm:text-2xl font-bold font-mono truncate ${stat.color}`}>{stat.value}</p>
                 </div>
-                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
-                  <Icon className={`h-6 w-6 ${stat.color}`} />
+                <div className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${stat.bgColor}`}>
+                  <Icon className={`h-4 w-4 sm:h-6 sm:w-6 ${stat.color}`} />
                 </div>
               </div>
             </CardContent>
@@ -93,21 +93,21 @@ export function AccountSummary({ positions, availableBalance = 50000, selectedPe
       })}
 
       <Card className="border-border">
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <p className="text-sm text-muted-foreground mb-2">Total P&L</p>
-              <p className={`text-2xl font-bold font-mono ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
+        <CardContent className="p-3 sm:p-6">
+          <div className="flex items-start justify-between gap-2 sm:gap-3">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Total P&L</p>
+              <p className={`text-lg sm:text-2xl font-bold font-mono truncate ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
                 {totalPnl >= 0 ? "+" : ""}$
                 {Math.abs(totalPnl).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
-              <p className={`text-sm font-mono mt-1 ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
+              <p className={`text-xs sm:text-sm font-mono mt-1 ${totalPnl >= 0 ? "text-success" : "text-destructive"}`}>
                 {totalPnl >= 0 ? "+" : ""}
                 {totalPnlPercentage.toFixed(2)}%
               </p>
             </div>
-            <div className={`p-3 rounded-lg ${totalPnl >= 0 ? "bg-success/10" : "bg-destructive/10"}`}>
-              <DollarSign className={`h-6 w-6 ${totalPnl >= 0 ? "text-success" : "text-destructive"}`} />
+            <div className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${totalPnl >= 0 ? "bg-success/10" : "bg-destructive/10"}`}>
+              <DollarSign className={`h-4 w-4 sm:h-6 sm:w-6 ${totalPnl >= 0 ? "text-success" : "text-destructive"}`} />
             </div>
           </div>
         </CardContent>

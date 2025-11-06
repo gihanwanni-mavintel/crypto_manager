@@ -8,6 +8,7 @@ import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
 import { tradingAPI, signalsAPI } from "@/lib/api"
+import { Radio, TrendingUp, ArrowLeftRight, History } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
@@ -126,10 +127,10 @@ export default function CryptoPositionManagement() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen h-screen bg-background flex flex-col">
       {error && (
-        <div className="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded-md m-4">
-          <p className="text-sm font-medium">{error}</p>
+        <div className="bg-destructive/10 border border-destructive text-destructive px-3 py-2 sm:px-4 sm:py-3 rounded-md m-2 sm:m-4 text-xs sm:text-sm">
+          <p className="font-medium">{error}</p>
           <button
             onClick={() => setError(null)}
             className="text-xs mt-2 underline hover:no-underline"
@@ -139,31 +140,32 @@ export default function CryptoPositionManagement() {
         </div>
       )}
 
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-foreground">Crypto Position Manager</h1>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-muted-foreground">
-                Total P&L: <span className="font-mono font-semibold text-success">+$700.00</span>
-              </div>
+      <header className="border-b border-border bg-card shrink-0">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+            <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
+            <div className="text-xs sm:text-sm text-muted-foreground">
+              Total P&L: <span className="font-mono font-semibold text-success">+$700.00</span>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="flex">
-        <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      <div className="flex flex-1 overflow-hidden">
+        {/* Desktop Sidebar */}
+        <div className="hidden md:block">
+          <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+        </div>
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-6 pb-20 md:pb-6">
           {activeSection !== "history" && (
-            <div className="flex gap-4 items-start">
-              <div className="flex flex-col gap-1 p-1 bg-muted rounded-lg">
+            <div className="flex flex-col gap-3 sm:gap-4 mb-4">
+              <div className="flex flex-col gap-1 p-2 bg-muted rounded-lg w-fit">
                 {(["24h", "7d", "52W", "All"] as TimePeriod[]).map((period) => (
                   <button
                     key={period}
                     onClick={() => setSelectedPeriod(period)}
-                    className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
+                    className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded transition-colors ${
                       selectedPeriod === period
                         ? "bg-background text-foreground shadow-sm"
                         : "text-muted-foreground hover:text-foreground"
@@ -173,7 +175,7 @@ export default function CryptoPositionManagement() {
                   </button>
                 ))}
               </div>
-              <div className="flex-1">
+              <div className="w-full">
                 <AccountSummary positions={positions} selectedPeriod={selectedPeriod} />
               </div>
             </div>
@@ -187,6 +189,31 @@ export default function CryptoPositionManagement() {
           {activeSection === "history" && <TradeHistoryComponent history={tradeHistory} />}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-card">
+        <div className="flex items-center justify-around">
+          {[
+            { id: "signals", label: "Signals", Icon: Radio },
+            { id: "positions", label: "Positions", Icon: TrendingUp },
+            { id: "trading", label: "Trading", Icon: ArrowLeftRight },
+            { id: "history", label: "History", Icon: History },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveSection(item.id)}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 text-xs font-medium transition-colors border-t-2 ${
+                activeSection === item.id
+                  ? "border-t-primary text-primary"
+                  : "border-t-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <item.Icon className="h-5 w-5" />
+              <span className="hidden xs:inline">{item.label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   )
 }

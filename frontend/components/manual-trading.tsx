@@ -109,19 +109,19 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-2xl font-bold text-foreground">Manual Trading</h2>
-        <p className="text-sm text-muted-foreground">Execute trades manually with custom parameters</p>
+        <h2 className="text-lg sm:text-2xl font-bold text-foreground">Manual Trading</h2>
+        <p className="text-xs sm:text-sm text-muted-foreground">Execute trades manually with custom parameters</p>
       </div>
 
-      <Card className="max-w-2xl">
-        <CardHeader>
-          <CardTitle>Trade Setup</CardTitle>
-          <CardDescription>Configure your trade parameters and execute</CardDescription>
+      <Card className="max-w-2xl w-full">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base sm:text-lg">Trade Setup</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">Configure your trade parameters and execute</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
+        <CardContent className="space-y-4 sm:space-y-6">
+          <div className="space-y-3 sm:space-y-4">
             <div className="space-y-2">
-              <Label>Trading Pair</Label>
+              <Label className="text-xs sm:text-sm">Trading Pair</Label>
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -160,33 +160,35 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
               </Popover>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
               <div className="space-y-2">
-                <Label htmlFor="price">Price</Label>
+                <Label htmlFor="price" className="text-xs sm:text-sm">Price</Label>
                 <Input
                   id="price"
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="45000"
+                  className="text-xs sm:text-sm"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="quantity">Quantity</Label>
+                <Label htmlFor="quantity" className="text-xs sm:text-sm">Quantity</Label>
                 <Input
                   id="quantity"
                   type="number"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="0.5"
+                  className="text-xs sm:text-sm"
                 />
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               <div className="flex items-center justify-between">
-                <Label>Leverage</Label>
-                <span className="text-sm font-mono font-semibold text-primary">{leverage[0]}x</span>
+                <Label className="text-xs sm:text-sm">Leverage</Label>
+                <span className="text-xs sm:text-sm font-mono font-semibold text-primary">{leverage[0]}x</span>
               </div>
               <Slider value={leverage} onValueChange={setLeverage} min={1} max={100} step={1} className="w-full" />
               <div className="flex justify-between text-xs text-muted-foreground">
@@ -363,28 +365,28 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
           </div>
 
           {price && quantity && (
-            <div className="p-4 bg-muted rounded-lg space-y-2">
-              <h4 className="font-semibold text-sm">Order Summary</h4>
-              <div className="space-y-1 text-sm">
+            <div className="p-2 sm:p-4 bg-muted rounded-lg space-y-2">
+              <h4 className="font-semibold text-xs sm:text-sm">Order Summary</h4>
+              <div className="space-y-1 text-xs sm:text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Pair:</span>
-                  <span className="font-mono font-semibold">{pair}</span>
+                  <span className="font-mono font-semibold truncate">{pair}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Price:</span>
-                  <span className="font-mono">${Number.parseFloat(price).toLocaleString()}</span>
+                  <span className="font-mono truncate">${Number.parseFloat(price).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Quantity:</span>
-                  <span className="font-mono">{quantity}</span>
+                  <span className="font-mono truncate">{quantity}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Leverage:</span>
                   <span className="font-mono">{leverage[0]}x</span>
                 </div>
                 <div className="flex justify-between font-semibold pt-2 border-t border-border">
-                  <span>Total Value:</span>
-                  <span className="font-mono">
+                  <span className="truncate">Total Value:</span>
+                  <span className="font-mono truncate">
                     ${(Number.parseFloat(price) * Number.parseFloat(quantity) * leverage[0]).toLocaleString()}
                   </span>
                 </div>
@@ -392,18 +394,18 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
             </div>
           )}
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-2 sm:space-y-3 pt-2">
             <Button
               size="lg"
-              className="w-full bg-success hover:bg-success/90 text-success-foreground"
+              className="w-full bg-success hover:bg-success/90 text-success-foreground text-xs sm:text-sm"
               onClick={() => handleExecute("LONG")}
             >
-              <TrendingUp className="h-5 w-5 mr-2" />
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               Open Long Position
             </Button>
 
-            <Button size="lg" variant="destructive" className="w-full" onClick={() => handleExecute("SHORT")}>
-              <TrendingDown className="h-5 w-5 mr-2" />
+            <Button size="lg" variant="destructive" className="w-full text-xs sm:text-sm" onClick={() => handleExecute("SHORT")}>
+              <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               Open Short Position
             </Button>
           </div>

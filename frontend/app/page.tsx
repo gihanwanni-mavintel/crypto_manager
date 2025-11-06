@@ -160,12 +160,12 @@ export default function CryptoPositionManagement() {
         <main className="flex-1 overflow-y-auto p-3 sm:p-6 pb-20 md:pb-6">
           {activeSection !== "history" && (
             <div className="flex flex-col gap-3 sm:gap-4 mb-4">
-              <div className="flex flex-col gap-1 p-2 bg-muted rounded-lg w-fit">
+              <div className="flex flex-row sm:flex-col gap-1 p-2 bg-muted rounded-lg w-full sm:w-fit">
                 {(["24h", "7d", "52W", "All"] as TimePeriod[]).map((period) => (
                   <button
                     key={period}
                     onClick={() => setSelectedPeriod(period)}
-                    className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded transition-colors ${
+                    className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded transition-colors ${
                       selectedPeriod === period
                         ? "bg-background text-foreground shadow-sm"
                         : "text-muted-foreground hover:text-foreground"

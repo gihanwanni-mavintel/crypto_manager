@@ -23,7 +23,8 @@ public class WebConfig {
                             "https://telegram-signals-tau.vercel.app",
                             "https://cryptomanager-beta.vercel.app",
                             "https://cryptomanager-ebon.vercel.app",
-                            "https://cryptomanager-8a05sk1ap-maverick-intel-sl.vercel.app"
+                            "https://cryptomanager-8a05sk1ap-maverick-intel-sl.vercel.app",
+                            "https://cryptomanager-5fnymiunf-maverick-intel-sl.vercel.app"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")

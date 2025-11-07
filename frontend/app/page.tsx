@@ -45,6 +45,7 @@ export default function CryptoPositionManagement() {
           timestamp: new Date(signal.timestamp),
           source: signal.channel || "Telegram",
           status: "active",
+          leverage: signal.leverage || 1,
         }))
 
         setSignals(transformedSignals)
@@ -80,6 +81,7 @@ export default function CryptoPositionManagement() {
                 timestamp: new Date(data.timestamp || Date.now()),
                 source: data.channel || "Telegram",
                 status: "active",
+                leverage: data.leverage ? parseInt(data.leverage) : 1,
               }
 
               // Add new signal to the beginning of the list

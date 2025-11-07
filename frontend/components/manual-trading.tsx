@@ -39,7 +39,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
   const [open, setOpen] = useState(false)
   const [pair, setPair] = useState("BTC/USDT")
   const [price, setPrice] = useState("")
-  const [quantity, setQuantity] = useState("")
+  const [usdt, setUsdt] = useState("")
   const [leverage, setLeverage] = useState([10])
 
   const [enableStopLoss, setEnableStopLoss] = useState(false)
@@ -56,11 +56,27 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
   const [tp4Price, setTp4Price] = useState("")
   const [tp4Percentage, setTp4Percentage] = useState("")
 
+  const [selectedSide, setSelectedSide] = useState<"LONG" | "SHORT" | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
   const handleExecute = (side: "LONG" | "SHORT") => {
-    if (!price || !quantity) {
-      alert("Please fill in price and quantity")
+    setError(null)
+
+    if (!price || !usdt) {
+      setError("Please fill in Price and USDT amount")
       return
     }
+
+    const priceNum = Number.parseFloat(price)
+    const usdtNum = Number.parseFloat(usdt)
+
+    if (priceNum <= 0 || usdtNum <= 0) {
+      setError("Price and USDT must be greater than 0")
+      return
+    }
+
+    setSelectedSide(side)
+    const quantity = usdtNum / priceNum
 
     const takeProfitLevels: TakeProfitLevel[] = []
     if (enableTakeProfit) {
@@ -81,8 +97,8 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
     const trade: Trade = {
       pair,
       side,
-      price: Number.parseFloat(price),
-      quantity: Number.parseFloat(quantity),
+      price: priceNum,
+      quantity,
       leverage: leverage[0],
       stopLoss: enableStopLoss && stopLoss ? Number.parseFloat(stopLoss) : undefined,
       takeProfitLevels: takeProfitLevels.length > 0 ? takeProfitLevels : undefined,
@@ -92,7 +108,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
 
     // Reset form
     setPrice("")
-    setQuantity("")
+    setUsdt("")
     setStopLoss("")
     setTp1Price("")
     setTp1Percentage("")
@@ -104,6 +120,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
     setTp4Percentage("")
     setEnableStopLoss(false)
     setEnableTakeProfit(false)
+    setSelectedSide(null)
   }
 
   return (
@@ -162,7 +179,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
 
             <div className="grid grid-cols-2 gap-2 sm:gap-4">
               <div className="space-y-2">
-                <Label htmlFor="price" className="text-xs sm:text-sm">Price</Label>
+                <Label htmlFor="price" className="text-xs sm:text-sm">Price (USD)</Label>
                 <Input
                   id="price"
                   type="number"
@@ -173,13 +190,13 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="quantity" className="text-xs sm:text-sm">Quantity</Label>
+                <Label htmlFor="usdt" className="text-xs sm:text-sm">USDT Amount</Label>
                 <Input
-                  id="quantity"
+                  id="usdt"
                   type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  placeholder="0.5"
+                  value={usdt}
+                  onChange={(e) => setUsdt(e.target.value)}
+                  placeholder="100"
                   className="text-xs sm:text-sm"
                 />
               </div>
@@ -364,7 +381,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
             </div>
           </div>
 
-          {price && quantity && (
+          {price && usdt && (
             <div className="p-2 sm:p-4 bg-muted rounded-lg space-y-2">
               <h4 className="font-semibold text-xs sm:text-sm">Order Summary</h4>
               <div className="space-y-1 text-xs sm:text-sm">
@@ -377,34 +394,60 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
                   <span className="font-mono truncate">${Number.parseFloat(price).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
+                  <span className="text-muted-foreground">USDT Amount:</span>
+                  <span className="font-mono truncate">${Number.parseFloat(usdt).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-muted-foreground">Quantity:</span>
-                  <span className="font-mono truncate">{quantity}</span>
+                  <span className="font-mono truncate">{(Number.parseFloat(usdt) / Number.parseFloat(price)).toFixed(8)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Leverage:</span>
                   <span className="font-mono">{leverage[0]}x</span>
                 </div>
                 <div className="flex justify-between font-semibold pt-2 border-t border-border">
-                  <span className="truncate">Total Value:</span>
+                  <span className="truncate">Total Notional Value:</span>
                   <span className="font-mono truncate">
-                    ${(Number.parseFloat(price) * Number.parseFloat(quantity) * leverage[0]).toLocaleString()}
+                    ${(Number.parseFloat(usdt) * leverage[0]).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </span>
                 </div>
               </div>
             </div>
           )}
 
+          {error && (
+            <div className="p-3 bg-destructive/10 border border-destructive text-destructive rounded-md text-xs sm:text-sm">
+              {error}
+            </div>
+          )}
+
           <div className="space-y-2 sm:space-y-3 pt-2">
             <Button
               size="lg"
-              className="w-full bg-success hover:bg-success/90 text-success-foreground text-xs sm:text-sm"
+              variant="outline"
+              className={cn(
+                "w-full text-xs sm:text-sm border-2 font-semibold transition-all duration-200",
+                selectedSide === "LONG"
+                  ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
+                  : "border-foreground text-foreground hover:bg-foreground/10"
+              )}
               onClick={() => handleExecute("LONG")}
             >
               <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               Open Long Position
             </Button>
 
-            <Button size="lg" variant="destructive" className="w-full text-xs sm:text-sm" onClick={() => handleExecute("SHORT")}>
+            <Button
+              size="lg"
+              variant="outline"
+              className={cn(
+                "w-full text-xs sm:text-sm border-2 font-semibold transition-all duration-200",
+                selectedSide === "SHORT"
+                  ? "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  : "border-destructive text-destructive hover:bg-destructive/5"
+              )}
+              onClick={() => handleExecute("SHORT")}
+            >
               <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               Open Short Position
             </Button>

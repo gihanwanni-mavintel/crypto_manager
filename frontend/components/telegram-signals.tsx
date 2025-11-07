@@ -57,6 +57,15 @@ export function TelegramSignals({ signals }: TelegramSignalsProps) {
                 </div>
               </div>
 
+              {signal.leverage && (
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground text-xs">Leverage:</span>
+                  <Badge variant="secondary" className="font-semibold text-xs">
+                    {signal.leverage}x
+                  </Badge>
+                </div>
+              )}
+
               <div>
                 <p className="text-muted-foreground text-xs mb-1">Take Profit Targets</p>
                 <div className="flex gap-1">

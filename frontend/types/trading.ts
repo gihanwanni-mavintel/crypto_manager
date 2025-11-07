@@ -8,6 +8,7 @@ export interface Signal {
   timestamp: Date
   source: string
   status: "active" | "completed" | "cancelled"
+  leverage?: number
 }
 
 export interface Position {

@@ -6,6 +6,7 @@ import re
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 from dotenv import load_dotenv
 import websockets
 from websockets.exceptions import ConnectionClosed
@@ -33,13 +34,14 @@ load_dotenv()
 API_ID = int(os.getenv("API_ID", 0))
 API_HASH = os.getenv("API_HASH", "")
 GROUP_ID = int(os.getenv("GROUP_ID", 0))
+SESSION_STRING = os.getenv("SESSION_STRING", "")
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 HTTP_PORT = int(os.getenv("HTTP_PORT", 8082))
 WS_PORT = int(os.getenv("WS_PORT", 6789))
 JAVA_BACKEND_URL = os.getenv("JAVA_BACKEND_URL", "http://localhost:8081")
 SEND_SIGNALS_TO_JAVA = os.getenv("SEND_SIGNALS_TO_JAVA", "true").lower() == "true"
 
-if not API_ID or not API_HASH or not DATABASE_URL or not GROUP_ID:
+if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
     logger.error("[ERROR] Missing critical environment variables. Exiting.")
     exit(1)
 
@@ -273,7 +275,7 @@ def extract_value(label, lines):
 # Telegram
 # ----------------------------
 async def run_telegram_client():
-    client = TelegramClient("telethon_session", API_ID, API_HASH)
+    client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
     await client.start()
     me = await client.get_me()
     logger.info(f"[USER] Connected as: {me.first_name} (ID: {me.id})")

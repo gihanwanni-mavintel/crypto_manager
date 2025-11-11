@@ -295,8 +295,7 @@ async def run_telegram_client():
             is_signal = (
                 any(line.startswith('#') for line in lines) and
                 any("entry" in line.lower() for line in lines) and
-                any("profit" in line.lower() for line in lines) and
-                any("loss" in line.lower() for line in lines)
+                any("leverage" in line.lower() for line in lines)
             )
 
             logger.info(f"[SIGNAL DETECTION] Is Signal: {is_signal}")
@@ -305,7 +304,7 @@ async def run_telegram_client():
 
             if is_signal:
                 first_line = lines[0] if lines else ""
-                pair = first_line.split()[0].strip("#") if first_line else "UNKNOWN"
+                pair = first_line.split()[0].strip("#").replace(".P", "").replace(".M", "") if first_line else "UNKNOWN"
                 setup_type = "LONG" if "LONG" in first_line.upper() else "SHORT" if "SHORT" in first_line.upper() else "UNKNOWN"
 
                 logger.info(f"\n[PARSING] Starting to parse signal...")

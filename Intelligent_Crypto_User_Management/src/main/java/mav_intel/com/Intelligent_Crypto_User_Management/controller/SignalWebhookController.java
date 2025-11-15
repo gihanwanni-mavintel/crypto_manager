@@ -58,57 +58,17 @@ public class SignalWebhookController {
     @PostMapping("/signal")
     public ResponseEntity<?> receiveSignal(@RequestBody Map<String, Object> signalData) {
         try {
-            log.info("═══════════════════════════════════════════════════════════════════");
-            log.info("📡 [WEBHOOK] Received signal from Python backend");
-            log.info("📋 [WEBHOOK] Full payload: {}", signalData);
+            log.info("📡 Received signal from Python backend: {}", signalData.get("pair"));
 
-            String pair = getString(signalData, "pair");
-            String setupType = getString(signalData, "setup_type");
-            Double entry = getDouble(signalData, "entry");
-            Double leverage = getDouble(signalData, "leverage");
-
-            log.info("📊 [WEBHOOK] Signal details:");
-            log.info("  - Pair: {}", pair);
-            log.info("  - Setup Type: {}", setupType);
-            log.info("  - Entry: {}", entry);
-            log.info("  - Leverage: {}", leverage);
-            log.info("  - TP1: {}", getDouble(signalData, "tp1"));
-            log.info("  - TP2: {}", getDouble(signalData, "tp2"));
-            log.info("  - TP3: {}", getDouble(signalData, "tp3"));
-            log.info("  - TP4: {}", getDouble(signalData, "tp4"));
-            log.info("  - Stop Loss: {}", getDouble(signalData, "stop_loss"));
-
-            // 1. Map and save signal to database
-            log.info("💾 [DATABASE] Mapping signal data to entity...");
+            // 1. Save signal to database
             Signal signal = mapToSignal(signalData);
-            log.info("💾 [DATABASE] Signal mapped successfully. Saving to database...");
-
             Signal savedSignal = signalRepository.save(signal);
-            log.info("✅ [DATABASE] Signal saved successfully with ID: {}", savedSignal.getId());
-            log.info("✅ [DATABASE] Signal entity: Pair={}, SetupType={}, Entry={}, Leverage={}",
-                savedSignal.getPair(), savedSignal.getSetupType(), savedSignal.getEntry(), savedSignal.getLeverage());
+            log.info("✅ Signal saved to database with ID: {}", savedSignal.getId());
 
             // 2. Auto-execute trade if enabled
-            log.info("⚙️  [CONFIG] Auto-execution enabled: {}", autoExecuteEnabled);
-
             if (autoExecuteEnabled) {
-                log.info("🚀 [TRADE] Creating trade request from signal {}...", savedSignal.getId());
                 ExecuteTradeRequest tradeRequest = mapSignalToTradeRequest(signalData, savedSignal.getId());
-
-                log.info("🚀 [TRADE] Trade request created:");
-                log.info("  - Side: {}", tradeRequest.getSide());
-                log.info("  - Pair: {}", tradeRequest.getPair());
-                log.info("  - Entry: {}", tradeRequest.getEntry());
-                log.info("  - Leverage: {}", tradeRequest.getLeverage());
-                log.info("  - Quantity: {}", tradeRequest.getQuantity());
-
-                log.info("🚀 [TRADE] Executing trade...");
                 ExecuteTradeResponse tradeResponse = tradeService.executeTrade(tradeRequest);
-
-                log.info("🚀 [TRADE] Trade execution response received:");
-                log.info("  - Status: {}", tradeResponse.getStatus());
-                log.info("  - Trade ID: {}", tradeResponse.getTradeId());
-                log.info("  - Message: {}", tradeResponse.getMessage());
 
                 Map<String, Object> response = new HashMap<>();
                 response.put("status", "success");
@@ -118,31 +78,22 @@ public class SignalWebhookController {
                 response.put("trade_id", tradeResponse.getTradeId());
                 response.put("trade_message", tradeResponse.getMessage());
 
-                log.info("✅ [WEBHOOK] Trade auto-executed successfully for signal {}", savedSignal.getId());
-                log.info("═══════════════════════════════════════════════════════════════════");
+                log.info("🎯 Trade auto-executed for signal {}", savedSignal.getId());
                 return ResponseEntity.ok(response);
             } else {
-                log.warn("⚠️  [CONFIG] Auto-execution is DISABLED. Signal saved but trade NOT executed");
+                log.warn("⚠️ Auto-execution disabled. Signal saved but trade not executed");
                 Map<String, Object> response = new HashMap<>();
                 response.put("status", "success");
                 response.put("message", "Signal received but auto-execution is disabled");
                 response.put("signal_id", savedSignal.getId());
-                log.info("═══════════════════════════════════════════════════════════════════");
                 return ResponseEntity.ok(response);
             }
 
         } catch (Exception e) {
-            log.error("═══════════════════════════════════════════════════════════════════");
-            log.error("❌ [ERROR] Exception while processing signal webhook");
-            log.error("❌ [ERROR] Exception type: {}", e.getClass().getName());
-            log.error("❌ [ERROR] Exception message: {}", e.getMessage());
-            log.error("❌ [ERROR] Full exception: ", e);
-            log.error("═══════════════════════════════════════════════════════════════════");
-
+            log.error("❌ Error processing signal webhook: {}", e.getMessage(), e);
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("status", "error");
             errorResponse.put("message", "Failed to process signal: " + e.getMessage());
-            errorResponse.put("error_type", e.getClass().getSimpleName());
             return ResponseEntity.status(500).body(errorResponse);
         }
     }
@@ -163,60 +114,22 @@ public class SignalWebhookController {
      * Map webhook signal data to Signal entity
      */
     private Signal mapToSignal(Map<String, Object> data) {
-        log.debug("🔄 [MAPPING] Starting signal entity mapping...");
-
         Signal signal = new Signal();
-
-        String pair = getString(data, "pair");
-        signal.setPair(pair);
-        log.debug("🔄 [MAPPING] Pair extracted: {}", pair);
-
-        String setupType = getString(data, "setup_type");
-        signal.setSetupType(setupType);
-        log.debug("🔄 [MAPPING] Setup type extracted: {}", setupType);
-
-        Double entry = getDouble(data, "entry");
-        signal.setEntry(entry);
-        log.debug("🔄 [MAPPING] Entry extracted: {}", entry);
-
+        signal.setPair(getString(data, "pair"));
+        signal.setSetupType(getString(data, "setup_type"));
+        signal.setEntry(getDouble(data, "entry"));
         // Convert Double leverage to Integer
         Double leverageDouble = getDouble(data, "leverage");
-        Integer leverage = leverageDouble != null ? leverageDouble.intValue() : 1;
-        signal.setLeverage(leverage);
-        log.debug("🔄 [MAPPING] Leverage extracted: {} (raw: {})", leverage, leverageDouble);
-
-        Double tp1 = getDouble(data, "tp1");
-        signal.setTp1(tp1);
-        log.debug("🔄 [MAPPING] TP1 extracted: {}", tp1);
-
-        Double tp2 = getDouble(data, "tp2");
-        signal.setTp2(tp2);
-        log.debug("🔄 [MAPPING] TP2 extracted: {}", tp2);
-
-        Double tp3 = getDouble(data, "tp3");
-        signal.setTp3(tp3);
-        log.debug("🔄 [MAPPING] TP3 extracted: {}", tp3);
-
-        Double tp4 = getDouble(data, "tp4");
-        signal.setTp4(tp4);
-        log.debug("🔄 [MAPPING] TP4 extracted: {}", tp4);
-
-        Double stopLoss = getDouble(data, "stop_loss");
-        signal.setStopLoss(stopLoss);
-        log.debug("🔄 [MAPPING] Stop loss extracted: {}", stopLoss);
-
-        String fullMessage = getString(data, "full_message");
-        signal.setFullMessage(fullMessage);
-        log.debug("🔄 [MAPPING] Full message extracted (length: {})", fullMessage != null ? fullMessage.length() : 0);
-
+        signal.setLeverage(leverageDouble != null ? leverageDouble.intValue() : 1);
+        signal.setTp1(getDouble(data, "tp1"));
+        signal.setTp2(getDouble(data, "tp2"));
+        signal.setTp3(getDouble(data, "tp3"));
+        signal.setTp4(getDouble(data, "tp4"));
+        signal.setStopLoss(getDouble(data, "stop_loss"));
+        signal.setFullMessage(getString(data, "full_message"));
         signal.setChannel("TELEGRAM");
         signal.setTimestamp(OffsetDateTime.now());
-
-        Double quantity = getDouble(data, "quantity");
-        signal.setQuantity(quantity);
-        log.debug("🔄 [MAPPING] Quantity extracted: {}", quantity);
-
-        log.debug("🔄 [MAPPING] Signal entity mapping completed successfully");
+        signal.setQuantity(getDouble(data, "quantity"));
         return signal;
     }
 

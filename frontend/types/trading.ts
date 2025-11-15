@@ -1,3 +1,14 @@
+export interface OrderDetails {
+  orderId: string
+  price: number
+  quantity: number
+  status: "PENDING" | "FILLED" | "PARTIALLY_FILLED" | "CANCELLED"
+}
+
+export interface TakeProfitOrder extends OrderDetails {
+  targetLevel: number // 1, 2, 3, or 4
+}
+
 export interface Signal {
   id: string
   pair: string
@@ -9,6 +20,15 @@ export interface Signal {
   source: string
   status: "active" | "completed" | "cancelled"
   leverage?: number
+  // Extended fields for detailed order tracking
+  entryOrderId?: string
+  entryOrderStatus?: "PENDING" | "FILLED" | "PARTIALLY_FILLED" | "CANCELLED"
+  entryQuantity?: number
+  stopLossOrder?: OrderDetails
+  takeProfitOrders?: TakeProfitOrder[]
+  account?: string
+  unrealizedPnL?: number
+  unrealizedPnLPercent?: number
 }
 
 export interface Position {

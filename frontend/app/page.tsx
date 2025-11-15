@@ -4,11 +4,12 @@ import { useState, useEffect, useRef } from "react"
 import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
+import { TradeManagement } from "@/components/trade-management"
 import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
 import { tradingAPI, signalsAPI, createWebSocketConnection } from "@/lib/api"
-import { Radio, TrendingUp, ArrowLeftRight, History } from "lucide-react"
+import { Radio, TrendingUp, ArrowLeftRight, History, Settings } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
@@ -198,7 +199,7 @@ export default function CryptoPositionManagement() {
       )}
 
       <header className="border-b border-border bg-card shrink-0">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
+        <div className="px-3 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
             <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
             <div className="text-xs sm:text-sm text-muted-foreground">
@@ -215,7 +216,7 @@ export default function CryptoPositionManagement() {
         </div>
 
         <main className="flex-1 overflow-y-auto p-3 sm:p-6 pb-20 md:pb-6">
-          {activeSection !== "history" && (
+          {activeSection !== "history" && activeSection !== "management" && (
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:items-start">
               <div className="flex flex-row sm:flex-col gap-1 p-2 bg-muted rounded-lg w-full sm:w-fit sm:flex-shrink-0">
                 {(["24h", "7d", "52W", "All"] as TimePeriod[]).map((period) => (
@@ -243,23 +244,25 @@ export default function CryptoPositionManagement() {
             <PositionManagement positions={positions} onClosePosition={handleClosePosition} />
           )}
           {activeSection === "trading" && <ManualTrading onExecuteTrade={handleAddPosition} />}
+          {activeSection === "management" && <TradeManagement />}
           {activeSection === "history" && <TradeHistoryComponent history={tradeHistory} />}
         </main>
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-card">
-        <div className="flex items-center justify-around">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-card overflow-x-auto">
+        <div className="flex items-center justify-around min-w-max md:min-w-0">
           {[
             { id: "signals", label: "Signals", Icon: Radio },
             { id: "positions", label: "Positions", Icon: TrendingUp },
             { id: "trading", label: "Trading", Icon: ArrowLeftRight },
+            { id: "management", label: "Management", Icon: Settings },
             { id: "history", label: "History", Icon: History },
           ].map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveSection(item.id)}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 text-xs font-medium transition-colors border-t-2 ${
+              className={`flex flex-col items-center justify-center gap-1 py-3 px-2 text-xs font-medium transition-colors border-t-2 whitespace-nowrap ${
                 activeSection === item.id
                   ? "border-t-primary text-primary"
                   : "border-t-transparent text-muted-foreground hover:text-foreground"

@@ -1,5 +1,6 @@
 package mav_intel.com.Intelligent_Crypto_User_Management.security;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,8 +26,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
-        return new CorsFilter();
+    public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
+        // ✅ Register CorsFilter as a servlet filter (runs before Spring Security)
+        FilterRegistrationBean<CorsFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new CorsFilter());
+        registration.addUrlPatterns("/*");
+        registration.setOrder(Integer.MIN_VALUE);  // Run FIRST before any other filters
+        return registration;
     }
 
     @Bean
@@ -52,7 +58,7 @@ public class SecurityConfig {
                 "https://.*\\.vercel\\.app"     // ANY Vercel domain (regex: *.vercel.app)
         ));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
@@ -63,7 +69,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsFilter corsFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
@@ -77,7 +83,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/trades/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)  // ✅ CORS filter runs FIRST
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

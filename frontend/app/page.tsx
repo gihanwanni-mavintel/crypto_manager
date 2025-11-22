@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
@@ -8,17 +9,29 @@ import { TradeManagement } from "@/components/trade-management"
 import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
-import { tradingAPI, signalsAPI, createWebSocketConnection } from "@/lib/api"
+import { tradingAPI, signalsAPI, createWebSocketConnection, getAuthToken } from "@/lib/api"
 import { Radio, TrendingUp, ArrowLeftRight, History, Settings } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
 
 export default function CryptoPositionManagement() {
+  const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [activeSection, setActiveSection] = useState("signals")
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("All")
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Check authentication on mount
+  useEffect(() => {
+    const token = getAuthToken()
+    if (!token) {
+      router.push("/auth")
+      return
+    }
+    setIsAuthenticated(true)
+  }, [router])
 
   const [signals, setSignals] = useState<Signal[]>([])
   const [positions, setPositions] = useState<Position[]>([])
@@ -27,6 +40,8 @@ export default function CryptoPositionManagement() {
 
   // Load initial data
   useEffect(() => {
+    if (!isAuthenticated) return
+
     const loadData = async () => {
       setIsLoading(true)
 
@@ -58,7 +73,7 @@ export default function CryptoPositionManagement() {
     }
 
     loadData()
-  }, [])
+  }, [isAuthenticated])
 
   // WebSocket connection for real-time signals
   useEffect(() => {
@@ -182,6 +197,23 @@ export default function CryptoPositionManagement() {
         </div>
       </div>
     )
+  }
+
+  // Show loading while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <p className="mt-4 text-foreground">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Redirect happens in useEffect, this is just a safety check
+  if (!isAuthenticated) {
+    return null
   }
 
   return (

@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { Radio, TrendingUp, ArrowLeftRight, History, Settings, ChevronLeft, ChevronRight } from "lucide-react"
+import { Radio, TrendingUp, ArrowLeftRight, History, Settings, ChevronLeft, ChevronRight, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { authAPI } from "@/lib/api"
 
 interface SidebarProps {
   activeSection: string
@@ -41,6 +42,11 @@ const navItems = [
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
+  const handleLogout = () => {
+    authAPI.logout()
+    window.location.href = "/"
+  }
+
   return (
     <aside
       className={cn(
@@ -72,16 +78,31 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         })}
       </nav>
 
-      <div className={cn("px-4 pb-4", isCollapsed && "px-2")}>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className={cn("w-full", isCollapsed && "px-0 justify-center")}
-        >
-          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          {!isCollapsed && <span className="ml-2">Collapse</span>}
-        </Button>
+      <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-card">
+        <div className={cn("px-4 py-4 space-y-2", isCollapsed && "px-2")}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={cn("w-full", isCollapsed && "px-0 justify-center")}
+          >
+            {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+            {!isCollapsed && <span className="ml-2">Collapse</span>}
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            className={cn(
+              "w-full text-destructive hover:bg-destructive/10 hover:text-destructive",
+              isCollapsed && "px-0 justify-center"
+            )}
+          >
+            <LogOut className="h-5 w-5 flex-shrink-0" />
+            {!isCollapsed && <span className="ml-2">Logout</span>}
+          </Button>
+        </div>
       </div>
     </aside>
   )

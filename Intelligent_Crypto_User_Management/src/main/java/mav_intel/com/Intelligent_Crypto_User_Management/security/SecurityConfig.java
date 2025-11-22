@@ -71,6 +71,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/webhook/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/config/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/trades/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )

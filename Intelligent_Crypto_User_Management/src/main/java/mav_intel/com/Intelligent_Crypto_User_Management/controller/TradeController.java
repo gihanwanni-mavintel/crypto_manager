@@ -4,11 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Trade;
+import mav_intel.com.Intelligent_Crypto_User_Management.model.User;
+import mav_intel.com.Intelligent_Crypto_User_Management.repository.UserRepository;
 import mav_intel.com.Intelligent_Crypto_User_Management.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +26,9 @@ public class TradeController {
     @Autowired
     private TradeService tradeService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * Execute a new trade
      * POST /api/trades/execute
@@ -29,6 +36,11 @@ public class TradeController {
     @PostMapping("/execute")
     public ResponseEntity<ExecuteTradeResponse> executeTrade(@RequestBody ExecuteTradeRequest request) {
         log.info("📥 Trade execution request: {} {}", request.getSide(), request.getPair());
+
+        // Set userId from JWT token
+        Long userId = getCurrentUserId();
+        request.setUserId(userId);
+
         ExecuteTradeResponse response = tradeService.executeTrade(request);
 
         if ("SUCCESS".equals(response.getStatus())) {
@@ -36,6 +48,22 @@ public class TradeController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    /**
+     * Helper method to extract userId from JWT token
+     */
+    private Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User not authenticated");
+        }
+
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+
+        return user.getId();
     }
 
     /**

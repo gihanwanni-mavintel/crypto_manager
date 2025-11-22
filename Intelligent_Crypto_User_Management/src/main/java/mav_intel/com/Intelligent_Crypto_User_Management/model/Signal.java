@@ -56,4 +56,7 @@ public class Signal {
 
     @Column(name = "quantity")
     private Double quantity;
+
+    @Column(name = "user_id")
+    private Long userId;
 }

@@ -42,6 +42,7 @@ public class SignalWebhookController {
      *
      * Expected payload from Python backend:
      * {
+     *   "user_id": 1,              ✅ REQUIRED - User identifier
      *   "pair": "ARBUSDT.P",
      *   "setup_type": "LONG",
      *   "entry": 1.098,
@@ -60,14 +61,25 @@ public class SignalWebhookController {
         try {
             log.info("📡 Received signal from Python backend: {}", signalData.get("pair"));
 
+            // ✅ VALIDATE userId is provided
+            Long userId = getLong(signalData, "user_id");
+            if (userId == null || userId <= 0) {
+                log.error("❌ Missing or invalid user_id in signal payload");
+                Map<String, Object> errorResponse = new HashMap<>();
+                errorResponse.put("status", "error");
+                errorResponse.put("message", "Missing or invalid user_id in signal payload");
+                return ResponseEntity.badRequest().body(errorResponse);
+            }
+            log.info("✅ Signal for user_id: {}", userId);
+
             // 1. Save signal to database
-            Signal signal = mapToSignal(signalData);
+            Signal signal = mapToSignal(signalData, userId);
             Signal savedSignal = signalRepository.save(signal);
-            log.info("✅ Signal saved to database with ID: {}", savedSignal.getId());
+            log.info("✅ Signal saved to database with ID: {} for user {}", savedSignal.getId(), userId);
 
             // 2. Auto-execute trade if enabled
             if (autoExecuteEnabled) {
-                ExecuteTradeRequest tradeRequest = mapSignalToTradeRequest(signalData, savedSignal.getId());
+                ExecuteTradeRequest tradeRequest = mapSignalToTradeRequest(signalData, savedSignal.getId(), userId);
                 ExecuteTradeResponse tradeResponse = tradeService.executeTrade(tradeRequest);
 
                 Map<String, Object> response = new HashMap<>();
@@ -78,7 +90,7 @@ public class SignalWebhookController {
                 response.put("trade_id", tradeResponse.getTradeId());
                 response.put("trade_message", tradeResponse.getMessage());
 
-                log.info("🎯 Trade auto-executed for signal {}", savedSignal.getId());
+                log.info("🎯 Trade auto-executed for signal {} (user {})", savedSignal.getId(), userId);
                 return ResponseEntity.ok(response);
             } else {
                 log.warn("⚠️ Auto-execution disabled. Signal saved but trade not executed");
@@ -113,7 +125,7 @@ public class SignalWebhookController {
     /**
      * Map webhook signal data to Signal entity
      */
-    private Signal mapToSignal(Map<String, Object> data) {
+    private Signal mapToSignal(Map<String, Object> data, Long userId) {
         Signal signal = new Signal();
         signal.setPair(getString(data, "pair"));
         signal.setSetupType(getString(data, "setup_type"));
@@ -130,13 +142,14 @@ public class SignalWebhookController {
         signal.setChannel("TELEGRAM");
         signal.setTimestamp(OffsetDateTime.now());
         signal.setQuantity(getDouble(data, "quantity"));
+        signal.setUserId(userId); // ✅ Set userId
         return signal;
     }
 
     /**
      * Map signal data to ExecuteTradeRequest
      */
-    private ExecuteTradeRequest mapSignalToTradeRequest(Map<String, Object> data, Long signalId) {
+    private ExecuteTradeRequest mapSignalToTradeRequest(Map<String, Object> data, Long signalId, Long userId) {
         ExecuteTradeRequest request = new ExecuteTradeRequest();
 
         // Convert LONG/SHORT to BUY/SELL
@@ -155,6 +168,7 @@ public class SignalWebhookController {
         request.setStopLoss(getDouble(data, "stop_loss"));
         request.setQuantity(getDouble(data, "quantity")); // Can be null, auto-calculated
         request.setSignalId(signalId);
+        request.setUserId(userId); // ✅ Set userId
 
         return request;
     }
@@ -178,6 +192,22 @@ public class SignalWebhookController {
         }
         try {
             return Double.parseDouble(value.toString());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Helper to safely get Long from map
+     */
+    private Long getLong(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) return null;
+        if (value instanceof Number) {
+            return ((Number) value).longValue();
+        }
+        try {
+            return Long.parseLong(value.toString());
         } catch (NumberFormatException e) {
             return null;
         }

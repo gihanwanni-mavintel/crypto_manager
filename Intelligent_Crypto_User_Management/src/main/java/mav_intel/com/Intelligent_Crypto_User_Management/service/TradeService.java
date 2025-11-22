@@ -3,9 +3,12 @@ package mav_intel.com.Intelligent_Crypto_User_Management.service;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import lombok.extern.slf4j.Slf4j;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Signal;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Trade;
+import mav_intel.com.Intelligent_Crypto_User_Management.model.TradeManagementConfig;
 import mav_intel.com.Intelligent_Crypto_User_Management.repository.SignalRepository;
 import mav_intel.com.Intelligent_Crypto_User_Management.repository.TradeRepository;
 import org.json.JSONObject;
@@ -15,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import org.json.JSONArray;
 
 @Slf4j
 @Service
@@ -29,6 +35,9 @@ public class TradeService {
     @Autowired(required = false)
     private UMFuturesClientImpl futuresClient;
 
+    @Autowired
+    private TradeManagementConfigService tradeManagementConfigService;
+
     /**
      * Execute a new trade based on the request
      */
@@ -39,6 +48,14 @@ public class TradeService {
                 return new ExecuteTradeResponse(null, request.getPair(), "FAILED", "Missing required fields");
             }
 
+            // ✅ VALIDATE AGAINST TRADE MANAGEMENT CONFIG (Position Size only)
+            Long userId = request.getUserId();
+            if (userId != null && !tradeManagementConfigService.isTradeValid(userId, request)) {
+                String validationError = tradeManagementConfigService.getValidationError(userId, request);
+                log.warn("❌ Trade validation FAILED: {}", validationError);
+                return new ExecuteTradeResponse(null, request.getPair(), "FAILED", validationError);
+            }
+
             log.info("🚀 Executing trade: {} {} @ ${}", request.getSide(), request.getPair(), request.getEntry());
 
             // 1. Create Trade record in database
@@ -47,7 +64,20 @@ public class TradeService {
             trade.setSide(request.getSide());
             trade.setEntryPrice(request.getEntry());
             trade.setEntryQuantity(request.getQuantity() != null ? request.getQuantity() : 0.0);
-            trade.setLeverage(request.getLeverage() != null ? request.getLeverage() : 1);
+
+            // ✅ CAP LEVERAGE IF EXCEEDS MAX
+            int originalLeverage = request.getLeverage() != null ? request.getLeverage() : 1;
+            int cappedLeverage = originalLeverage;
+            if (userId != null) {
+                TradeManagementConfig config = tradeManagementConfigService.getActiveConfig(userId);
+                int maxLeverage = config.getMaxLeverage().intValue();
+                if (originalLeverage > maxLeverage) {
+                    log.info("⚠️ Leverage capped: {}x → {}x", originalLeverage, maxLeverage);
+                    cappedLeverage = maxLeverage;
+                }
+            }
+            trade.setLeverage(cappedLeverage);
+
             trade.setStopLoss(request.getStopLoss());
             trade.setTp1(request.getTp1());
             trade.setTp2(request.getTp2());
@@ -56,6 +86,7 @@ public class TradeService {
             trade.setStatus("PENDING");
             trade.setOpenedAt(OffsetDateTime.now());
             trade.setSignalId(request.getSignalId());
+            trade.setUserId(userId);
 
             // Save initial trade record
             Trade savedTrade = tradeRepository.save(trade);
@@ -63,7 +94,7 @@ public class TradeService {
 
             // 2. Place order on Binance
             if (futuresClient != null) {
-                boolean orderPlaced = placeBinanceOrder(savedTrade);
+                boolean orderPlaced = placeBinanceOrder(savedTrade, userId);
                 if (orderPlaced) {
                     trade.setStatus("OPEN");
                     tradeRepository.save(trade);
@@ -103,8 +134,9 @@ public class TradeService {
 
     /**
      * Place order on Binance Futures (LIMIT or MARKET)
+     * ✅ UPDATED: Now applies position quantity splitting based on TP exit percentages
      */
-    private boolean placeBinanceOrder(Trade trade) {
+    private boolean placeBinanceOrder(Trade trade, Long userId) {
         try {
             double balance = getBalance();
             if (balance <= 10) {
@@ -112,30 +144,90 @@ public class TradeService {
                 return false;
             }
 
+            // ✅ STRIP .P SUFFIX FROM SYMBOL (Telegram notation → Binance format)
             String symbol = trade.getPair();
-            String side = trade.getSide().equalsIgnoreCase("LONG") ? "BUY" : "SELL";
+            if (symbol != null && symbol.endsWith(".P")) {
+                symbol = symbol.substring(0, symbol.length() - 2);
+                log.info("🔄 Converted symbol: {} → {} (removed .P suffix)", trade.getPair(), symbol);
+            }
+
+            // ✅ The side is already converted by the controller (LONG→BUY, SHORT→SELL)
+            // Just use it as-is, don't convert again
+            String side = trade.getSide();
+
+            // ✅ GET USER'S TRADE MANAGEMENT CONFIG
+            TradeManagementConfig config = null;
+            if (userId != null) {
+                config = tradeManagementConfigService.getActiveConfig(userId);
+                log.info("📋 Applying config for user {}: MarginMode={}, TP:{}%/{}%/{}%/{}%",
+                    userId,
+                    config.getMarginMode(),
+                    config.getTp1ExitPercentage(),
+                    config.getTp2ExitPercentage(),
+                    config.getTp3ExitPercentage(),
+                    config.getTp4ExitPercentage()
+                );
+            }
 
             // 1. Set leverage
             setLeverage(symbol, trade.getLeverage());
 
+            // 2. Set margin mode if config available
+            if (config != null) {
+                setMarginMode(symbol, config.getMarginMode());
+            }
+
             // 2. Place LIMIT order at entry price
+            double entryQty = calculateQuantity(trade.getEntryQuantity(), trade.getLeverage(), balance);
+
+            // ✅ FETCH DYNAMIC FILTERS FROM BINANCE API (LOT_SIZE, MIN_NOTIONAL, precision)
+            SymbolFilters filters = getSymbolFilters(symbol);
+            double stepSize = filters.lotSize;
+            double minNotional = filters.minNotional;
+
+            // ✅ ROUND QUANTITY TO PROPER DECIMAL PLACES
+            double roundedEntryQty = roundQuantityToDecimal(entryQty, filters.quantityPrecision);
+
+            // ✅ ADJUST TO STEP SIZE (Binance requires quantities as multiples of step size)
+            String finalQty = adjustQuantityToStepSize(roundedEntryQty, stepSize);
+
+            // ⚠️ VALIDATE MIN_NOTIONAL: Order value must meet minimum requirement
+            double orderValue = Double.parseDouble(finalQty) * trade.getEntryPrice();
+            if (orderValue < minNotional) {
+                log.error("❌ Order value ${} is below MIN_NOTIONAL ${}", orderValue, minNotional);
+                return false;
+            }
+
+            double roundedPrice = roundPrice(trade.getEntryPrice()); // ✅ ROUND PRICE
+
             LinkedHashMap<String, Object> orderParams = new LinkedHashMap<>();
             orderParams.put("symbol", symbol);
             orderParams.put("side", side);
             orderParams.put("type", "LIMIT");
             orderParams.put("timeInForce", "GTC"); // Good Till Cancel
-            orderParams.put("quantity", calculateQuantity(trade.getEntryQuantity(), trade.getLeverage(), balance));
-            orderParams.put("price", trade.getEntryPrice()); // LIMIT order at exact entry price
+            orderParams.put("quantity", finalQty); // ✅ STEP SIZE ADJUSTED
+            orderParams.put("price", roundedPrice); // ✅ LIMIT order with rounded price
             orderParams.put("recvWindow", 60000);
 
-            log.info("📍 Placing LIMIT order: {} {} @ ${} Qty={}",
-                side, symbol, trade.getEntryPrice(), orderParams.get("quantity"));
+            log.info("📍 Placing LIMIT order: {} {} @ ${} Qty={} (original: {})",
+                side, symbol, roundedPrice, finalQty, entryQty);
 
             String orderResponse = futuresClient.account().newOrder(orderParams);
             JSONObject resp = new JSONObject(orderResponse);
             String orderId = resp.optString("orderId", "");
             String status = resp.optString("status", "FAILED");
-            double executedQty = resp.optDouble("executedQty", 0.0);
+
+            // ⚠️ CRITICAL FIX: For LIMIT orders, executedQty is 0 (order hasn't filled yet)
+            // Use origQty (original quantity requested) instead
+            double executedQty;
+            if ("NEW".equals(status) || "PARTIALLY_FILLED".equals(status)) {
+                // For pending LIMIT orders, use the original quantity we requested
+                executedQty = resp.optDouble("origQty", 0.0);
+                log.info("📊 LIMIT Order (NEW): Using origQty for SL/TP calculations");
+            } else {
+                // For fully filled orders, use executedQty
+                executedQty = resp.optDouble("executedQty", 0.0);
+            }
 
             log.info("✅ LIMIT Order placed: {} {} Qty={} Status={}", side, symbol, executedQty, status);
 
@@ -143,21 +235,65 @@ public class TradeService {
 
             // 3. Place Stop-Loss
             if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
-                placeStopLoss(symbol, side, executedQty, trade.getStopLoss());
+                double roundedSlQty = roundQuantityToDecimal(executedQty, filters.quantityPrecision); // ✅ ROUND SL QUANTITY
+                placeStopLoss(symbol, side, roundedSlQty, trade.getStopLoss());
             }
 
-            // 4. Place Take-Profits
-            if (trade.getTp1() != null && trade.getTp1() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp1(), "TP1");
-            }
-            if (trade.getTp2() != null && trade.getTp2() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp2(), "TP2");
-            }
-            if (trade.getTp3() != null && trade.getTp3() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp3(), "TP3");
-            }
-            if (trade.getTp4() != null && trade.getTp4() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp4(), "TP4");
+            // ✅ 4. PLACE TAKE-PROFITS WITH QUANTITY SPLITTING
+            if (config != null) {
+                // Calculate quantities based on TP exit percentages
+                double tp1Qty = executedQty * (config.getTp1ExitPercentage().doubleValue() / 100.0);
+                double tp2Qty = executedQty * (config.getTp2ExitPercentage().doubleValue() / 100.0);
+                double tp3Qty = executedQty * (config.getTp3ExitPercentage().doubleValue() / 100.0);
+                double tp4Qty = executedQty * (config.getTp4ExitPercentage().doubleValue() / 100.0);
+
+                // ✅ ROUND QUANTITIES TO PROPER DECIMAL PLACES (using dynamic precision from filters)
+                double tp1QtyRounded = roundQuantityToDecimal(tp1Qty, filters.quantityPrecision);
+                double tp2QtyRounded = roundQuantityToDecimal(tp2Qty, filters.quantityPrecision);
+                double tp3QtyRounded = roundQuantityToDecimal(tp3Qty, filters.quantityPrecision);
+                double tp4QtyRounded = roundQuantityToDecimal(tp4Qty, filters.quantityPrecision);
+
+                // ✅ ADJUST TO STEP SIZE (using dynamic step size from filters)
+                String tp1QtyAdjusted = adjustQuantityToStepSize(tp1QtyRounded, filters.lotSize);
+                String tp2QtyAdjusted = adjustQuantityToStepSize(tp2QtyRounded, filters.lotSize);
+                String tp3QtyAdjusted = adjustQuantityToStepSize(tp3QtyRounded, filters.lotSize);
+                String tp4QtyAdjusted = adjustQuantityToStepSize(tp4QtyRounded, filters.lotSize);
+
+                log.info("📊 Position Quantity Split: TP1={}({}%), TP2={}({}%), TP3={}({}%), TP4={}({}%)",
+                    tp1QtyAdjusted, config.getTp1ExitPercentage(),
+                    tp2QtyAdjusted, config.getTp2ExitPercentage(),
+                    tp3QtyAdjusted, config.getTp3ExitPercentage(),
+                    tp4QtyAdjusted, config.getTp4ExitPercentage()
+                );
+
+                // Place TP orders with SIGNAL TP PRICES (unchanged) and STEP-SIZE-ADJUSTED QUANTITIES
+                if (trade.getTp1() != null && trade.getTp1() > 0 && Double.parseDouble(tp1QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp1QtyAdjusted), trade.getTp1(), "TP1");
+                }
+                if (trade.getTp2() != null && trade.getTp2() > 0 && Double.parseDouble(tp2QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp2QtyAdjusted), trade.getTp2(), "TP2");
+                }
+                if (trade.getTp3() != null && trade.getTp3() > 0 && Double.parseDouble(tp3QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp3QtyAdjusted), trade.getTp3(), "TP3");
+                }
+                if (trade.getTp4() != null && trade.getTp4() > 0 && Double.parseDouble(tp4QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp4QtyAdjusted), trade.getTp4(), "TP4");
+                }
+            } else {
+                // Fallback: Place all TP orders with full quantity (if no config)
+                log.warn("⚠️ No user config found - placing TPs with full quantity");
+                if (trade.getTp1() != null && trade.getTp1() > 0) {
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp1(), "TP1");
+                }
+                if (trade.getTp2() != null && trade.getTp2() > 0) {
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp2(), "TP2");
+                }
+                if (trade.getTp3() != null && trade.getTp3() > 0) {
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp3(), "TP3");
+                }
+                if (trade.getTp4() != null && trade.getTp4() > 0) {
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp4(), "TP4");
+                }
             }
 
             log.info("✅ All orders placed for {}", symbol);
@@ -167,6 +303,87 @@ public class TradeService {
             log.error("❌ Error placing Binance order: {}", e.getMessage(), e);
             return false;
         }
+    }
+
+    /**
+     * Helper class to store exchange info filters for a symbol
+     */
+    private static class SymbolFilters {
+        double lotSize;      // Step size for quantity
+        double minNotional;  // Minimum order value
+        int quantityPrecision; // Decimal places for quantity
+
+        SymbolFilters(double lotSize, double minNotional, int quantityPrecision) {
+            this.lotSize = lotSize;
+            this.minNotional = minNotional;
+            this.quantityPrecision = quantityPrecision;
+        }
+    }
+
+    /**
+     * 🔄 Fetch symbol filters from Binance ExchangeInfo API
+     * Returns LOT_SIZE (step size), MIN_NOTIONAL, and quantity precision
+     * Required by Binance FAPI: /fapi/v1/exchangeInfo
+     */
+    private SymbolFilters getSymbolFilters(String symbol) {
+        try {
+            log.info("🔍 Fetching exchange info for symbol: {}", symbol);
+            String exchangeInfo = futuresClient.market().exchangeInfo();
+
+            JSONObject response = new JSONObject(exchangeInfo);
+            JSONArray symbols = response.getJSONArray("symbols");
+
+            for (int i = 0; i < symbols.length(); i++) {
+                JSONObject symbolObj = symbols.getJSONObject(i);
+                if (symbol.equals(symbolObj.getString("symbol"))) {
+                    JSONArray filters = symbolObj.getJSONArray("filters");
+                    double lotSize = 1.0;
+                    double minNotional = 10.0;
+                    int quantityPrecision = 2;
+
+                    for (int j = 0; j < filters.length(); j++) {
+                        JSONObject filter = filters.getJSONObject(j);
+                        String filterType = filter.getString("filterType");
+
+                        // Extract LOT_SIZE filter
+                        if ("LOT_SIZE".equals(filterType)) {
+                            lotSize = filter.getDouble("stepSize");
+                            quantityPrecision = getDecimalPlaces(filter.getString("stepSize"));
+                            log.info("📏 LOT_SIZE filter: stepSize={}, precision={}", lotSize, quantityPrecision);
+                        }
+
+                        // Extract MIN_NOTIONAL filter
+                        if ("MIN_NOTIONAL".equals(filterType)) {
+                            minNotional = filter.getDouble("notional");
+                            log.info("💰 MIN_NOTIONAL filter: {}", minNotional);
+                        }
+                    }
+
+                    log.info("✅ Symbol filters for {}: lotSize={}, minNotional={}, precision={}",
+                        symbol, lotSize, minNotional, quantityPrecision);
+                    return new SymbolFilters(lotSize, minNotional, quantityPrecision);
+                }
+            }
+
+            log.warn("⚠️ Symbol {} not found in exchange info, using defaults", symbol);
+            return new SymbolFilters(1.0, 10.0, 2);
+
+        } catch (Exception e) {
+            log.warn("⚠️ Error fetching exchange info for {}: {}", symbol, e.getMessage());
+            return new SymbolFilters(1.0, 10.0, 2); // Default filters
+        }
+    }
+
+    /**
+     * Calculate decimal places from step size string
+     * e.g., "0.1" → 1, "0.01" → 2, "1" → 0
+     */
+    private int getDecimalPlaces(String stepSize) {
+        String[] parts = stepSize.split("\\.");
+        if (parts.length == 2) {
+            return parts[1].length();
+        }
+        return 0;
     }
 
     /**
@@ -207,6 +424,69 @@ public class TradeService {
     }
 
     /**
+     * Round quantity to appropriate decimal places for asset
+     * SOL uses 2 decimal places max on Binance Futures
+     */
+    private double roundQuantity(double quantity) {
+        // Round to 2 decimal places (SOL requires less precision)
+        return Math.round(quantity * 100.0) / 100.0;
+    }
+
+    /**
+     * 🔧 Round quantity to specific number of decimal places
+     * Uses dynamic precision from Binance filters (LOT_SIZE)
+     * Examples: precision=0 → rounds to whole number, precision=2 → 2 decimal places
+     */
+    private double roundQuantityToDecimal(double quantity, int decimalPlaces) {
+        if (decimalPlaces < 0) decimalPlaces = 0;
+        double multiplier = Math.pow(10, decimalPlaces);
+        double rounded = Math.round(quantity * multiplier) / multiplier;
+        log.info("📐 Rounded quantity: {} → {} (decimal places: {})", quantity, rounded, decimalPlaces);
+        return rounded;
+    }
+
+    /**
+     * Round price to appropriate decimal places
+     * SOL typically uses 2 decimal places
+     */
+    private double roundPrice(double price) {
+        return Math.round(price * 100.0) / 100.0;
+    }
+
+    /**
+     * ✅ BINANCE FAPI COMPLIANT: Adjust quantity to match asset's step size
+     * According to Binance documentation, quantities must be multiples of LOT_SIZE (stepSize)
+     * This method:
+     * 1. Rounds DOWN to the nearest step size multiple
+     * 2. Removes trailing zeros to prevent precision artifacts
+     *
+     * Example: rawQuantity=0.575, stepSize=0.01 → "0.57"
+     * NOT "0.57000000000000001186..." ✅
+     */
+    private String adjustQuantityToStepSize(double rawQuantity, double stepSize) {
+        // Use String constructor to avoid floating-point precision issues from the start
+        BigDecimal qty = new BigDecimal(String.valueOf(rawQuantity));
+        BigDecimal step = new BigDecimal(String.valueOf(stepSize));
+
+        // 1. Divide by step size and round DOWN (e.g., 0.575 / 0.01 = 57.5 → 57)
+        BigDecimal value = qty.divide(step, 0, RoundingMode.DOWN);
+
+        // 2. Multiply back by step size (57 * 0.01 = 0.57)
+        BigDecimal adjusted = value.multiply(step);
+
+        // 3. Set scale to match step size's decimal places, then strip trailing zeros
+        // This ensures "0.57" NOT "0.57000000000000001186..."
+        int decimalPlaces = getDecimalPlaces(String.valueOf(stepSize));
+        String result = adjusted
+            .setScale(decimalPlaces, RoundingMode.DOWN)  // ⚠️ CRITICAL: Force exact decimal places
+            .stripTrailingZeros()                         // Remove "0.57000" → "0.57"
+            .toPlainString();                             // Convert to string without scientific notation
+
+        log.info("📏 Quantity Adjusted: {} → {} (Step Size: {})", rawQuantity, result, stepSize);
+        return result;
+    }
+
+    /**
      * Set leverage for symbol
      */
     private void setLeverage(String symbol, int leverage) {
@@ -219,6 +499,28 @@ public class TradeService {
             log.info("⚙️ Leverage set to {}x for {}", leverage, symbol);
         } catch (Exception e) {
             log.warn("⚠️ Error setting leverage: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Set margin mode for symbol (ISOLATE or CROSS)
+     * According to Binance FAPI documentation:
+     * - Parameter name must be: "marginType" (capital T)
+     * - Valid values: "ISOLATED" or "CROSS"
+     */
+    private void setMarginMode(String symbol, String marginMode) {
+        try {
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("symbol", symbol);
+            params.put("marginType", marginMode); // ✅ BINANCE FAPI: Must be "marginType" (case-sensitive)
+            params.put("recvWindow", 60000);
+
+            log.info("🔧 Setting margin mode: symbol={}, marginType={}", symbol, marginMode);
+            futuresClient.account().changeMarginType(params);
+            log.info("✅ Margin mode successfully set to {} for {}", marginMode, symbol);
+        } catch (Exception e) {
+            // Note: This may fail if margin type is already set to the requested value
+            log.warn("⚠️ Error setting margin mode (marginType={}): {}", marginMode, e.getMessage());
         }
     }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,37 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import type { Trade, TakeProfitLevel } from "@/types/trading"
 import { TrendingUp, TrendingDown, Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+// API request helper with auth
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081'
+
+const apiRequest = async (
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<Response> => {
+  const headers: Record<string, string> = {}
+
+  // Only add Content-Type for requests with a body (POST, PUT, PATCH)
+  if (options.method && ['POST', 'PUT', 'PATCH'].includes(options.method.toUpperCase())) {
+    headers['Content-Type'] = 'application/json'
+  }
+
+  if (options.headers && typeof options.headers === 'object' && !Array.isArray(options.headers)) {
+    Object.assign(headers, options.headers as Record<string, string>)
+  }
+
+  const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  const url = `${API_BASE_URL}${endpoint}`
+
+  return fetch(url, {
+    ...options,
+    headers,
+  })
+}
 
 interface ManualTradingProps {
   onExecuteTrade: (trade: Trade) => void
@@ -34,6 +65,11 @@ const TRADING_PAIRS = [
   "LTC/USDT",
   "ETC/USDT",
 ]
+
+interface TradeConfig {
+  maxPositionSize: number
+  maxLeverage: number
+}
 
 export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
   const [open, setOpen] = useState(false)
@@ -59,6 +95,31 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
   const [selectedSide, setSelectedSide] = useState<"LONG" | "SHORT" | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  // Load trade config from API
+  const [tradeConfig, setTradeConfig] = useState<TradeConfig>({
+    maxPositionSize: 1000,
+    maxLeverage: 10,
+  })
+
+  useEffect(() => {
+    loadTradeConfig()
+  }, [])
+
+  const loadTradeConfig = async () => {
+    try {
+      const response = await apiRequest('/api/config/trade-settings')
+      if (response.ok) {
+        const data = await response.json()
+        setTradeConfig({
+          maxPositionSize: parseFloat(data.maxPositionSize) || 1000,
+          maxLeverage: parseFloat(data.maxLeverage) || 10,
+        })
+      }
+    } catch (err) {
+      console.log("Could not load trade config from API")
+    }
+  }
+
   const handleExecute = (side: "LONG" | "SHORT") => {
     setError(null)
 
@@ -72,6 +133,17 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
 
     if (priceNum <= 0 || usdtNum <= 0) {
       setError("Price and USDT must be greater than 0")
+      return
+    }
+
+    // ✅ VALIDATE AGAINST TRADE MANAGEMENT CONFIG
+    if (usdtNum > tradeConfig.maxPositionSize) {
+      setError(`Position size $${usdtNum} exceeds your maximum of $${tradeConfig.maxPositionSize}`)
+      return
+    }
+
+    if (leverage[0] > tradeConfig.maxLeverage) {
+      setError(`Leverage ${leverage[0]}x exceeds your maximum of ${tradeConfig.maxLeverage}x`)
       return
     }
 

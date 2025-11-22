@@ -59,6 +59,25 @@ const apiRequest = async (
 
 // Authentication APIs
 export const authAPI = {
+  register: async (username: string, password: string) => {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Registration failed');
+    }
+
+    const data = await response.json() as { token: string };
+    setAuthToken(data.token);
+    return data;
+  },
+
   login: async (username: string, password: string) => {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
@@ -69,7 +88,8 @@ export const authAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('Login failed');
+      const error = await response.json();
+      throw new Error(error.message || 'Login failed');
     }
 
     const data = await response.json() as { token: string };

@@ -40,9 +40,14 @@ HTTP_PORT = int(os.getenv("HTTP_PORT", 8082))
 WS_PORT = int(os.getenv("WS_PORT", 6789))
 JAVA_BACKEND_URL = os.getenv("JAVA_BACKEND_URL", "http://localhost:8081")
 SEND_SIGNALS_TO_JAVA = os.getenv("SEND_SIGNALS_TO_JAVA", "true").lower() == "true"
+USER_ID = int(os.getenv("USER_ID", 0))  # ✅ NEW: User identifier for signal routing
 
 if not API_ID or not API_HASH or not SESSION_STRING or not DATABASE_URL or not GROUP_ID:
     logger.error("[ERROR] Missing critical environment variables. Exiting.")
+    exit(1)
+
+if USER_ID <= 0:
+    logger.error("[ERROR] USER_ID must be set and greater than 0. Exiting.")
     exit(1)
 
 # ----------------------------
@@ -133,9 +138,35 @@ async def init_db():
             timestamp TIMESTAMPTZ,
             full_message TEXT UNIQUE,
             channel TEXT,
-            quantity NUMERIC(18,8)
+            quantity NUMERIC(18,8),
+            user_id BIGINT
         )
         """)
+
+        # ✅ Add user_id column if it doesn't exist (for backward compatibility)
+        try:
+            await conn.execute("ALTER TABLE signal_messages ADD COLUMN user_id BIGINT")
+            logger.info("[DB] Added user_id column to signal_messages")
+        except Exception:
+            # Column already exists, that's fine
+            pass
+
+        # ✅ Drop foreign key constraints if they exist (allows signals and trades without users)
+        try:
+            await conn.execute("ALTER TABLE signal_messages DROP CONSTRAINT fk_signals_user")
+            logger.info("[DB] Dropped foreign key constraint from signal_messages (allows signals without users)")
+        except Exception:
+            # FK constraint doesn't exist, that's fine
+            pass
+
+        # ✅ Drop FK constraint from trades table if it exists
+        try:
+            await conn.execute("ALTER TABLE trades DROP CONSTRAINT fk_trades_user")
+            logger.info("[DB] Dropped foreign key constraint from trades (allows trades without users)")
+        except Exception:
+            # FK constraint doesn't exist or trades table doesn't exist, that's fine
+            pass
+
         await conn.execute("""
         CREATE TABLE IF NOT EXISTS market_messages (
             id SERIAL PRIMARY KEY,
@@ -181,7 +212,8 @@ async def signal_db_worker(batch_size=50):
                         float(m["stop_loss"]) if m["stop_loss"] is not None else None,
                         ts, m["full_message"],
                         "TELEGRAM",  # channel - default value for Telegram signals
-                        None  # quantity - calculated by Java backend
+                        None,  # quantity - calculated by Java backend
+                        m.get("user_id")  # ✅ user_id from signal data
                     ))
 
                 if values:
@@ -190,8 +222,8 @@ async def signal_db_worker(batch_size=50):
                     INSERT INTO signal_messages (
                         pair, setup_type, entry, leverage,
                         tp1, tp2, tp3, tp4, stop_loss,
-                        timestamp, full_message, channel, quantity
-                    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+                        timestamp, full_message, channel, quantity, user_id
+                    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
                     ON CONFLICT (full_message) DO NOTHING
                     """, values)
                     logger.info(f"[DB INSERT] [OK] Successfully inserted {len(values)} signal(s)")
@@ -341,10 +373,12 @@ async def run_telegram_client():
                     "tp1": tp1, "tp2": tp2, "tp3": tp3, "tp4": tp4,
                     "stop_loss": stop_loss,
                     "timestamp": date,
-                    "full_message": text
+                    "full_message": text,
+                    "user_id": USER_ID  # ✅ Include user_id in signal data
                 }
 
                 logger.info(f"\n[DATA OBJECT] Created signal data object:")
+                logger.info(f"  User ID: {data['user_id']}")  # ✅ Log user_id
                 logger.info(f"  Pair: {data['pair']}")
                 logger.info(f"  Setup: {data['setup_type']}")
                 logger.info(f"  Entry: {data['entry']}")

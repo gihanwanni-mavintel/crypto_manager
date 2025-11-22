@@ -11,6 +11,7 @@ public class ExecuteTradeRequest {
     private String pair;
     private String side; // BUY or SELL
     private Double entry;
+    private Double amount; // USD amount for position
     private Double quantity;
     private Integer leverage;
     private Double stopLoss;
@@ -19,4 +20,5 @@ public class ExecuteTradeRequest {
     private Double tp3;
     private Double tp4;
     private Long signalId; // Optional: link to original signal
+    private Long userId; // User ID (will be set by controller)
 }

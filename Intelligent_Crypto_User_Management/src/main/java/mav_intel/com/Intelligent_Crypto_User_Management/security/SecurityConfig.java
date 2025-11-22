@@ -37,19 +37,26 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        // ✅ FIXED: Support dynamic Vercel preview URLs and production URLs
         configuration.setAllowedOrigins(Arrays.asList(
+                // Local development
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
                 "http://127.0.0.1:3000",
                 "http://127.0.0.1:3001",
                 "http://127.0.0.1:3002",
+                // Production domains
+                "https://cryptomanager.vercel.app",
+                "https://crypto-manager.vercel.app",
                 "https://telegram-signals-tau.vercel.app",
-                "https://cryptomanager-beta.vercel.app",
-                "https://cryptomanager-ebon.vercel.app",
-                "https://cryptomanager-8a05sk1ap-maverick-intel-sl.vercel.app",
-                "https://cryptomanager-5fnymiunf-maverick-intel-sl.vercel.app"
+                // Current deployment
+                "https://cryptomanager-gfo6gr7h5-maverick-intel-sl.vercel.app",
+                // All Vercel preview deployments (*.vercel.app)
+                "https://*.vercel.app"
         ));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

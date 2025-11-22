@@ -19,11 +19,14 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final CorsFilter corsFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CorsFilter corsFilter) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
-        this.corsFilter = corsFilter;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        return new CorsFilter();
     }
 
     @Bean
@@ -60,7 +63,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsFilter corsFilter) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
@@ -74,7 +77,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/trades/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)  // ✅ CORS filter FIRST
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)  // ✅ CORS filter runs FIRST
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

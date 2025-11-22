@@ -1,19 +1,19 @@
 package mav_intel.com.Intelligent_Crypto_User_Management.security;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * ✅ SIMPLE CORS FILTER
  * Handles CORS preflight requests (OPTIONS) and adds CORS headers to all responses
- * This is a fallback when Spring's built-in CORS configuration doesn't work
+ * This runs BEFORE Spring Security, ensuring CORS headers are always present
  */
-@Component
+@Slf4j
 public class CorsFilter extends OncePerRequestFilter {
 
     @Override

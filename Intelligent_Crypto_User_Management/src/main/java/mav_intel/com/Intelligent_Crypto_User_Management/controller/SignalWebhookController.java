@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Webhook endpoint to receive trading signals from Python backend (Telegram message collector)
@@ -112,6 +114,7 @@ public class SignalWebhookController {
 
     /**
      * Health check endpoint for webhook
+     * Also returns server IP for Binance API whitelisting
      */
     @GetMapping("/health")
     public ResponseEntity<?> health() {
@@ -119,6 +122,19 @@ public class SignalWebhookController {
         status.put("status", "healthy");
         status.put("auto_execute_enabled", autoExecuteEnabled);
         status.put("timestamp", System.currentTimeMillis());
+
+        // 🔍 Get server IP for Binance API whitelisting
+        try {
+            String serverIp = InetAddress.getLocalHost().getHostAddress();
+            String hostname = InetAddress.getLocalHost().getHostName();
+            status.put("server_ip", serverIp);
+            status.put("server_hostname", hostname);
+            log.info("🌐 Server IP: {} ({})", serverIp, hostname);
+        } catch (UnknownHostException e) {
+            log.warn("⚠️ Could not determine server IP: {}", e.getMessage());
+            status.put("server_ip", "UNKNOWN");
+        }
+
         return ResponseEntity.ok(status);
     }
 

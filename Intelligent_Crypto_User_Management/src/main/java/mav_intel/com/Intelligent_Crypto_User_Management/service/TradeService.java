@@ -178,7 +178,7 @@ public class TradeService {
             }
 
             // 2. Place LIMIT order at entry price
-            double entryQty = calculateQuantity(trade.getEntryQuantity(), trade.getLeverage(), balance);
+            double entryQty = calculateQuantity(trade.getEntryQuantity(), trade.getEntryPrice(), balance);
 
             // ✅ FETCH DYNAMIC FILTERS FROM BINANCE API (LOT_SIZE, MIN_NOTIONAL, precision)
             SymbolFilters filters = getSymbolFilters(symbol);
@@ -410,16 +410,19 @@ public class TradeService {
     }
 
     /**
-     * Calculate quantity based on available balance and leverage
+     * Calculate quantity based on available balance and entry price
      * If quantity is provided, use it; otherwise calculate from balance
+     * Formula: Quantity = (Balance × 0.5) ÷ EntryPrice
+     * This ensures the position size is 50% of available balance
      */
-    private double calculateQuantity(Double requestedQty, int leverage, double balance) {
+    private double calculateQuantity(Double requestedQty, double entryPrice, double balance) {
         if (requestedQty != null && requestedQty > 0) {
             return requestedQty; // Use provided quantity
         }
-        // Default: Use 50% of available balance divided by leverage
-        double quantity = (balance * 0.5) / leverage;
-        log.info("📊 Auto-calculated quantity: {} (50% of balance / leverage)", quantity);
+        // Default: Use 50% of available balance divided by entry price
+        // This gives us the quantity that will cost 50% of our balance
+        double quantity = (balance * 0.5) / entryPrice;
+        log.info("📊 Auto-calculated quantity: {} (50% of balance: ${} ÷ price: ${})", quantity, balance * 0.5, entryPrice);
         return Math.max(quantity, 0.001); // Minimum quantity
     }
 

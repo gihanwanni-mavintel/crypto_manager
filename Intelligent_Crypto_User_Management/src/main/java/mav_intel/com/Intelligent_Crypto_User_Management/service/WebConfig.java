@@ -12,21 +12,15 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                // ✅ FIXED: Support ANY Vercel preview URL using allowedOriginPatterns()
+                // This uses regex to match *.vercel.app and localhost:*
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                            "http://localhost:3000",
-                            "http://localhost:3001",
-                            "http://localhost:3002",
-                            "http://127.0.0.1:3000",
-                            "http://127.0.0.1:3001",
-                            "http://127.0.0.1:3002",
-                            "https://telegram-signals-tau.vercel.app",
-                            "https://cryptomanager-beta.vercel.app",
-                            "https://cryptomanager-ebon.vercel.app",
-                            "https://cryptomanager-8a05sk1ap-maverick-intel-sl.vercel.app",
-                            "https://cryptomanager-5fnymiunf-maverick-intel-sl.vercel.app"
+                        .allowedOriginPatterns(
+                            "http://localhost:*",              // Local development on any port
+                            "http://127.0.0.1:*",              // Localhost IP on any port
+                            "https://.*\\.vercel\\.app"        // ANY Vercel domain (regex: *.vercel.app)
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")
                         .allowCredentials(true)
                         .maxAge(3600);

@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8081"
+
 export default function LoginPage() {
   const router = useRouter()
   const [isRegister, setIsRegister] = useState(false)
@@ -62,7 +64,7 @@ export default function LoginPage() {
         return
       }
 
-      const response = await fetch("http://localhost:8081/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

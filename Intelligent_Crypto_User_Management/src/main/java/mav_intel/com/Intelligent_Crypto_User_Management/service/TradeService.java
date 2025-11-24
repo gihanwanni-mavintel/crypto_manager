@@ -529,6 +529,8 @@ public class TradeService {
 
     /**
      * Place Stop-Loss order
+     * ✅ UPDATED: Added reduce_only=true to allow orders below MIN_NOTIONAL
+     * Binance allows orders < $5 notional if reduce_only=true (closing positions)
      */
     private boolean placeStopLoss(String symbol, String side, double qty, double stopPrice) {
         try {
@@ -540,10 +542,13 @@ public class TradeService {
             slParams.put("quantity", qty);
             slParams.put("stopPrice", stopPrice);
             slParams.put("timeInForce", "GTC");
+            slParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
             slParams.put("recvWindow", 60000);
 
             String resp = futuresClient.account().newOrder(slParams);
-            log.info("🛑 Stop-Loss placed: {}", resp);
+            JSONObject respObj = new JSONObject(resp);
+            String orderId = respObj.optString("orderId", "");
+            log.info("🛑 Stop-Loss placed: orderId={}", orderId);
             return true;
         } catch (Exception e) {
             log.error("❌ Error placing Stop-Loss: {}", e.getMessage());
@@ -553,9 +558,23 @@ public class TradeService {
 
     /**
      * Place Take-Profit order
+     * ✅ UPDATED: Added reduce_only=true and MIN_NOTIONAL validation
+     * Binance allows orders < $5 notional if reduce_only=true (closing positions)
+     *
+     * @param symbol Trading pair (e.g., SOLUSDT)
+     * @param side BUY or SELL (entry side, TP side is opposite)
+     * @param qty Quantity to close at this TP level
+     * @param tpPrice Take-profit price from signal (static)
+     * @param label TP level label (TP1, TP2, TP3, TP4)
      */
     private void placeTakeProfit(String symbol, String side, double qty, double tpPrice, String label) {
         try {
+            // ✅ MIN_NOTIONAL VALIDATION: Check if order meets Binance minimum notional
+            double tpNotional = qty * tpPrice;
+            if (tpNotional < 5.0) {
+                log.warn("⚠️ {} order notional (${}) is below Binance minimum ($5). Will use reduce_only=true", label, tpNotional);
+            }
+
             String tpSide = side.equals("BUY") ? "SELL" : "BUY";
             LinkedHashMap<String, Object> tpParams = new LinkedHashMap<>();
             tpParams.put("symbol", symbol);
@@ -564,10 +583,19 @@ public class TradeService {
             tpParams.put("quantity", qty);
             tpParams.put("stopPrice", tpPrice);
             tpParams.put("timeInForce", "GTC");
+            tpParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
             tpParams.put("recvWindow", 60000);
 
             String resp = futuresClient.account().newOrder(tpParams);
-            log.info("📈 {} placed: {}", label, resp);
+            JSONObject respObj = new JSONObject(resp);
+            String orderId = respObj.optString("orderId", "");
+            String status = respObj.optString("status", "FAILED");
+
+            if ("NEW".equals(status) || "PARTIALLY_FILLED".equals(status)) {
+                log.info("📈 {} placed: orderId={}, notional=${}", label, orderId, tpNotional);
+            } else {
+                log.warn("⚠️ {} order status: {}", label, status);
+            }
         } catch (Exception e) {
             log.error("❌ Error placing {}: {}", label, e.getMessage());
         }

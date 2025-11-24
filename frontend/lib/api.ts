@@ -26,8 +26,6 @@ const apiRequest = async (
   const token = getAuthToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'ngrok-skip-browser-warning': 'true',
-    'User-Agent': 'Chrome',
   };
 
   // Merge existing headers if provided
@@ -195,43 +193,38 @@ export const tradingAPI = {
 };
 
 // Trading Signals API
-const SIGNAL_HEADERS = {
-  'ngrok-skip-browser-warning': 'true',
-  'User-Agent': 'Chrome',
-};
-
 export const signalsAPI = {
   // Get all signals
   getAllSignals: async () => {
-    const response = await fetch(`${API_BASE_URL}/api/signals`, { headers: SIGNAL_HEADERS });
+    const response = await fetch(`${API_BASE_URL}/api/signals`);
     if (!response.ok) throw new Error('Failed to fetch signals');
     return response.json();
   },
 
   // Get signals by pair
   getSignalsByPair: async (pair: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/pair/${pair}`, { headers: SIGNAL_HEADERS });
+    const response = await fetch(`${API_BASE_URL}/api/signals/pair/${pair}`);
     if (!response.ok) throw new Error('Failed to fetch signals by pair');
     return response.json();
   },
 
   // Get signals by setup type
   getSignalsBySetupType: async (setupType: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/setup/${setupType}`, { headers: SIGNAL_HEADERS });
+    const response = await fetch(`${API_BASE_URL}/api/signals/setup/${setupType}`);
     if (!response.ok) throw new Error('Failed to fetch signals by setup type');
     return response.json();
   },
 
   // Get signals by channel
   getSignalsByChannel: async (channel: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/channel/${channel}`, { headers: SIGNAL_HEADERS });
+    const response = await fetch(`${API_BASE_URL}/api/signals/channel/${channel}`);
     if (!response.ok) throw new Error('Failed to fetch signals by channel');
     return response.json();
   },
 
   // Get signal by ID
   getSignalById: async (id: number) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/${id}`, { headers: SIGNAL_HEADERS });
+    const response = await fetch(`${API_BASE_URL}/api/signals/${id}`);
     if (!response.ok) throw new Error('Failed to fetch signal');
     return response.json();
   },

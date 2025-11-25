@@ -774,19 +774,31 @@ public class TradeService {
         }
 
         // P&L amount filter
-        if (filter.getPnlMin() != null && trade.getPnl().compareTo(filter.getPnlMin()) < 0) {
-            return false;
+        if (filter.getPnlMin() != null) {
+            BigDecimal tradePnl = new BigDecimal(trade.getPnl().toString());
+            if (tradePnl.compareTo(filter.getPnlMin()) < 0) {
+                return false;
+            }
         }
-        if (filter.getPnlMax() != null && trade.getPnl().compareTo(filter.getPnlMax()) > 0) {
-            return false;
+        if (filter.getPnlMax() != null) {
+            BigDecimal tradePnl = new BigDecimal(trade.getPnl().toString());
+            if (tradePnl.compareTo(filter.getPnlMax()) > 0) {
+                return false;
+            }
         }
 
         // P&L percentage filter
-        if (filter.getPnlPercentMin() != null && trade.getPnlPercent().compareTo(filter.getPnlPercentMin()) < 0) {
-            return false;
+        if (filter.getPnlPercentMin() != null) {
+            BigDecimal tradePnlPercent = new BigDecimal(trade.getPnlPercent().toString());
+            if (tradePnlPercent.compareTo(filter.getPnlPercentMin()) < 0) {
+                return false;
+            }
         }
-        if (filter.getPnlPercentMax() != null && trade.getPnlPercent().compareTo(filter.getPnlPercentMax()) > 0) {
-            return false;
+        if (filter.getPnlPercentMax() != null) {
+            BigDecimal tradePnlPercent = new BigDecimal(trade.getPnlPercent().toString());
+            if (tradePnlPercent.compareTo(filter.getPnlPercentMax()) > 0) {
+                return false;
+            }
         }
 
         // Side filter
@@ -854,9 +866,9 @@ public class TradeService {
         BigDecimal largestLoss = BigDecimal.ZERO;
 
         for (Trade trade : allFilteredTrades) {
-            BigDecimal pnl = trade.getPnl();
+            BigDecimal pnl = new BigDecimal(trade.getPnl().toString());
             totalPnL = totalPnL.add(pnl);
-            totalPnLPercent = totalPnLPercent.add(trade.getPnlPercent());
+            totalPnLPercent = totalPnLPercent.add(new BigDecimal(trade.getPnlPercent().toString()));
 
             if (pnl.compareTo(BigDecimal.ZERO) > 0) {
                 winningTrades++;
@@ -938,76 +950,95 @@ public class TradeService {
         List<BinancePositionDTO> positions = new ArrayList<>();
 
         try {
+            if (futuresClient == null) {
+                log.warn("⚠️ Binance client not initialized");
+                return positions;
+            }
+
             log.info("📊 Fetching open positions from Binance...");
 
-            // Get all open positions with unrealized P&L
+            // Fetch position risk data from Binance
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("timestamp", System.currentTimeMillis());
             params.put("recvWindow", 60000);
-            String positionsResponse = futuresClient.account().positionRisk(params);
-            JSONArray positionsArray = new JSONArray(positionsResponse);
 
-            // Get all open orders to match with positions
-            String ordersResponse = futuresClient.account().openOrders(params);
-            JSONArray ordersArray = new JSONArray(ordersResponse);
+            String positionRiskResponse = futuresClient.account().positionInformation(params);
+            JSONArray positionsArray = new JSONArray(positionRiskResponse);
 
+            // Fetch all open orders
+            String openOrdersResponse = futuresClient.account().currentAllOpenOrders(params);
+            JSONArray ordersArray = new JSONArray(openOrdersResponse);
+
+            // Parse positions
             for (int i = 0; i < positionsArray.length(); i++) {
                 JSONObject posObj = positionsArray.getJSONObject(i);
 
-                // Skip positions with 0 quantity (closed)
-                double positionAmt = posObj.getDouble("positionAmt");
-                if (positionAmt == 0) {
+                String symbol = posObj.getString("symbol");
+                String side = posObj.getString("positionSide");
+                BigDecimal quantity = new BigDecimal(posObj.getString("positionAmt"));
+
+                // Skip zero positions
+                if (quantity.compareTo(BigDecimal.ZERO) == 0) {
                     continue;
                 }
 
-                String symbol = posObj.getString("symbol");
-
-                // Get current mark price for this symbol
+                // Get mark price for P&L calculation
                 BigDecimal markPrice = getMarkPrice(symbol);
+                BigDecimal entryPrice = new BigDecimal(posObj.getString("entryPrice"));
+                BigDecimal unrealizedPnL = new BigDecimal(posObj.getString("unRealizedProfit"));
 
-                // Build position DTO
+                // Get related orders for this symbol
+                List<BinanceOrderDTO> symbolOrders = getOpenOrdersForSymbol(ordersArray, symbol);
+
                 BinancePositionDTO position = BinancePositionDTO.builder()
                     .symbol(symbol)
-                    .side(positionAmt > 0 ? "LONG" : "SHORT")
-                    .entryPrice(new BigDecimal(posObj.getString("entryPrice")))
+                    .side(side)
+                    .quantity(quantity)
+                    .entryPrice(entryPrice)
                     .markPrice(markPrice)
-                    .quantity(new BigDecimal(String.format("%.8f", Math.abs(positionAmt))))
-                    .leverage(posObj.getInt("leverage"))
-                    .unrealizedPnL(new BigDecimal(posObj.getString("unRealizedProfit")))
-                    .unrealizedPnLPct(new BigDecimal(posObj.getString("percentage")).multiply(BigDecimal.valueOf(100)))
-                    .liquidationPrice(new BigDecimal(posObj.getString("liquidationPrice")))
-                    .marginType(posObj.getString("marginType").toLowerCase())
-                    .isReduceOnly(posObj.getBoolean("reduceOnly"))
-                    .openedAt(System.currentTimeMillis())
-                    .openOrders(getOpenOrdersForSymbol(ordersArray, symbol))
+                    .unrealizedPnL(unrealizedPnL)
+                    .openOrders(symbolOrders)
                     .build();
 
                 positions.add(position);
-                log.info("✅ Position fetched: {} {} @ ${} Qty={} P&L=${} ({}%)",
-                    position.getSide(), symbol, position.getMarkPrice(),
-                    position.getQuantity(), position.getUnrealizedPnL(),
-                    position.getUnrealizedPnLPct());
+
+                log.info("✅ Position loaded: {} {} @ {} mark price: {}",
+                         side, symbol, entryPrice, markPrice);
             }
 
-            log.info("📊 Total open positions: {}", positions.size());
+            log.info("✅ Fetched {} open positions from Binance", positions.size());
             return positions;
 
         } catch (Exception e) {
             log.error("❌ Error fetching open positions from Binance: {}", e.getMessage());
+            e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
     /**
-     * Get mark price for a symbol from Binance
+     * Get mark price (current price) for a symbol from Binance
+     * Uses 24h ticker endpoint to get the latest price
      */
     private BigDecimal getMarkPrice(String symbol) {
         try {
+            if (futuresClient == null) {
+                return BigDecimal.ZERO;
+            }
+
+            // Fetch 24h ticker price
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
             params.put("symbol", symbol);
-            params.put("recvWindow", 60000);
-            String response = futuresClient.market().ticker(params);
-            JSONObject ticker = new JSONObject(response);
-            return new BigDecimal(ticker.getString("markPrice"));
+
+            String tickerResponse = futuresClient.market().ticker24H(params);
+            JSONObject tickerObj = new JSONObject(tickerResponse);
+
+            String lastPrice = tickerObj.optString("lastPrice", "0");
+            BigDecimal markPrice = new BigDecimal(lastPrice);
+
+            log.debug("📊 Mark price for {}: {}", symbol, markPrice);
+            return markPrice;
+
         } catch (Exception e) {
             log.warn("⚠️ Could not fetch mark price for {}: {}", symbol, e.getMessage());
             return BigDecimal.ZERO;
@@ -1015,7 +1046,8 @@ public class TradeService {
     }
 
     /**
-     * Get all open orders for a specific symbol
+     * Get all open orders for a specific symbol from a list of all orders
+     * Filters orders by symbol and builds BinanceOrderDTO objects
      */
     private List<BinanceOrderDTO> getOpenOrdersForSymbol(JSONArray allOrders, String symbol) {
         List<BinanceOrderDTO> symbolOrders = new ArrayList<>();

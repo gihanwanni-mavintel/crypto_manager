@@ -22,12 +22,12 @@ public class TradeManagementConfigService {
      * Default configuration - used as fallback
      */
     private static final TradeManagementConfig DEFAULT_CONFIG = TradeManagementConfig.builder()
-            .maxPositionSize(new BigDecimal("1000"))
-            .maxLeverage(new BigDecimal("10"))
-            .tp1ExitPercentage(new BigDecimal("25"))
-            .tp2ExitPercentage(new BigDecimal("25"))
-            .tp3ExitPercentage(new BigDecimal("25"))
-            .tp4ExitPercentage(new BigDecimal("25"))
+            .maxPositionSizePercent(new BigDecimal("10"))
+            .maxLeverage(new BigDecimal("20"))
+            .tp1Percentage(new BigDecimal("25"))
+            .tp2Percentage(new BigDecimal("25"))
+            .tp3Percentage(new BigDecimal("25"))
+            .tp4Percentage(new BigDecimal("25"))
             .marginMode("ISOLATE")
             .build();
 

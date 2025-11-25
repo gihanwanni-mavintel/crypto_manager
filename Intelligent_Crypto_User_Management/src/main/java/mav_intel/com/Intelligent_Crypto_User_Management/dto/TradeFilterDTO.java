@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -18,7 +19,9 @@ import java.time.LocalDate;
 public class TradeFilterDTO {
 
     // ============ PAGINATION ============
+    @Default
     private Integer page = 0;          // Page number (0-indexed)
+    @Default
     private Integer pageSize = 20;     // Trades per page
 
     // ============ SYMBOL FILTER ============
@@ -44,6 +47,8 @@ public class TradeFilterDTO {
     private String exitReason;         // "TP1", "TP2", "TP3", "TP4", "SL", "MANUAL"
 
     // ============ SORTING ============
+    @Default
     private String sortBy = "closedAt"; // Field to sort by (closedAt, pnl, pnlPercent, etc.)
+    @Default
     private String sortOrder = "DESC";  // "ASC" or "DESC"
 }

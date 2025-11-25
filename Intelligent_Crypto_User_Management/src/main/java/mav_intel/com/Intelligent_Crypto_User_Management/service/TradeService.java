@@ -3,6 +3,8 @@ package mav_intel.com.Intelligent_Crypto_User_Management.service;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import lombok.extern.slf4j.Slf4j;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.BinancePositionDTO;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.BinanceOrderDTO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONArray;
@@ -683,5 +686,193 @@ public class TradeService {
      */
     public List<Trade> getTradesByPair(String pair) {
         return tradeRepository.findByPair(pair);
+    }
+
+    // ============ BINANCE OPEN POSITIONS ============
+
+    /**
+     * ✅ NEW: Fetch all open positions from Binance Futures
+     *
+     * Retrieves:
+     * - Current open positions with P&L calculations
+     * - Mark prices for real-time P&L updates
+     * - Related open orders (entry, TP, SL)
+     *
+     * @return List of open positions from Binance
+     */
+    public List<BinancePositionDTO> getOpenPositionsFromBinance() {
+        List<BinancePositionDTO> positions = new ArrayList<>();
+
+        try {
+            log.info("📊 Fetching open positions from Binance...");
+
+            // Get all open positions with unrealized P&L
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("recvWindow", 60000);
+            String positionsResponse = futuresClient.account().positionRisk(params);
+            JSONArray positionsArray = new JSONArray(positionsResponse);
+
+            // Get all open orders to match with positions
+            String ordersResponse = futuresClient.account().openOrders(params);
+            JSONArray ordersArray = new JSONArray(ordersResponse);
+
+            for (int i = 0; i < positionsArray.length(); i++) {
+                JSONObject posObj = positionsArray.getJSONObject(i);
+
+                // Skip positions with 0 quantity (closed)
+                double positionAmt = posObj.getDouble("positionAmt");
+                if (positionAmt == 0) {
+                    continue;
+                }
+
+                String symbol = posObj.getString("symbol");
+
+                // Get current mark price for this symbol
+                BigDecimal markPrice = getMarkPrice(symbol);
+
+                // Build position DTO
+                BinancePositionDTO position = BinancePositionDTO.builder()
+                    .symbol(symbol)
+                    .side(positionAmt > 0 ? "LONG" : "SHORT")
+                    .entryPrice(new BigDecimal(posObj.getString("entryPrice")))
+                    .markPrice(markPrice)
+                    .quantity(new BigDecimal(String.format("%.8f", Math.abs(positionAmt))))
+                    .leverage(posObj.getInt("leverage"))
+                    .unrealizedPnL(new BigDecimal(posObj.getString("unRealizedProfit")))
+                    .unrealizedPnLPct(new BigDecimal(posObj.getString("percentage")).multiply(BigDecimal.valueOf(100)))
+                    .liquidationPrice(new BigDecimal(posObj.getString("liquidationPrice")))
+                    .marginType(posObj.getString("marginType").toLowerCase())
+                    .isReduceOnly(posObj.getBoolean("reduceOnly"))
+                    .openedAt(System.currentTimeMillis())
+                    .openOrders(getOpenOrdersForSymbol(ordersArray, symbol))
+                    .build();
+
+                positions.add(position);
+                log.info("✅ Position fetched: {} {} @ ${} Qty={} P&L=${} ({}%)",
+                    position.getSide(), symbol, position.getMarkPrice(),
+                    position.getQuantity(), position.getUnrealizedPnL(),
+                    position.getUnrealizedPnLPct());
+            }
+
+            log.info("📊 Total open positions: {}", positions.size());
+            return positions;
+
+        } catch (Exception e) {
+            log.error("❌ Error fetching open positions from Binance: {}", e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Get mark price for a symbol from Binance
+     */
+    private BigDecimal getMarkPrice(String symbol) {
+        try {
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("symbol", symbol);
+            params.put("recvWindow", 60000);
+            String response = futuresClient.market().ticker(params);
+            JSONObject ticker = new JSONObject(response);
+            return new BigDecimal(ticker.getString("markPrice"));
+        } catch (Exception e) {
+            log.warn("⚠️ Could not fetch mark price for {}: {}", symbol, e.getMessage());
+            return BigDecimal.ZERO;
+        }
+    }
+
+    /**
+     * Get all open orders for a specific symbol
+     */
+    private List<BinanceOrderDTO> getOpenOrdersForSymbol(JSONArray allOrders, String symbol) {
+        List<BinanceOrderDTO> symbolOrders = new ArrayList<>();
+
+        try {
+            for (int i = 0; i < allOrders.length(); i++) {
+                JSONObject orderObj = allOrders.getJSONObject(i);
+
+                if (!symbol.equals(orderObj.getString("symbol"))) {
+                    continue; // Skip orders for different symbols
+                }
+
+                BinanceOrderDTO order = BinanceOrderDTO.builder()
+                    .orderId(orderObj.getString("orderId"))
+                    .clientOrderId(orderObj.getString("clientOrderId"))
+                    .symbol(symbol)
+                    .side(orderObj.getString("side"))
+                    .type(orderObj.getString("type"))
+                    .price(new BigDecimal(orderObj.getString("price")))
+                    .stopPrice(new BigDecimal(orderObj.optString("stopPrice", "0")))
+                    .quantity(new BigDecimal(orderObj.getString("origQty")))
+                    .executedQuantity(new BigDecimal(orderObj.getString("executedQty")))
+                    .status(orderObj.getString("status"))
+                    .timeInForce(orderObj.getString("timeInForce"))
+                    .reduceOnly(orderObj.getBoolean("reduceOnly"))
+                    .createTime(orderObj.getLong("time"))
+                    .updateTime(orderObj.getLong("updateTime"))
+                    .build();
+
+                // Set label based on order type
+                if ("LIMIT".equals(order.getType()) && order.getPrice().compareTo(BigDecimal.ZERO) > 0) {
+                    order.setOrderLabel("ENTRY");
+                } else if ("STOP_MARKET".equals(order.getType())) {
+                    order.setOrderLabel("SL");
+                } else if ("TAKE_PROFIT_MARKET".equals(order.getType())) {
+                    order.setOrderLabel("TP");
+                }
+
+                symbolOrders.add(order);
+            }
+        } catch (Exception e) {
+            log.warn("⚠️ Error parsing orders for {}: {}", symbol, e.getMessage());
+        }
+
+        return symbolOrders;
+    }
+
+    /**
+     * ✅ NEW: Close position on Binance with MARKET order
+     *
+     * Uses reduceOnly=true to liquidate existing position
+     *
+     * @param symbol Trading pair (e.g., SOLUSDT)
+     * @param side Current position side (LONG or SHORT)
+     * @param quantity Quantity to close
+     * @return True if order placed successfully
+     */
+    public boolean closePositionOnBinanceMarket(String symbol, String side, double quantity) {
+        try {
+            // Determine close side: opposite of current position
+            String closeSide = "LONG".equalsIgnoreCase(side) ? "SELL" : "BUY";
+
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("symbol", symbol);
+            params.put("side", closeSide);
+            params.put("type", "MARKET");
+            params.put("quantity", quantity);
+            params.put("reduceOnly", true);  // ✅ Close position only
+            params.put("recvWindow", 60000);
+
+            log.info("📉 Closing position: {} {} Qty={}...", closeSide, symbol, quantity);
+            String resp = futuresClient.account().newOrder(params);
+
+            JSONObject respObj = new JSONObject(resp);
+            String orderId = respObj.optString("orderId", "");
+            String status = respObj.optString("status", "FAILED");
+
+            if ("FILLED".equals(status)) {
+                log.info("✅ Position closed successfully: orderId={}", orderId);
+                return true;
+            } else if ("PARTIALLY_FILLED".equals(status)) {
+                log.warn("⚠️ Position partially closed: orderId={}", orderId);
+                return true;
+            } else {
+                log.error("❌ Failed to close position: {}", status);
+                return false;
+            }
+
+        } catch (Exception e) {
+            log.error("❌ Error closing position on Binance: {}", e.getMessage());
+            return false;
+        }
     }
 }

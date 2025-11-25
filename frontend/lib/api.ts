@@ -230,6 +230,26 @@ export const signalsAPI = {
   },
 };
 
+// Binance API - Real-time positions and order management
+export const binanceAPI = {
+  // Get all open positions from Binance Futures
+  getOpenPositions: async () => {
+    const response = await apiRequest('/api/binance/openPositions');
+    if (!response.ok) throw new Error('Failed to fetch open positions');
+    return response.json();
+  },
+
+  // Close a position on Binance with MARKET order
+  closePosition: async (symbol: string, side: string, quantity: number) => {
+    const response = await apiRequest('/api/binance/closePosition', {
+      method: 'POST',
+      body: JSON.stringify({ symbol, side, quantity }),
+    });
+    if (!response.ok) throw new Error('Failed to close position');
+    return response.json();
+  },
+};
+
 // WebSocket connection for real-time signals
 export const createWebSocketConnection = (
   onMessage: (data: any) => void,

@@ -250,6 +250,19 @@ export const binanceAPI = {
   },
 };
 
+// Trade History API - Get filtered trade history with statistics
+export const tradeHistoryAPI = {
+  // Get closed trades with filtering, sorting, and pagination
+  getClosedTrades: async (filter: any) => {
+    const response = await apiRequest('/api/trades/history', {
+      method: 'POST',
+      body: JSON.stringify(filter),
+    });
+    if (!response.ok) throw new Error('Failed to fetch trade history');
+    return response.json();
+  },
+};
+
 // WebSocket connection for real-time signals
 export const createWebSocketConnection = (
   onMessage: (data: any) => void,

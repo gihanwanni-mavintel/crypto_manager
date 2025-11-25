@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.BinancePositionDTO;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.BinanceOrderDTO;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.TradeFilterDTO;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.TradeHistoryResponseDTO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
@@ -18,11 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.json.JSONArray;
 
 @Slf4j
@@ -686,6 +691,235 @@ public class TradeService {
      */
     public List<Trade> getTradesByPair(String pair) {
         return tradeRepository.findByPair(pair);
+    }
+
+    // ============ TRADE HISTORY & FILTERING ============
+
+    /**
+     * ✅ NEW: Get closed trades with filtering and statistics
+     *
+     * Supports:
+     * - Filter by symbol, date range, P&L amount, P&L %
+     * - Pagination with configurable page size
+     * - Sorting by various fields
+     * - Summary statistics: win rate, best/worst trades, etc.
+     *
+     * @param filter Trade filter criteria
+     * @return TradeHistoryResponseDTO with trades and statistics
+     */
+    public TradeHistoryResponseDTO getClosedTrades(TradeFilterDTO filter) {
+        try {
+            log.info("📊 Fetching closed trades with filters: symbol={}, fromDate={}, toDate={}",
+                filter.getSymbol(), filter.getFromDate(), filter.getToDate());
+
+            // Fetch all closed trades from database
+            List<Trade> allClosedTrades = tradeRepository.findByStatus("CLOSED");
+
+            // Apply filters
+            List<Trade> filteredTrades = allClosedTrades.stream()
+                .filter(trade -> applyTradeFilters(trade, filter))
+                .sorted((t1, t2) -> compareTrades(t1, t2, filter))
+                .collect(Collectors.toList());
+
+            // Calculate pagination
+            int page = filter.getPage() != null ? filter.getPage() : 0;
+            int pageSize = filter.getPageSize() != null ? filter.getPageSize() : 20;
+            int totalCount = filteredTrades.size();
+            int totalPages = (totalCount + pageSize - 1) / pageSize;
+
+            // Get paginated trades
+            int fromIndex = page * pageSize;
+            int toIndex = Math.min(fromIndex + pageSize, filteredTrades.size());
+            List<Trade> paginatedTrades = fromIndex < filteredTrades.size()
+                ? filteredTrades.subList(fromIndex, toIndex)
+                : new ArrayList<>();
+
+            // Calculate statistics
+            return calculateTradeStatistics(paginatedTrades, filteredTrades, page, pageSize, totalCount, totalPages);
+
+        } catch (Exception e) {
+            log.error("❌ Error fetching closed trades: {}", e.getMessage());
+            return TradeHistoryResponseDTO.builder()
+                .trades(new ArrayList<>())
+                .totalTrades(0)
+                .winningTrades(0)
+                .losingTrades(0)
+                .build();
+        }
+    }
+
+    /**
+     * Apply all filters to a trade
+     */
+    private boolean applyTradeFilters(Trade trade, TradeFilterDTO filter) {
+        // Symbol filter
+        if (filter.getSymbol() != null && !filter.getSymbol().isEmpty()) {
+            if (!trade.getPair().contains(filter.getSymbol())) {
+                return false;
+            }
+        }
+
+        // Date range filter
+        if (filter.getFromDate() != null || filter.getToDate() != null) {
+            OffsetDateTime tradeDate = trade.getClosedAt();
+            if (tradeDate == null) return false;
+            LocalDate closedLocalDate = tradeDate.atZoneSameInstant(ZoneId.systemDefault()).toLocalDate();
+
+            if (filter.getFromDate() != null && closedLocalDate.isBefore(filter.getFromDate())) {
+                return false;
+            }
+            if (filter.getToDate() != null && closedLocalDate.isAfter(filter.getToDate())) {
+                return false;
+            }
+        }
+
+        // P&L amount filter
+        if (filter.getPnlMin() != null && trade.getPnl().compareTo(filter.getPnlMin()) < 0) {
+            return false;
+        }
+        if (filter.getPnlMax() != null && trade.getPnl().compareTo(filter.getPnlMax()) > 0) {
+            return false;
+        }
+
+        // P&L percentage filter
+        if (filter.getPnlPercentMin() != null && trade.getPnlPercent().compareTo(filter.getPnlPercentMin()) < 0) {
+            return false;
+        }
+        if (filter.getPnlPercentMax() != null && trade.getPnlPercent().compareTo(filter.getPnlPercentMax()) > 0) {
+            return false;
+        }
+
+        // Side filter
+        if (filter.getSide() != null && !filter.getSide().isEmpty()) {
+            if (!trade.getSide().equals(filter.getSide())) {
+                return false;
+            }
+        }
+
+        // Exit reason filter
+        if (filter.getExitReason() != null && !filter.getExitReason().isEmpty()) {
+            if (!filter.getExitReason().equals(trade.getExitReason())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Compare trades for sorting
+     */
+    private int compareTrades(Trade t1, Trade t2, TradeFilterDTO filter) {
+        String sortBy = filter.getSortBy() != null ? filter.getSortBy() : "closedAt";
+        String sortOrder = filter.getSortOrder() != null ? filter.getSortOrder() : "DESC";
+
+        int comparison = 0;
+        switch (sortBy) {
+            case "pnl":
+                comparison = t1.getPnl().compareTo(t2.getPnl());
+                break;
+            case "pnlPercent":
+                comparison = t1.getPnlPercent().compareTo(t2.getPnlPercent());
+                break;
+            case "symbol":
+                comparison = t1.getPair().compareTo(t2.getPair());
+                break;
+            case "closedAt":
+            default:
+                comparison = t1.getClosedAt().compareTo(t2.getClosedAt());
+        }
+
+        return "ASC".equals(sortOrder) ? comparison : -comparison;
+    }
+
+    /**
+     * Calculate comprehensive trade statistics
+     */
+    private TradeHistoryResponseDTO calculateTradeStatistics(
+            List<Trade> paginatedTrades,
+            List<Trade> allFilteredTrades,
+            int page,
+            int pageSize,
+            int totalCount,
+            int totalPages) {
+
+        int totalTrades = allFilteredTrades.size();
+        BigDecimal totalPnL = BigDecimal.ZERO;
+        BigDecimal totalPnLPercent = BigDecimal.ZERO;
+        int winningTrades = 0;
+        int losingTrades = 0;
+        Trade bestTrade = null;
+        Trade worstTrade = null;
+        BigDecimal largestWin = BigDecimal.ZERO;
+        BigDecimal largestLoss = BigDecimal.ZERO;
+
+        for (Trade trade : allFilteredTrades) {
+            BigDecimal pnl = trade.getPnl();
+            totalPnL = totalPnL.add(pnl);
+            totalPnLPercent = totalPnLPercent.add(trade.getPnlPercent());
+
+            if (pnl.compareTo(BigDecimal.ZERO) > 0) {
+                winningTrades++;
+                if (largestWin.compareTo(pnl) < 0) {
+                    largestWin = pnl;
+                    bestTrade = trade;
+                }
+            } else if (pnl.compareTo(BigDecimal.ZERO) < 0) {
+                losingTrades++;
+                if (largestLoss.compareTo(pnl) > 0) {
+                    largestLoss = pnl;
+                    worstTrade = trade;
+                }
+            }
+        }
+
+        // Calculate averages
+        BigDecimal averagePnL = totalTrades > 0
+            ? totalPnL.divide(BigDecimal.valueOf(totalTrades), 8, RoundingMode.HALF_UP)
+            : BigDecimal.ZERO;
+        BigDecimal averagePnLPct = totalTrades > 0
+            ? totalPnLPercent.divide(BigDecimal.valueOf(totalTrades), 2, RoundingMode.HALF_UP)
+            : BigDecimal.ZERO;
+
+        // Calculate win rate
+        BigDecimal winRate = totalTrades > 0
+            ? BigDecimal.valueOf(winningTrades).divide(BigDecimal.valueOf(totalTrades), 4, RoundingMode.HALF_UP)
+              .multiply(BigDecimal.valueOf(100))
+            : BigDecimal.ZERO;
+
+        // Calculate profit factor
+        BigDecimal profitFactor = losingTrades > 0 && largestLoss.compareTo(BigDecimal.ZERO) != 0
+            ? largestWin.divide(largestLoss.abs(), 2, RoundingMode.HALF_UP)
+            : BigDecimal.ZERO;
+
+        // Calculate win/loss ratio
+        BigDecimal winLossRatio = losingTrades > 0
+            ? BigDecimal.valueOf(winningTrades).divide(BigDecimal.valueOf(losingTrades), 2, RoundingMode.HALF_UP)
+            : BigDecimal.valueOf(winningTrades);
+
+        log.info("📈 Trade stats: Total={}, Wins={}, Losses={}, WinRate={}%, AvgP&L={}",
+            totalTrades, winningTrades, losingTrades, winRate, averagePnL);
+
+        return TradeHistoryResponseDTO.builder()
+            .trades(paginatedTrades)
+            .page(page)
+            .pageSize(pageSize)
+            .totalCount((long) totalCount)
+            .totalPages(totalPages)
+            .totalTrades(totalTrades)
+            .winningTrades(winningTrades)
+            .losingTrades(losingTrades)
+            .winRate(winRate)
+            .totalPnL(totalPnL)
+            .averagePnL(averagePnL)
+            .averagePnLPct(averagePnLPct)
+            .bestTrade(bestTrade)
+            .worstTrade(worstTrade)
+            .largestWin(largestWin)
+            .largestLoss(largestLoss)
+            .profitFactor(profitFactor)
+            .winLossRatio(winLossRatio)
+            .build();
     }
 
     // ============ BINANCE OPEN POSITIONS ============

@@ -3,6 +3,8 @@ package mav_intel.com.Intelligent_Crypto_User_Management.controller;
 import lombok.extern.slf4j.Slf4j;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.TradeFilterDTO;
+import mav_intel.com.Intelligent_Crypto_User_Management.dto.TradeHistoryResponseDTO;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Trade;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.User;
 import mav_intel.com.Intelligent_Crypto_User_Management.repository.UserRepository;
@@ -124,5 +126,18 @@ public class TradeController {
         log.info("📥 Get trades for pair: {}", pair);
         List<Trade> trades = tradeService.getTradesByPair(pair);
         return ResponseEntity.ok(trades);
+    }
+
+    /**
+     * Get filtered trade history with statistics
+     * POST /api/trades/history
+     */
+    @PostMapping("/history")
+    public ResponseEntity<TradeHistoryResponseDTO> getTradeHistory(@RequestBody TradeFilterDTO filter) {
+        log.info("📊 Get trade history with filters: symbol={}, page={}, pageSize={}",
+                 filter.getSymbol(), filter.getPage(), filter.getPageSize());
+
+        TradeHistoryResponseDTO response = tradeService.getClosedTrades(filter);
+        return ResponseEntity.ok(response);
     }
 }

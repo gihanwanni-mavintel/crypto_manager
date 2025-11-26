@@ -28,7 +28,7 @@ public class TradeManagementConfig {
     // ============ MARGIN & LEVERAGE ============
     @Column(name = "margin_mode", length = 20, nullable = false)
     @Default
-    private String marginMode = "ISOLATE";
+    private String marginMode = "ISOLATED";
 
     @Column(name = "max_leverage", nullable = false, columnDefinition = "DECIMAL(5,2)")
     @Default

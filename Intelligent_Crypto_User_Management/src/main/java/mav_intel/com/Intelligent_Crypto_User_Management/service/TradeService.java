@@ -274,15 +274,17 @@ public class TradeService {
                     tp4QtyAdjusted, config.getTp4Percentage()
                 );
 
-                // ✅ CALCULATE TP PRICES BASED ON ENTRY PRICE + PROFIT PERCENTAGE
-                double entryPrice = trade.getEntryPrice();
-                double tp1Price = entryPrice * (1.0 + config.getTp1Percentage().doubleValue() / 100.0);
-                double tp2Price = entryPrice * (1.0 + config.getTp2Percentage().doubleValue() / 100.0);
-                double tp3Price = entryPrice * (1.0 + config.getTp3Percentage().doubleValue() / 100.0);
-                double tp4Price = entryPrice * (1.0 + config.getTp4Percentage().doubleValue() / 100.0);
+                // ✅ USE TP PRICES FROM SIGNAL (DO NOT RECALCULATE)
+                // TP percentages are for POSITION SIZING only, not for price calculation
+                double tp1Price = trade.getTp1() != null && trade.getTp1() > 0 ? trade.getTp1() : 0;
+                double tp2Price = trade.getTp2() != null && trade.getTp2() > 0 ? trade.getTp2() : 0;
+                double tp3Price = trade.getTp3() != null && trade.getTp3() > 0 ? trade.getTp3() : 0;
+                double tp4Price = trade.getTp4() != null && trade.getTp4() > 0 ? trade.getTp4() : 0;
 
-                log.info("📈 TP Prices calculated from entry (${}) with profit percentages: TP1=${}, TP2=${}, TP3=${}, TP4=${}",
-                    entryPrice, tp1Price, tp2Price, tp3Price, tp4Price);
+                log.info("📈 TP Prices from signal: TP1=${}, TP2=${}, TP3=${}, TP4=${} | Position sizing: TP1={}%, TP2={}%, TP3={}%, TP4={}%",
+                    tp1Price, tp2Price, tp3Price, tp4Price,
+                    config.getTp1Percentage(), config.getTp2Percentage(),
+                    config.getTp3Percentage(), config.getTp4Percentage());
 
                 // Place TP orders with CALCULATED PRICES and STEP-SIZE-ADJUSTED QUANTITIES
                 if (Double.parseDouble(tp1QtyAdjusted) > 0) {
@@ -533,10 +535,10 @@ public class TradeService {
         try {
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
             params.put("symbol", symbol);
-            params.put("margintype", marginMode); // ✅ BINANCE FAPI: Must be "margintype" (lowercase - case-sensitive)
+            params.put("marginType", marginMode); // ✅ BINANCE FAPI: Must be "marginType" (capital T - case-sensitive per official docs)
             params.put("recvWindow", 60000);
 
-            log.info("🔧 Setting margin mode: symbol={}, margintype={}", symbol, marginMode);
+            log.info("🔧 Setting margin mode: symbol={}, marginType={}", symbol, marginMode);
             futuresClient.account().changeMarginType(params);
             log.info("✅ Margin mode successfully set to {} for {}", marginMode, symbol);
         } catch (Exception e) {

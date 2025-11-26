@@ -268,24 +268,34 @@ public class TradeService {
                 String tp4QtyAdjusted = adjustQuantityToStepSize(tp4QtyRounded, filters.lotSize);
 
                 log.info("📊 Position Quantity Split: TP1={}({}%), TP2={}({}%), TP3={}({}%), TP4={}({}%)",
-                    tp1QtyAdjusted, config.getTp1ExitPercentage(),
-                    tp2QtyAdjusted, config.getTp2ExitPercentage(),
-                    tp3QtyAdjusted, config.getTp3ExitPercentage(),
-                    tp4QtyAdjusted, config.getTp4ExitPercentage()
+                    tp1QtyAdjusted, config.getTp1Percentage(),
+                    tp2QtyAdjusted, config.getTp2Percentage(),
+                    tp3QtyAdjusted, config.getTp3Percentage(),
+                    tp4QtyAdjusted, config.getTp4Percentage()
                 );
 
-                // Place TP orders with SIGNAL TP PRICES (unchanged) and STEP-SIZE-ADJUSTED QUANTITIES
-                if (trade.getTp1() != null && trade.getTp1() > 0 && Double.parseDouble(tp1QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp1QtyAdjusted), trade.getTp1(), "TP1");
+                // ✅ CALCULATE TP PRICES BASED ON ENTRY PRICE + PROFIT PERCENTAGE
+                double entryPrice = trade.getEntryPrice();
+                double tp1Price = entryPrice * (1.0 + config.getTp1Percentage().doubleValue() / 100.0);
+                double tp2Price = entryPrice * (1.0 + config.getTp2Percentage().doubleValue() / 100.0);
+                double tp3Price = entryPrice * (1.0 + config.getTp3Percentage().doubleValue() / 100.0);
+                double tp4Price = entryPrice * (1.0 + config.getTp4Percentage().doubleValue() / 100.0);
+
+                log.info("📈 TP Prices calculated from entry (${}) with profit percentages: TP1=${}, TP2=${}, TP3=${}, TP4=${}",
+                    entryPrice, tp1Price, tp2Price, tp3Price, tp4Price);
+
+                // Place TP orders with CALCULATED PRICES and STEP-SIZE-ADJUSTED QUANTITIES
+                if (Double.parseDouble(tp1QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp1QtyAdjusted), tp1Price, "TP1");
                 }
-                if (trade.getTp2() != null && trade.getTp2() > 0 && Double.parseDouble(tp2QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp2QtyAdjusted), trade.getTp2(), "TP2");
+                if (Double.parseDouble(tp2QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp2QtyAdjusted), tp2Price, "TP2");
                 }
-                if (trade.getTp3() != null && trade.getTp3() > 0 && Double.parseDouble(tp3QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp3QtyAdjusted), trade.getTp3(), "TP3");
+                if (Double.parseDouble(tp3QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp3QtyAdjusted), tp3Price, "TP3");
                 }
-                if (trade.getTp4() != null && trade.getTp4() > 0 && Double.parseDouble(tp4QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp4QtyAdjusted), trade.getTp4(), "TP4");
+                if (Double.parseDouble(tp4QtyAdjusted) > 0) {
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp4QtyAdjusted), tp4Price, "TP4");
                 }
             } else {
                 // Fallback: Place all TP orders with full quantity (if no config)
@@ -523,15 +533,15 @@ public class TradeService {
         try {
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
             params.put("symbol", symbol);
-            params.put("marginType", marginMode); // ✅ BINANCE FAPI: Must be "marginType" (case-sensitive)
+            params.put("margintype", marginMode); // ✅ BINANCE FAPI: Must be "margintype" (lowercase - case-sensitive)
             params.put("recvWindow", 60000);
 
-            log.info("🔧 Setting margin mode: symbol={}, marginType={}", symbol, marginMode);
+            log.info("🔧 Setting margin mode: symbol={}, margintype={}", symbol, marginMode);
             futuresClient.account().changeMarginType(params);
             log.info("✅ Margin mode successfully set to {} for {}", marginMode, symbol);
         } catch (Exception e) {
             // Note: This may fail if margin type is already set to the requested value
-            log.warn("⚠️ Error setting margin mode (marginType={}): {}", marginMode, e.getMessage());
+            log.warn("⚠️ Error setting margin mode (margintype={}): {}", marginMode, e.getMessage());
         }
     }
 

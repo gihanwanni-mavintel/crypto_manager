@@ -56,12 +56,18 @@ public class TradeService {
                 return new ExecuteTradeResponse(null, request.getPair(), "FAILED", "Missing required fields");
             }
 
-            // ✅ VALIDATE AGAINST TRADE MANAGEMENT CONFIG (Position Size only)
+            // ✅ LOG TRADE MANAGEMENT CONFIG (will cap values, not reject)
             Long userId = request.getUserId();
-            if (userId != null && !tradeManagementConfigService.isTradeValid(userId, request)) {
-                String validationError = tradeManagementConfigService.getValidationError(userId, request);
-                log.warn("❌ Trade validation FAILED: {}", validationError);
-                return new ExecuteTradeResponse(null, request.getPair(), "FAILED", validationError);
+            if (userId != null) {
+                TradeManagementConfig config = tradeManagementConfigService.getActiveConfig(userId);
+                BigDecimal tradeAmount = BigDecimal.valueOf(request.getAmount() != null ? request.getAmount() : 0);
+                BigDecimal tradeLeverage = BigDecimal.valueOf(request.getLeverage() != null ? request.getLeverage() : 1);
+
+                if (tradeAmount.compareTo(config.getMaxPositionSize()) > 0) {
+                    log.info("⚠️ Position size ${} exceeds max ${}, will be CAPPED", tradeAmount, config.getMaxPositionSize());
+                } else if (tradeLeverage.compareTo(config.getMaxLeverage()) > 0) {
+                    log.info("⚠️ Leverage {}x exceeds max {}x, will be CAPPED", tradeLeverage, config.getMaxLeverage());
+                }
             }
 
             log.info("🚀 Executing trade: {} {} @ ${}", request.getSide(), request.getPair(), request.getEntry());
@@ -187,6 +193,18 @@ public class TradeService {
 
             // 2. Place LIMIT order at entry price
             double entryQty = calculateQuantity(trade.getEntryQuantity(), trade.getEntryPrice(), balance);
+
+            // ✅ CAP POSITION SIZE TO TRADE MANAGEMENT MAXIMUM
+            if (config != null) {
+                double positionValue = entryQty * trade.getEntryPrice();
+                double maxPositionSize = config.getMaxPositionSize().doubleValue();
+                if (positionValue > maxPositionSize) {
+                    double cappedQty = maxPositionSize / trade.getEntryPrice();
+                    log.info("⚠️ Position size capped: ${} → ${} | Qty: {} → {}",
+                        positionValue, maxPositionSize, entryQty, cappedQty);
+                    entryQty = cappedQty;
+                }
+            }
 
             // ✅ FETCH DYNAMIC FILTERS FROM BINANCE API (LOT_SIZE, MIN_NOTIONAL, precision)
             SymbolFilters filters = getSymbolFilters(symbol);

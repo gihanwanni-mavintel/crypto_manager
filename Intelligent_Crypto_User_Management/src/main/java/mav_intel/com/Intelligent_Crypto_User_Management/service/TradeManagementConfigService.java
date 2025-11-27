@@ -165,13 +165,13 @@ public class TradeManagementConfigService {
     }
 
     /**
-     * Private helper to validate margin mode is either ISOLATE or CROSS
+     * Private helper to validate margin mode is either ISOLATE, ISOLATED, or CROSS
      */
     private void validateMarginMode(TradeManagementConfigDTO dto) {
         String marginMode = dto.getMarginMode();
-        if (marginMode == null || (!marginMode.equals("ISOLATE") && !marginMode.equals("CROSS"))) {
+        if (marginMode == null || (!marginMode.equals("ISOLATE") && !marginMode.equals("ISOLATED") && !marginMode.equals("CROSS"))) {
             log.error("❌ Invalid margin mode: {}", marginMode);
-            throw new IllegalArgumentException("Margin mode must be either ISOLATE or CROSS, got: " + marginMode);
+            throw new IllegalArgumentException("Margin mode must be either ISOLATE, ISOLATED, or CROSS, got: " + marginMode);
         }
     }
 }

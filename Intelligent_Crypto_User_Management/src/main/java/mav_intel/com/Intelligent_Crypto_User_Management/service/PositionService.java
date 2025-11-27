@@ -39,7 +39,9 @@ public class PositionService {
         try {
             log.info("📊 Fetching active positions from Binance...");
 
-            String positionResponse = futuresClient.account().positionInformation();
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("recvWindow", 60000);
+            String positionResponse = futuresClient.account().positionInformation(params);
             JSONArray positions = new JSONArray(positionResponse);
             List<BinancePositionDTO> activePositions = new ArrayList<>();
 
@@ -115,11 +117,11 @@ public class PositionService {
                 BinanceOrderDTO orderDTO = BinanceOrderDTO.builder()
                     .orderId(order.getString("orderId"))
                     .symbol(order.getString("symbol"))
-                    .price(order.getDouble("price"))
-                    .quantity(order.getDouble("origQty"))
-                    .executedQuantity(order.getDouble("executedQty"))
+                    .price(new BigDecimal(order.getDouble("price")))
+                    .quantity(new BigDecimal(order.getDouble("origQty")))
+                    .executedQuantity(new BigDecimal(order.getDouble("executedQty")))
                     .status(order.getString("status"))
-                    .orderType(order.getString("type"))
+                    .type(order.getString("type"))
                     .side(order.getString("side"))
                     .timeInForce(order.getString("timeInForce"))
                     .updateTime(order.getLong("updateTime"))
@@ -316,7 +318,7 @@ public class PositionService {
             List<BinanceOrderDTO> orders = getOpenOrdersForSymbol(symbol);
 
             for (BinanceOrderDTO order : orders) {
-                if ("STOP_MARKET".equals(order.getOrderType()) && side.equals(order.getSide())) {
+                if ("STOP_MARKET".equals(order.getType()) && side.equals(order.getSide())) {
                     LinkedHashMap<String, Object> params = new LinkedHashMap<>();
                     params.put("symbol", symbol);
                     params.put("orderId", order.getOrderId());
@@ -340,7 +342,7 @@ public class PositionService {
             List<BinanceOrderDTO> orders = getOpenOrdersForSymbol(symbol);
 
             for (BinanceOrderDTO order : orders) {
-                if ("TAKE_PROFIT_MARKET".equals(order.getOrderType()) && side.equals(order.getSide())) {
+                if ("TAKE_PROFIT_MARKET".equals(order.getType()) && side.equals(order.getSide())) {
                     LinkedHashMap<String, Object> params = new LinkedHashMap<>();
                     params.put("symbol", symbol);
                     params.put("orderId", order.getOrderId());

@@ -181,12 +181,12 @@ export function TradeHistoryComponent({ history: initialHistory }: TradeHistoryP
             {/* Side Filter */}
             <div className="space-y-2">
               <Label htmlFor="side-filter">Side</Label>
-              <Select value={sideFilter || ""} onValueChange={(value) => { setSideFilter(value || null); setPage(0); }}>
+              <Select value={sideFilter || "all"} onValueChange={(value) => { setSideFilter(value === "all" ? null : value); setPage(0); }}>
                 <SelectTrigger className="text-xs sm:text-sm">
                   <SelectValue placeholder="All sides" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All sides</SelectItem>
+                  <SelectItem value="all">All sides</SelectItem>
                   <SelectItem value="BUY">BUY</SelectItem>
                   <SelectItem value="SELL">SELL</SelectItem>
                 </SelectContent>
@@ -196,12 +196,12 @@ export function TradeHistoryComponent({ history: initialHistory }: TradeHistoryP
             {/* Exit Reason Filter */}
             <div className="space-y-2">
               <Label htmlFor="exit-reason-filter">Exit Reason</Label>
-              <Select value={exitReasonFilter || ""} onValueChange={(value) => { setExitReasonFilter(value || null); setPage(0); }}>
+              <Select value={exitReasonFilter || "all"} onValueChange={(value) => { setExitReasonFilter(value === "all" ? null : value); setPage(0); }}>
                 <SelectTrigger className="text-xs sm:text-sm">
                   <SelectValue placeholder="All reasons" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All reasons</SelectItem>
+                  <SelectItem value="all">All reasons</SelectItem>
                   <SelectItem value="TP1">TP1</SelectItem>
                   <SelectItem value="TP2">TP2</SelectItem>
                   <SelectItem value="TP3">TP3</SelectItem>

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { Radio, TrendingUp, ArrowLeftRight, History, Settings, ChevronLeft, ChevronRight, LogOut } from "lucide-react"
+import { Radio, TrendingUp, History, Settings, ChevronLeft, ChevronRight, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { authAPI } from "@/lib/api"
 
@@ -22,11 +22,12 @@ const navItems = [
     label: "Active Positions",
     icon: TrendingUp,
   },
-  {
-    id: "trading",
-    label: "Manual Trading",
-    icon: ArrowLeftRight,
-  },
+  // ✅ Manual Trading hidden from sidebar but functionality preserved in manual-trading.tsx
+  // {
+  //   id: "trading",
+  //   label: "Manual Trading",
+  //   icon: ArrowLeftRight,
+  // },
   {
     id: "management",
     label: "Trade Management",

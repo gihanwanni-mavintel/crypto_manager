@@ -206,7 +206,7 @@ public class TradeService {
                 return false;
             }
 
-            double roundedPrice = roundPrice(trade.getEntryPrice()); // ✅ ROUND PRICE
+            double roundedPrice = roundPrice(trade.getEntryPrice(), filters.pricePrecision); // ✅ ROUND PRICE WITH DYNAMIC PRECISION
 
             LinkedHashMap<String, Object> orderParams = new LinkedHashMap<>();
             orderParams.put("symbol", symbol);
@@ -244,7 +244,7 @@ public class TradeService {
             // 3. Place Stop-Loss
             if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
                 double roundedSlQty = roundQuantityToDecimal(executedQty, filters.quantityPrecision); // ✅ ROUND SL QUANTITY
-                placeStopLoss(symbol, side, roundedSlQty, trade.getStopLoss());
+                placeStopLoss(symbol, side, roundedSlQty, trade.getStopLoss(), filters.pricePrecision);
             }
 
             // ✅ 4. PLACE TAKE-PROFITS WITH QUANTITY SPLITTING
@@ -288,31 +288,31 @@ public class TradeService {
 
                 // Place TP orders with CALCULATED PRICES and STEP-SIZE-ADJUSTED QUANTITIES
                 if (Double.parseDouble(tp1QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp1QtyAdjusted), tp1Price, "TP1");
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp1QtyAdjusted), tp1Price, "TP1", filters.pricePrecision);
                 }
                 if (Double.parseDouble(tp2QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp2QtyAdjusted), tp2Price, "TP2");
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp2QtyAdjusted), tp2Price, "TP2", filters.pricePrecision);
                 }
                 if (Double.parseDouble(tp3QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp3QtyAdjusted), tp3Price, "TP3");
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp3QtyAdjusted), tp3Price, "TP3", filters.pricePrecision);
                 }
                 if (Double.parseDouble(tp4QtyAdjusted) > 0) {
-                    placeTakeProfit(symbol, side, Double.parseDouble(tp4QtyAdjusted), tp4Price, "TP4");
+                    placeTakeProfit(symbol, side, Double.parseDouble(tp4QtyAdjusted), tp4Price, "TP4", filters.pricePrecision);
                 }
             } else {
                 // Fallback: Place all TP orders with full quantity (if no config)
                 log.warn("⚠️ No user config found - placing TPs with full quantity");
                 if (trade.getTp1() != null && trade.getTp1() > 0) {
-                    placeTakeProfit(symbol, side, executedQty, trade.getTp1(), "TP1");
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp1(), "TP1", filters.pricePrecision);
                 }
                 if (trade.getTp2() != null && trade.getTp2() > 0) {
-                    placeTakeProfit(symbol, side, executedQty, trade.getTp2(), "TP2");
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp2(), "TP2", filters.pricePrecision);
                 }
                 if (trade.getTp3() != null && trade.getTp3() > 0) {
-                    placeTakeProfit(symbol, side, executedQty, trade.getTp3(), "TP3");
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp3(), "TP3", filters.pricePrecision);
                 }
                 if (trade.getTp4() != null && trade.getTp4() > 0) {
-                    placeTakeProfit(symbol, side, executedQty, trade.getTp4(), "TP4");
+                    placeTakeProfit(symbol, side, executedQty, trade.getTp4(), "TP4", filters.pricePrecision);
                 }
             }
 
@@ -329,14 +329,18 @@ public class TradeService {
      * Helper class to store exchange info filters for a symbol
      */
     private static class SymbolFilters {
-        double lotSize;      // Step size for quantity
-        double minNotional;  // Minimum order value
-        int quantityPrecision; // Decimal places for quantity
+        double lotSize;           // Step size for quantity
+        double minNotional;       // Minimum order value
+        int quantityPrecision;    // Decimal places for quantity
+        double tickSize;          // Step size for price (PRICE_FILTER)
+        int pricePrecision;       // Decimal places for price
 
-        SymbolFilters(double lotSize, double minNotional, int quantityPrecision) {
+        SymbolFilters(double lotSize, double minNotional, int quantityPrecision, double tickSize, int pricePrecision) {
             this.lotSize = lotSize;
             this.minNotional = minNotional;
             this.quantityPrecision = quantityPrecision;
+            this.tickSize = tickSize;
+            this.pricePrecision = pricePrecision;
         }
     }
 
@@ -359,7 +363,9 @@ public class TradeService {
                     JSONArray filters = symbolObj.getJSONArray("filters");
                     double lotSize = 1.0;
                     double minNotional = 10.0;
+                    double tickSize = 0.01;
                     int quantityPrecision = 2;
+                    int pricePrecision = 2;
 
                     for (int j = 0; j < filters.length(); j++) {
                         JSONObject filter = filters.getJSONObject(j);
@@ -377,20 +383,27 @@ public class TradeService {
                             minNotional = filter.getDouble("notional");
                             log.info("💰 MIN_NOTIONAL filter: {}", minNotional);
                         }
+
+                        // Extract PRICE_FILTER
+                        if ("PRICE_FILTER".equals(filterType)) {
+                            tickSize = filter.getDouble("tickSize");
+                            pricePrecision = getDecimalPlaces(filter.getString("tickSize"));
+                            log.info("💲 PRICE_FILTER: tickSize={}, pricePrecision={}", tickSize, pricePrecision);
+                        }
                     }
 
-                    log.info("✅ Symbol filters for {}: lotSize={}, minNotional={}, precision={}",
-                        symbol, lotSize, minNotional, quantityPrecision);
-                    return new SymbolFilters(lotSize, minNotional, quantityPrecision);
+                    log.info("✅ Symbol filters for {}: lotSize={}, minNotional={}, qtyPrecision={}, tickSize={}, pricePrecision={}",
+                        symbol, lotSize, minNotional, quantityPrecision, tickSize, pricePrecision);
+                    return new SymbolFilters(lotSize, minNotional, quantityPrecision, tickSize, pricePrecision);
                 }
             }
 
             log.warn("⚠️ Symbol {} not found in exchange info, using defaults", symbol);
-            return new SymbolFilters(1.0, 10.0, 2);
+            return new SymbolFilters(1.0, 10.0, 2, 0.01, 2);
 
         } catch (Exception e) {
             log.warn("⚠️ Error fetching exchange info for {}: {}", symbol, e.getMessage());
-            return new SymbolFilters(1.0, 10.0, 2); // Default filters
+            return new SymbolFilters(1.0, 10.0, 2, 0.01, 2); // Default filters
         }
     }
 
@@ -472,8 +485,20 @@ public class TradeService {
      * Round price to appropriate decimal places
      * SOL typically uses 2 decimal places
      */
-    private double roundPrice(double price) {
-        return Math.round(price * 100.0) / 100.0;
+    /**
+     * ✅ DYNAMIC PRICE ROUNDING (Binance Compliant)
+     * Rounds price to the symbol's pricePrecision (tickSize)
+     * Examples:
+     *   - pricePrecision=2 (tickSize=0.01): 0.253 → 0.25
+     *   - pricePrecision=3 (tickSize=0.001): 0.253 → 0.253
+     *   - pricePrecision=4 (tickSize=0.0001): 0.253456 → 0.2535
+     */
+    private double roundPrice(double price, int pricePrecision) {
+        if (pricePrecision < 0) pricePrecision = 2;  // Default fallback
+        double multiplier = Math.pow(10, pricePrecision);
+        double rounded = Math.round(price * multiplier) / multiplier;
+        log.debug("💲 Price rounding: {} → {} (precision: {})", price, rounded, pricePrecision);
+        return rounded;
     }
 
     /**
@@ -552,15 +577,18 @@ public class TradeService {
      * ✅ UPDATED: Added reduce_only=true to allow orders below MIN_NOTIONAL
      * Binance allows orders < $5 notional if reduce_only=true (closing positions)
      */
-    private boolean placeStopLoss(String symbol, String side, double qty, double stopPrice) {
+    private boolean placeStopLoss(String symbol, String side, double qty, double stopPrice, int pricePrecision) {
         try {
+            // ✅ ROUND STOP PRICE TO SYMBOL'S PRECISION
+            double roundedStopPrice = roundPrice(stopPrice, pricePrecision);
+
             String slSide = side.equals("BUY") ? "SELL" : "BUY";
             LinkedHashMap<String, Object> slParams = new LinkedHashMap<>();
             slParams.put("symbol", symbol);
             slParams.put("side", slSide);
             slParams.put("type", "STOP_MARKET");
             slParams.put("quantity", qty);
-            slParams.put("stopPrice", stopPrice);
+            slParams.put("stopPrice", roundedStopPrice);  // ✅ ROUNDED TO PRECISION
             slParams.put("timeInForce", "GTC");
             slParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
             slParams.put("recvWindow", 60000);
@@ -587,10 +615,13 @@ public class TradeService {
      * @param tpPrice Take-profit price from signal (static)
      * @param label TP level label (TP1, TP2, TP3, TP4)
      */
-    private void placeTakeProfit(String symbol, String side, double qty, double tpPrice, String label) {
+    private void placeTakeProfit(String symbol, String side, double qty, double tpPrice, String label, int pricePrecision) {
         try {
+            // ✅ ROUND TP PRICE TO SYMBOL'S PRECISION
+            double roundedTpPrice = roundPrice(tpPrice, pricePrecision);
+
             // ✅ MIN_NOTIONAL VALIDATION: Check if order meets Binance minimum notional
-            double tpNotional = qty * tpPrice;
+            double tpNotional = qty * roundedTpPrice;
             if (tpNotional < 5.0) {
                 log.warn("⚠️ {} order notional (${}) is below Binance minimum ($5). Will use reduce_only=true", label, tpNotional);
             }
@@ -601,7 +632,7 @@ public class TradeService {
             tpParams.put("side", tpSide);
             tpParams.put("type", "TAKE_PROFIT_MARKET");
             tpParams.put("quantity", qty);
-            tpParams.put("stopPrice", tpPrice);
+            tpParams.put("stopPrice", roundedTpPrice);  // ✅ ROUNDED TO PRECISION
             tpParams.put("timeInForce", "GTC");
             tpParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
             tpParams.put("recvWindow", 60000);

@@ -352,3 +352,89 @@ export const createReconnectingWebSocket = (
   connect();
   return ws;
 };
+
+// ✅ POSITIONS API - Manage active positions on Binance
+export const positionsAPI = {
+  /**
+   * Fetch all active positions from Binance
+   * GET /api/positions/active
+   */
+  getActivePositions: async (): Promise<any[]> => {
+    const response = await apiRequest('/api/positions/active');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to fetch positions');
+    }
+    const data = await response.json() as { data: any[] };
+    return data.data || [];
+  },
+
+  /**
+   * Update Stop Loss for a position
+   * PUT /api/positions/{symbol}/stop-loss
+   */
+  updateStopLoss: async (
+    symbol: string,
+    stopLoss: number,
+    quantity: number,
+    side: string,
+    pricePrecision: number = 2
+  ): Promise<any> => {
+    const response = await apiRequest(`/api/positions/${symbol}/stop-loss`, {
+      method: 'PUT',
+      body: JSON.stringify({ stopLoss, quantity, side, pricePrecision }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to update stop loss');
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Update Take Profit levels for a position
+   * PUT /api/positions/{symbol}/take-profits
+   */
+  updateTakeProfits: async (
+    symbol: string,
+    takeProfitLevels: Array<{ price: number; quantity: number }>,
+    side: string,
+    pricePrecision: number = 2
+  ): Promise<any> => {
+    const response = await apiRequest(`/api/positions/${symbol}/take-profits`, {
+      method: 'PUT',
+      body: JSON.stringify({ takeProfitLevels, side, pricePrecision }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to update take profits');
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Close a position completely
+   * POST /api/positions/{symbol}/close
+   */
+  closePosition: async (
+    symbol: string,
+    quantity: number,
+    side: string
+  ): Promise<any> => {
+    const response = await apiRequest(`/api/positions/${symbol}/close`, {
+      method: 'POST',
+      body: JSON.stringify({ quantity, side }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to close position');
+    }
+
+    return response.json();
+  },
+};

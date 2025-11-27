@@ -31,6 +31,14 @@ export interface Signal {
   unrealizedPnLPercent?: number
 }
 
+export interface TakeProfitLevel {
+  orderId: string        // Binance order ID
+  price: number
+  quantity: number
+  percentage?: number    // Exit percentage for this level
+  status: "PENDING" | "FILLED" | "PARTIALLY_FILLED" | "CANCELLED"
+}
+
 export interface Position {
   id: string
   pair: string
@@ -42,13 +50,12 @@ export interface Position {
   pnl: number
   pnlPercentage: number
   stopLoss?: number
-  takeProfit?: number
-  openedAt: Date // Ensuring openedAt is documented for filtering
-}
-
-export interface TakeProfitLevel {
-  price: number
-  percentage: number
+  stopLossOrderId?: string  // Binance SL order ID
+  takeProfit?: number  // Legacy: Keep for backward compatibility
+  takeProfitLevels?: TakeProfitLevel[]  // Multiple TP levels
+  openedAt: Date
+  binanceSymbol?: string  // Binance symbol format (BTCUSDT)
+  positionId?: string    // Binance position identifier
 }
 
 export interface Trade {

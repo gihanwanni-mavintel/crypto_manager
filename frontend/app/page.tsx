@@ -9,8 +9,8 @@ import { TradeManagement } from "@/components/trade-management"
 import { TradeHistoryComponent } from "@/components/trade-history"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
-import { tradingAPI, signalsAPI, createWebSocketConnection, getAuthToken } from "@/lib/api"
-import { Radio, TrendingUp, ArrowLeftRight, History, Settings } from "lucide-react"
+import { tradingAPI, signalsAPI, positionsAPI, createWebSocketConnection, getAuthToken } from "@/lib/api"
+import { Radio, TrendingUp, History, Settings } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
@@ -46,7 +46,7 @@ export default function CryptoPositionManagement() {
       setIsLoading(true)
 
       try {
-        // Fetch trading signals from backend (if available)
+        // ✅ Fetch trading signals from backend
         const fetchedSignals = await signalsAPI.getAllSignals()
         console.log("[OK] Signals fetched:", fetchedSignals)
 
@@ -65,6 +65,34 @@ export default function CryptoPositionManagement() {
         }))
 
         setSignals(transformedSignals)
+
+        // ✅ Fetch active positions from Binance
+        try {
+          const activePositions = await positionsAPI.getActivePositions()
+          console.log("[OK] Active positions fetched:", activePositions)
+
+          // Transform Binance position data to frontend Position type
+          const transformedPositions: Position[] = activePositions.map((pos: any) => ({
+            id: pos.symbol,
+            pair: formatSymbolToPair(pos.symbol),
+            binanceSymbol: pos.symbol,
+            side: pos.side,
+            entryPrice: parseFloat(pos.entryPrice),
+            currentPrice: parseFloat(pos.markPrice),
+            quantity: parseFloat(pos.quantity),
+            leverage: pos.leverage,
+            pnl: parseFloat(pos.unrealizedPnL),
+            pnlPercentage: parseFloat(pos.unrealizedPnLPct),
+            stopLoss: extractStopLossFromOrders(pos.openOrders),
+            takeProfitLevels: extractTakeProfitsFromOrders(pos.openOrders),
+            openedAt: new Date(pos.openedAt || Date.now()),
+          }))
+
+          setPositions(transformedPositions)
+        } catch (posErr) {
+          console.log("Could not fetch active positions:", posErr)
+          setPositions([])
+        }
       } catch (apiErr) {
         console.log("Backend not available - running in frontend-only mode")
       }
@@ -132,6 +160,71 @@ export default function CryptoPositionManagement() {
     }
   }, [])
 
+  // ✅ Poll for position updates every 10 seconds
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    const pollPositions = async () => {
+      try {
+        const activePositions = await positionsAPI.getActivePositions()
+        const transformedPositions: Position[] = activePositions.map((pos: any) => ({
+          id: pos.symbol,
+          pair: formatSymbolToPair(pos.symbol),
+          binanceSymbol: pos.symbol,
+          side: pos.side,
+          entryPrice: parseFloat(pos.entryPrice),
+          currentPrice: parseFloat(pos.markPrice),
+          quantity: parseFloat(pos.quantity),
+          leverage: pos.leverage,
+          pnl: parseFloat(pos.unrealizedPnL),
+          pnlPercentage: parseFloat(pos.unrealizedPnLPct),
+          stopLoss: extractStopLossFromOrders(pos.openOrders),
+          takeProfitLevels: extractTakeProfitsFromOrders(pos.openOrders),
+          openedAt: new Date(pos.openedAt || Date.now()),
+        }))
+        setPositions(transformedPositions)
+      } catch (err) {
+        console.warn("Failed to fetch positions update:", err)
+      }
+    }
+
+    // Poll every 10 seconds
+    const interval = setInterval(pollPositions, 10000)
+    return () => clearInterval(interval)
+  }, [isAuthenticated])
+
+  // ✅ Helper: Format Binance symbol to trading pair (BTCUSDT → BTC/USDT)
+  const formatSymbolToPair = (symbol: string): string => {
+    if (!symbol) return "UNKNOWN"
+    // Remove USDT/BUSD/USDC suffix and add /
+    const match = symbol.match(/^([A-Z]+)(USDT|BUSD|USDC|USD)$/)
+    if (match) {
+      return `${match[1]}/${match[2]}`
+    }
+    return symbol
+  }
+
+  // ✅ Helper: Extract stop loss price from open orders
+  const extractStopLossFromOrders = (orders: any[]): number | undefined => {
+    if (!orders || !Array.isArray(orders)) return undefined
+    const slOrder = orders.find((o: any) => o.orderType === "STOP_MARKET")
+    return slOrder ? parseFloat(slOrder.price) : undefined
+  }
+
+  // ✅ Helper: Extract take profit levels from open orders
+  const extractTakeProfitsFromOrders = (orders: any[]): any[] | undefined => {
+    if (!orders || !Array.isArray(orders)) return undefined
+    const tpOrders = orders.filter((o: any) => o.orderType === "TAKE_PROFIT_MARKET")
+    if (tpOrders.length === 0) return undefined
+
+    return tpOrders.map((o: any) => ({
+      orderId: o.orderId,
+      price: parseFloat(o.price),
+      quantity: parseFloat(o.quantity),
+      status: o.status,
+    }))
+  }
+
   const handleAddPosition = async (trade: Trade) => {
     try {
       // Call backend to execute trade
@@ -160,9 +253,6 @@ export default function CryptoPositionManagement() {
 
   const handleClosePosition = async (id: string) => {
     try {
-      // Call backend to close position
-      await tradingAPI.closePosition(id)
-
       const position = positions.find((p) => p.id === id)
       if (position) {
         const historyEntry: TradeHistory = {
@@ -185,6 +275,20 @@ export default function CryptoPositionManagement() {
     } catch (err) {
       console.error("Failed to close position:", err)
       setError("Failed to close position")
+    }
+  }
+
+  const handleUpdatePosition = async (updatedPosition: Position) => {
+    try {
+      // Update local positions array
+      setPositions(
+        positions.map((p) =>
+          p.id === updatedPosition.id ? updatedPosition : p
+        )
+      )
+    } catch (err) {
+      console.error("Failed to update position:", err)
+      throw err
     }
   }
 
@@ -234,8 +338,13 @@ export default function CryptoPositionManagement() {
         <div className="px-3 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
             <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
+            {/* ✅ Total P&L dynamically calculated from positions */}
             <div className="text-xs sm:text-sm text-muted-foreground">
-              Total P&L: <span className="font-mono font-semibold text-success">+$700.00</span>
+              Total P&L:{" "}
+              <span className={`font-mono font-semibold ${positions.reduce((sum, pos) => sum + pos.pnl, 0) >= 0 ? "text-success" : "text-destructive"}`}>
+                {positions.reduce((sum, pos) => sum + pos.pnl, 0) >= 0 ? "+" : ""}
+                ${positions.reduce((sum, pos) => sum + pos.pnl, 0).toFixed(2)}
+              </span>
             </div>
           </div>
         </div>
@@ -273,7 +382,11 @@ export default function CryptoPositionManagement() {
 
           {activeSection === "signals" && <TelegramSignals signals={signals} />}
           {activeSection === "positions" && (
-            <PositionManagement positions={positions} onClosePosition={handleClosePosition} />
+            <PositionManagement
+              positions={positions}
+              onClosePosition={handleClosePosition}
+              onUpdatePosition={handleUpdatePosition}
+            />
           )}
           {activeSection === "trading" && <ManualTrading onExecuteTrade={handleAddPosition} />}
           {activeSection === "management" && <TradeManagement />}
@@ -287,7 +400,8 @@ export default function CryptoPositionManagement() {
           {[
             { id: "signals", label: "Signals", Icon: Radio },
             { id: "positions", label: "Positions", Icon: TrendingUp },
-            { id: "trading", label: "Trading", Icon: ArrowLeftRight },
+            // ✅ Manual Trading hidden from navigation (functionality preserved)
+            // { id: "trading", label: "Trading", Icon: ArrowLeftRight },
             { id: "management", label: "Management", Icon: Settings },
             { id: "history", label: "History", Icon: History },
           ].map((item) => (

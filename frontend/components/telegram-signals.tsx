@@ -1,50 +1,16 @@
 'use client'
 
-import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ViewSignalDialog } from "@/components/view-signal-dialog"
-import { EditSignalDialog } from "@/components/edit-signal-dialog"
 import type { Signal } from "@/types/trading"
-import { TrendingUp, TrendingDown, Clock, Eye, Pencil } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+import { TrendingUp, TrendingDown, Clock } from "lucide-react"
 
 interface TelegramSignalsProps {
   signals: Signal[]
   onSignalUpdate?: (updatedSignal: Signal) => Promise<void>
 }
 
-export function TelegramSignals({ signals, onSignalUpdate }: TelegramSignalsProps) {
-  const { toast } = useToast()
-  const [viewDialogOpen, setViewDialogOpen] = useState(false)
-  const [editDialogOpen, setEditDialogOpen] = useState(false)
-  const [selectedSignal, setSelectedSignal] = useState<Signal | null>(null)
-
-  const handleViewClick = (signal: Signal) => {
-    setSelectedSignal(signal)
-    setViewDialogOpen(true)
-  }
-
-  const handleEditClick = (signal: Signal) => {
-    setSelectedSignal(signal)
-    setEditDialogOpen(true)
-  }
-
-  const handleSaveChanges = async (updatedSignal: Signal) => {
-    try {
-      if (onSignalUpdate) {
-        await onSignalUpdate(updatedSignal)
-      }
-      // Update local state
-      const signalIndex = signals.findIndex((s) => s.id === updatedSignal.id)
-      if (signalIndex !== -1) {
-        signals[signalIndex] = updatedSignal
-      }
-    } catch (error) {
-      throw error
-    }
-  }
+export function TelegramSignals({ signals }: TelegramSignalsProps) {
 
   return (
     <>
@@ -118,48 +84,15 @@ export function TelegramSignals({ signals, onSignalUpdate }: TelegramSignalsProp
 
               </CardContent>
 
-              {/* Footer with Time and Action Buttons */}
-              <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground px-3 sm:px-4 py-2 border-t border-border">
-                <div className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {signal.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleViewClick(signal)}
-                    className="h-8 w-8 p-0"
-                    title="View signal details"
-                  >
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleEditClick(signal)}
-                    className="h-8 w-8 p-0"
-                    title="Edit signal"
-                  >
-                    <Pencil className="h-4 w-4" />
-                  </Button>
-                </div>
+              {/* Footer with Time */}
+              <div className="flex items-center text-xs text-muted-foreground px-3 sm:px-4 py-2 border-t border-border">
+                <Clock className="h-3 w-3 mr-1" />
+                {signal.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </div>
             </Card>
           ))}
         </div>
       </div>
-
-      {/* View Dialog */}
-      <ViewSignalDialog signal={selectedSignal} open={viewDialogOpen} onOpenChange={setViewDialogOpen} />
-
-      {/* Edit Dialog */}
-      <EditSignalDialog
-        signal={selectedSignal}
-        open={editDialogOpen}
-        onOpenChange={setEditDialogOpen}
-        onSave={handleSaveChanges}
-      />
     </>
   )
 }

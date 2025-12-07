@@ -45,7 +45,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
 
   const handleLogout = () => {
     authAPI.logout()
-    window.location.href = "/"
+    // authAPI.logout() now calls handleAuthExpiration() which redirects to /auth
   }
 
   return (

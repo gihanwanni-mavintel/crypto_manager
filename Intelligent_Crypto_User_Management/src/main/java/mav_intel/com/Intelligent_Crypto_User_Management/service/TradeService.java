@@ -92,6 +92,11 @@ public class TradeService {
             }
             trade.setLeverage(cappedLeverage);
 
+            // ✅ LOG ENTRY/SL/TP VALUES BEING SET
+            log.info("🔍 [VALUE TRACE] Setting Trade object values:");
+            log.info("   Entry: {}, SL: {}", request.getEntry(), request.getStopLoss());
+            log.info("   TP1: {}, TP2: {}, TP3: {}, TP4: {}", request.getTp1(), request.getTp2(), request.getTp3(), request.getTp4());
+
             trade.setStopLoss(request.getStopLoss());
             trade.setTp1(request.getTp1());
             trade.setTp2(request.getTp2());
@@ -102,9 +107,19 @@ public class TradeService {
             trade.setSignalId(request.getSignalId());
             trade.setUserId(userId);
 
+            // ✅ LOG VALUES AFTER SETTING
+            log.info("🔍 [VALUE TRACE] Trade object after setting values:");
+            log.info("   Entry: {}, SL: {}", trade.getEntryPrice(), trade.getStopLoss());
+            log.info("   TP1: {}, TP2: {}, TP3: {}, TP4: {}", trade.getTp1(), trade.getTp2(), trade.getTp3(), trade.getTp4());
+
             // Save initial trade record
             Trade savedTrade = tradeRepository.save(trade);
             log.info("✅ Trade record created with ID: {}", savedTrade.getId());
+
+            // ✅ LOG SAVED TRADE VALUES FROM DATABASE
+            log.info("🔍 [VALUE TRACE] Trade object after saving to database:");
+            log.info("   Entry: {}, SL: {}", savedTrade.getEntryPrice(), savedTrade.getStopLoss());
+            log.info("   TP1: {}, TP2: {}, TP3: {}, TP4: {}", savedTrade.getTp1(), savedTrade.getTp2(), savedTrade.getTp3(), savedTrade.getTp4());
 
             // 2. Place order on Binance
             if (futuresClient != null) {
@@ -261,8 +276,19 @@ public class TradeService {
 
             // 3. Place Stop-Loss
             if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
-                double roundedSlQty = roundQuantityToDecimal(executedQty, filters.quantityPrecision); // ✅ ROUND SL QUANTITY
+                // ✅ LOG SL VALUE BEFORE PLACING
+                log.info("🔍 [VALUE TRACE] About to place SL order:");
+                log.info("   trade.getStopLoss() = {}", trade.getStopLoss());
+                log.info("   Entry price = {}", trade.getEntryPrice());
+                log.info("   Symbol = {}, Side = {}", symbol, side);
+
+                double roundedSlQty = roundQuantityToDecimal(executedQty, filters.quantityPrecision);
+                log.info("🔍 [VALUE TRACE] Placing SL with parameters:");
+                log.info("   Qty: {}, SL Price: {}, Price Precision: {}", roundedSlQty, trade.getStopLoss(), filters.pricePrecision);
+
                 placeStopLoss(symbol, side, roundedSlQty, trade.getStopLoss(), filters.pricePrecision);
+            } else {
+                log.warn("⚠️ [WARNING] SL value is null or <= 0: {}", trade.getStopLoss());
             }
 
             // ✅ 4. PLACE TAKE-PROFITS WITH QUANTITY SPLITTING
@@ -334,7 +360,7 @@ public class TradeService {
                 }
             }
 
-            log.info("✅ All orders placed for {}", symbol);
+            log.info("✅ All orders placed for {} (Entry + SL + TP)", symbol);
             return true;
 
         } catch (Exception e) {
@@ -600,6 +626,12 @@ public class TradeService {
             // ✅ ROUND STOP PRICE TO SYMBOL'S PRECISION
             double roundedStopPrice = roundPrice(stopPrice, pricePrecision);
 
+            // ✅ LOG EXACT VALUES BEING SENT TO BINANCE
+            log.info("🔍 [BINANCE TRACE] placeStopLoss method parameters:");
+            log.info("   Input stopPrice: {}", stopPrice);
+            log.info("   Rounded stopPrice: {}", roundedStopPrice);
+            log.info("   pricePrecision: {}", pricePrecision);
+
             String slSide = side.equals("BUY") ? "SELL" : "BUY";
             LinkedHashMap<String, Object> slParams = new LinkedHashMap<>();
             slParams.put("symbol", symbol);
@@ -608,8 +640,13 @@ public class TradeService {
             slParams.put("quantity", qty);
             slParams.put("stopPrice", roundedStopPrice);  // ✅ ROUNDED TO PRECISION
             slParams.put("timeInForce", "GTC");
-            slParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
+            slParams.put("reduceOnly", true);  // ✅ Required: Allows small orders & works with pending entry
             slParams.put("recvWindow", 60000);
+
+            // ✅ LOG FINAL PARAMETERS BEFORE SENDING
+            log.info("🔍 [BINANCE TRACE] SL order parameters being sent to Binance:");
+            log.info("   Symbol: {}, Side: {}, Type: STOP_MARKET", symbol, slSide);
+            log.info("   Qty: {}, StopPrice: {}, ReduceOnly: true", qty, roundedStopPrice);
 
             String resp = futuresClient.account().newOrder(slParams);
             JSONObject respObj = new JSONObject(resp);
@@ -652,7 +689,8 @@ public class TradeService {
             tpParams.put("quantity", qty);
             tpParams.put("stopPrice", roundedTpPrice);  // ✅ ROUNDED TO PRECISION
             tpParams.put("timeInForce", "GTC");
-            tpParams.put("reduceOnly", true);  // ✅ NEW: Allow orders < $5 notional
+            // ✅ REQUIRED: Allows small orders below $5 notional & works with pending entry
+            tpParams.put("reduceOnly", true);
             tpParams.put("recvWindow", 60000);
 
             String resp = futuresClient.account().newOrder(tpParams);

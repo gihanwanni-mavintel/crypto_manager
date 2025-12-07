@@ -303,6 +303,23 @@ def extract_value(label, lines):
             return value
     return None
 
+def extract_inline_tp_values(lines):
+    """
+    Extract TP values from inline format: "TP 0.2086/0.2089/0.2092/0.2095"
+    Returns tuple of (tp1, tp2, tp3, tp4) or (None, None, None, None)
+    """
+    pattern = re.compile(r"TP\s+([0-9.]+(?:/[0-9.]+)*)", re.IGNORECASE)
+    for line in lines:
+        match = pattern.search(line)
+        if match:
+            tp_values = match.group(1).split("/")
+            tp_list = [parse_decimal(val.strip()) for val in tp_values]
+            # Pad with None if fewer than 4 values
+            while len(tp_list) < 4:
+                tp_list.append(None)
+            return tuple(tp_list[:4])
+    return (None, None, None, None)
+
 # ----------------------------
 # Telegram
 # ----------------------------
@@ -352,18 +369,23 @@ async def run_telegram_client():
                 leverage = parse_decimal(leverage_raw.replace("x", "").strip()) if leverage_raw else None
                 logger.info(f"[PARSING] Extracted LEVERAGE: {leverage} (raw: {leverage_raw})")
 
-                tp1 = parse_decimal(extract_value("Target 1", lines) or extract_value("TP1", lines))
+                # ✅ Try to extract TPs from inline format (e.g., "TP 0.2086/0.2089/0.2092/0.2095")
+                tp1_inline, tp2_inline, tp3_inline, tp4_inline = extract_inline_tp_values(lines)
+
+                # Fall back to traditional format if inline format not found
+                tp1 = tp1_inline or parse_decimal(extract_value("Target 1", lines) or extract_value("TP1", lines))
                 logger.info(f"[PARSING] Extracted TP1: {tp1}")
 
-                tp2 = parse_decimal(extract_value("Target 2", lines) or extract_value("TP2", lines))
+                tp2 = tp2_inline or parse_decimal(extract_value("Target 2", lines) or extract_value("TP2", lines))
                 logger.info(f"[PARSING] Extracted TP2: {tp2}")
 
-                tp3 = parse_decimal(extract_value("Target 3", lines) or extract_value("TP3", lines))
+                tp3 = tp3_inline or parse_decimal(extract_value("Target 3", lines) or extract_value("TP3", lines))
                 logger.info(f"[PARSING] Extracted TP3: {tp3}")
 
-                tp4 = parse_decimal(extract_value("Target 4", lines) or extract_value("TP4", lines))
+                tp4 = tp4_inline or parse_decimal(extract_value("Target 4", lines) or extract_value("TP4", lines))
                 logger.info(f"[PARSING] Extracted TP4: {tp4}")
 
+                # ✅ Extract SL - works with both inline and separate line formats
                 stop_loss = parse_decimal(extract_value("Stop Loss", lines) or extract_value("SL", lines))
                 logger.info(f"[PARSING] Extracted STOP_LOSS: {stop_loss}")
 

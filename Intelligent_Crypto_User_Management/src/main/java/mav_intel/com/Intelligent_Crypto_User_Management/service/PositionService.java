@@ -49,34 +49,42 @@ public class PositionService {
                 JSONObject pos = positions.getJSONObject(i);
 
                 // Skip positions with 0 quantity (closed positions)
-                double quantity = pos.getDouble("positionAmt");
+                double quantity = pos.optDouble("positionAmt", 0.0);
                 if (quantity == 0) {
                     continue;
                 }
 
-                // Get mark price for current price
-                double markPrice = pos.getDouble("markPrice");
+                // Get mark price for current price (fallback to entry price if not available)
+                double markPrice = pos.optDouble("markPrice", 0.0);
+                if (markPrice == 0.0) {
+                    markPrice = pos.optDouble("entryPrice", 0.0);
+                }
 
-                // Calculate unrealized P&L
-                double entryPrice = pos.getDouble("entryPrice");
-                double unrealizedPnL = pos.getDouble("unrealizedProfit");
-                double unrealizedPnLPct = pos.getDouble("percentage");
+                // Calculate unrealized P&L (use optDouble to handle missing fields)
+                double entryPrice = pos.optDouble("entryPrice", 0.0);
+                double unrealizedPnL = pos.optDouble("unrealizedProfit", 0.0);
+                double unrealizedPnLPct = pos.optDouble("percentage", 0.0);
 
                 // Fetch open orders for this position
                 List<BinanceOrderDTO> openOrders = getOpenOrdersForSymbol(pos.getString("symbol"));
 
-                // Build DTO
+                // Build DTO (use safe field access with defaults)
+                String symbol = pos.optString("symbol", "UNKNOWN");
+                String liquidationPriceStr = pos.optString("liquidationPrice", "0");
+                int leverage = pos.optInt("leverage", 1);
+                String marginType = pos.optString("marginType", "ISOLATED");
+
                 BinancePositionDTO positionDTO = BinancePositionDTO.builder()
-                    .symbol(pos.getString("symbol"))
+                    .symbol(symbol)
                     .side(quantity > 0 ? "LONG" : "SHORT")
                     .entryPrice(BigDecimal.valueOf(entryPrice))
                     .markPrice(BigDecimal.valueOf(markPrice))
-                    .liquidationPrice(new BigDecimal(pos.getString("liquidationPrice")))
+                    .liquidationPrice(new BigDecimal(liquidationPriceStr))
                     .quantity(new BigDecimal(String.valueOf(Math.abs(quantity))))
-                    .leverage(pos.getInt("leverage"))
+                    .leverage(leverage)
                     .unrealizedPnL(BigDecimal.valueOf(unrealizedPnL))
                     .unrealizedPnLPct(BigDecimal.valueOf(unrealizedPnLPct * 100))
-                    .marginType(pos.getString("marginType"))
+                    .marginType(marginType)
                     .openOrders(openOrders)
                     .openedAt(System.currentTimeMillis()) // Binance doesn't provide this directly
                     .isReduceOnly(false)
@@ -114,17 +122,29 @@ public class PositionService {
             for (int i = 0; i < orders.length(); i++) {
                 JSONObject order = orders.getJSONObject(i);
 
+                // Use safe field access with defaults for all fields
+                String orderId = order.optString("orderId", "");
+                String orderSymbol = order.optString("symbol", "");
+                double price = order.optDouble("price", 0.0);
+                double origQty = order.optDouble("origQty", 0.0);
+                double executedQty = order.optDouble("executedQty", 0.0);
+                String status = order.optString("status", "UNKNOWN");
+                String type = order.optString("type", "");
+                String side = order.optString("side", "");
+                String timeInForce = order.optString("timeInForce", "GTC");
+                long updateTime = order.optLong("updateTime", 0);
+
                 BinanceOrderDTO orderDTO = BinanceOrderDTO.builder()
-                    .orderId(order.getString("orderId"))
-                    .symbol(order.getString("symbol"))
-                    .price(new BigDecimal(order.getDouble("price")))
-                    .quantity(new BigDecimal(order.getDouble("origQty")))
-                    .executedQuantity(new BigDecimal(order.getDouble("executedQty")))
-                    .status(order.getString("status"))
-                    .type(order.getString("type"))
-                    .side(order.getString("side"))
-                    .timeInForce(order.getString("timeInForce"))
-                    .updateTime(order.getLong("updateTime"))
+                    .orderId(orderId)
+                    .symbol(orderSymbol)
+                    .price(new BigDecimal(price))
+                    .quantity(new BigDecimal(origQty))
+                    .executedQuantity(new BigDecimal(executedQty))
+                    .status(status)
+                    .type(type)
+                    .side(side)
+                    .timeInForce(timeInForce)
+                    .updateTime(updateTime)
                     .build();
 
                 orderList.add(orderDTO);

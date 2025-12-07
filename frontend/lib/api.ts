@@ -2,7 +2,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081';
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8081/ws';
 
-// Token management
+// ✅ Token management
 export const getAuthToken = (): string | null => {
   if (typeof window === 'undefined') return null;
   return localStorage.getItem('authToken');
@@ -16,6 +16,40 @@ export const setAuthToken = (token: string): void => {
 export const removeAuthToken = (): void => {
   if (typeof window === 'undefined') return;
   localStorage.removeItem('authToken');
+};
+
+// ✅ AUTO-LOGOUT ON TOKEN EXPIRATION: Handle 401 Unauthorized responses
+export const handleAuthExpiration = (): void => {
+  removeAuthToken();
+  // Force redirect to login page
+  if (typeof window !== 'undefined') {
+    window.location.href = '/auth';
+  }
+};
+
+// ✅ PUBLIC API request helper (for endpoints that don't require auth but may return 401)
+const publicApiRequest = async (url: string, options: RequestInit = {}): Promise<Response> => {
+  try {
+    const response = await fetch(url, options);
+
+    // ✅ AUTO-LOGOUT: Check for 401 Unauthorized (token expired)
+    if (response.status === 401) {
+      console.warn('[WARN] Received 401 Unauthorized - Token has expired. Logging out...');
+      handleAuthExpiration();
+      throw new Error('Your session has expired. Please login again.');
+    }
+
+    return response;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('session has expired')) {
+      throw error;
+    }
+    console.error('[ERROR] Fetch error:', {
+      url,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    throw error;
+  }
 };
 
 // API request helper with auth
@@ -46,8 +80,19 @@ const apiRequest = async (
       ...options,
       headers,
     });
+
+    // ✅ AUTO-LOGOUT: Check for 401 Unauthorized (token expired)
+    if (response.status === 401) {
+      console.warn('[WARN] Received 401 Unauthorized - Token has expired. Logging out...');
+      handleAuthExpiration();
+      throw new Error('Your session has expired. Please login again.');
+    }
+
     return response;
   } catch (error) {
+    if (error instanceof Error && error.message.includes('session has expired')) {
+      throw error;
+    }
     console.error('[ERROR] Fetch error:', {
       url,
       error: error instanceof Error ? error.message : String(error),
@@ -98,7 +143,7 @@ export const authAPI = {
   },
 
   logout: () => {
-    removeAuthToken();
+    handleAuthExpiration();
   },
 
   health: async () => {
@@ -196,35 +241,35 @@ export const tradingAPI = {
 export const signalsAPI = {
   // Get all signals
   getAllSignals: async () => {
-    const response = await fetch(`${API_BASE_URL}/api/signals`);
+    const response = await publicApiRequest(`${API_BASE_URL}/api/signals`);
     if (!response.ok) throw new Error('Failed to fetch signals');
     return response.json();
   },
 
   // Get signals by pair
   getSignalsByPair: async (pair: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/pair/${pair}`);
+    const response = await publicApiRequest(`${API_BASE_URL}/api/signals/pair/${pair}`);
     if (!response.ok) throw new Error('Failed to fetch signals by pair');
     return response.json();
   },
 
   // Get signals by setup type
   getSignalsBySetupType: async (setupType: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/setup/${setupType}`);
+    const response = await publicApiRequest(`${API_BASE_URL}/api/signals/setup/${setupType}`);
     if (!response.ok) throw new Error('Failed to fetch signals by setup type');
     return response.json();
   },
 
   // Get signals by channel
   getSignalsByChannel: async (channel: string) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/channel/${channel}`);
+    const response = await publicApiRequest(`${API_BASE_URL}/api/signals/channel/${channel}`);
     if (!response.ok) throw new Error('Failed to fetch signals by channel');
     return response.json();
   },
 
   // Get signal by ID
   getSignalById: async (id: number) => {
-    const response = await fetch(`${API_BASE_URL}/api/signals/${id}`);
+    const response = await publicApiRequest(`${API_BASE_URL}/api/signals/${id}`);
     if (!response.ok) throw new Error('Failed to fetch signal');
     return response.json();
   },

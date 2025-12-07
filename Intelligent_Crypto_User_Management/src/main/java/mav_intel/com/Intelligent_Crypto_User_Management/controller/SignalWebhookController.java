@@ -164,6 +164,7 @@ public class SignalWebhookController {
 
     /**
      * Map signal data to ExecuteTradeRequest
+     * ✅ ADDED: Comprehensive logging to track value flow from Python to Java
      */
     private ExecuteTradeRequest mapSignalToTradeRequest(Map<String, Object> data, Long signalId, Long userId) {
         ExecuteTradeRequest request = new ExecuteTradeRequest();
@@ -173,18 +174,40 @@ public class SignalWebhookController {
         request.setSide(setupType.equalsIgnoreCase("LONG") ? "BUY" : "SELL");
 
         request.setPair(getString(data, "pair"));
-        request.setEntry(getDouble(data, "entry"));
+
+        // ✅ LOG ENTRY VALUE
+        Double entryValue = getDouble(data, "entry");
+        log.info("🔍 [VALUE TRACE] Entry from Python: {} (type: {})", entryValue, data.get("entry") != null ? data.get("entry").getClass().getSimpleName() : "null");
+        request.setEntry(entryValue);
+
         // Convert Double leverage to Integer safely
         Double leverageDouble = getDouble(data, "leverage");
         request.setLeverage(leverageDouble != null ? leverageDouble.intValue() : 1);
-        request.setTp1(getDouble(data, "tp1"));
-        request.setTp2(getDouble(data, "tp2"));
-        request.setTp3(getDouble(data, "tp3"));
-        request.setTp4(getDouble(data, "tp4"));
-        request.setStopLoss(getDouble(data, "stop_loss"));
+
+        // ✅ LOG TP VALUES
+        Double tp1Value = getDouble(data, "tp1");
+        Double tp2Value = getDouble(data, "tp2");
+        Double tp3Value = getDouble(data, "tp3");
+        Double tp4Value = getDouble(data, "tp4");
+        log.info("🔍 [VALUE TRACE] TP values from Python: TP1={}, TP2={}, TP3={}, TP4={}", tp1Value, tp2Value, tp3Value, tp4Value);
+        request.setTp1(tp1Value);
+        request.setTp2(tp2Value);
+        request.setTp3(tp3Value);
+        request.setTp4(tp4Value);
+
+        // ✅ LOG STOP LOSS VALUE
+        Double slValue = getDouble(data, "stop_loss");
+        log.info("🔍 [VALUE TRACE] Stop Loss from Python: {} (type: {})", slValue, data.get("stop_loss") != null ? data.get("stop_loss").getClass().getSimpleName() : "null");
+        request.setStopLoss(slValue);
+
         request.setQuantity(getDouble(data, "quantity")); // Can be null, auto-calculated
         request.setSignalId(signalId);
         request.setUserId(userId); // ✅ Set userId
+
+        // ✅ LOG FINAL REQUEST VALUES
+        log.info("✅ [TRACE SUMMARY] ExecuteTradeRequest created:");
+        log.info("   Entry: {}, TP1: {}, TP2: {}, TP3: {}, TP4: {}, SL: {}",
+            request.getEntry(), request.getTp1(), request.getTp2(), request.getTp3(), request.getTp4(), request.getStopLoss());
 
         return request;
     }

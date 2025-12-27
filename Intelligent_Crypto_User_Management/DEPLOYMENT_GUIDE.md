@@ -22,7 +22,7 @@
 
 - Digital Ocean account
 - Domain name (optional but recommended for SSL)
-- SSH key pair
+- SSH key pair (see [SSH_KEY_SETUP.md](SSH_KEY_SETUP.md) for detailed instructions)
 - Your `.env` file with production credentials
 
 ---
@@ -31,6 +31,8 @@
 
 ### 1.1 Create Droplet via Digital Ocean Dashboard
 
+**⚠️ IMPORTANT:** Before creating the droplet, you need an SSH key. If you don't have one yet, follow the [SSH_KEY_SETUP.md](SSH_KEY_SETUP.md) guide first.
+
 1. Log in to Digital Ocean
 2. Click **Create** → **Droplets**
 3. Choose configuration:
@@ -38,7 +40,7 @@
    - **Plan**: Basic
    - **CPU**: Regular (2 GB RAM / 1 CPU) - Minimum recommended
    - **Datacenter**: Choose closest to your users
-   - **Authentication**: SSH Key (recommended) or Password
+   - **Authentication**: SSH Key (recommended) - Select your SSH key from the list
    - **Hostname**: `crypto-trading-api` (or your preference)
 
 4. Click **Create Droplet**

@@ -1,4 +1,7 @@
+mav_intel\com\Intelligent_Crypto_User_Management\model\TradeManagementConfig.class
 mav_intel\com\Intelligent_Crypto_User_Management\model\User.class
+mav_intel\com\Intelligent_Crypto_User_Management\dto\TradeManagementConfigRequest.class
+mav_intel\com\Intelligent_Crypto_User_Management\repository\TradeManagementConfigRepository.class
 mav_intel\com\Intelligent_Crypto_User_Management\service\AutoTradeExecutor$ExecutionStats.class
 mav_intel\com\Intelligent_Crypto_User_Management\controller\TradeController.class
 mav_intel\com\Intelligent_Crypto_User_Management\controller\AdminController.class
@@ -23,3 +26,4 @@ mav_intel\com\Intelligent_Crypto_User_Management\service\WebConfig$1.class
 mav_intel\com\Intelligent_Crypto_User_Management\model\Role.class
 mav_intel\com\Intelligent_Crypto_User_Management\model\Signal.class
 mav_intel\com\Intelligent_Crypto_User_Management\controller\AuthController.class
+mav_intel\com\Intelligent_Crypto_User_Management\controller\TradeManagementConfigController.class

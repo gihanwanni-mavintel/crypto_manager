@@ -5,6 +5,7 @@ import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
 import { TradeHistoryComponent } from "@/components/trade-history"
+import { TradeManagement } from "@/components/trade-management"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
 import { tradingAPI, signalsAPI } from "@/lib/api"
@@ -157,6 +158,7 @@ export default function CryptoPositionManagement() {
           {activeSection === "positions" && (
             <PositionManagement positions={positions} onClosePosition={handleClosePosition} />
           )}
+          {activeSection === "trade-management" && <TradeManagement />}
           {activeSection === "trading" && <ManualTrading onExecuteTrade={handleAddPosition} />}
           {activeSection === "history" && <TradeHistoryComponent history={tradeHistory} />}
         </main>

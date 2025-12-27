@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/login", "/auth/test", "/auth/health").permitAll()
                         .requestMatchers("/api/signals/**").permitAll()
                         .requestMatchers("/api/webhook/**").permitAll()
+                        .requestMatchers("/api/trade-management-config/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()

@@ -6,8 +6,10 @@ import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeRequest;
 import mav_intel.com.Intelligent_Crypto_User_Management.dto.ExecuteTradeResponse;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Signal;
 import mav_intel.com.Intelligent_Crypto_User_Management.model.Trade;
+import mav_intel.com.Intelligent_Crypto_User_Management.model.TradeManagementConfig;
 import mav_intel.com.Intelligent_Crypto_User_Management.repository.SignalRepository;
 import mav_intel.com.Intelligent_Crypto_User_Management.repository.TradeRepository;
+import mav_intel.com.Intelligent_Crypto_User_Management.repository.TradeManagementConfigRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,9 @@ public class TradeService {
     @Autowired
     private SignalRepository signalRepository;
 
+    @Autowired
+    private TradeManagementConfigRepository configRepository;
+
     @Autowired(required = false)
     private UMFuturesClientImpl futuresClient;
 
@@ -65,13 +70,20 @@ public class TradeService {
 
             log.info("🚀 Executing trade: {} {} @ ${}", request.getSide(), request.getPair(), request.getEntry());
 
+            // Load trade management config (default userId = 1)
+            TradeManagementConfig config = getTradeConfig(1L);
+            int leverage = config.getMaxLeverage().intValue();
+            String marginMode = config.getMarginMode();
+
+            log.info("📋 Using config: Leverage={}x, MarginMode={}", leverage, marginMode);
+
             // 1. Create Trade record in database
             Trade trade = new Trade();
             trade.setPair(request.getPair());
             trade.setSide(request.getSide());
             trade.setEntryPrice(request.getEntry());
             trade.setEntryQuantity(request.getQuantity() != null ? request.getQuantity() : 0.0);
-            trade.setLeverage(request.getLeverage() != null ? request.getLeverage() : DEFAULT_LEVERAGE);
+            trade.setLeverage(leverage); // Use leverage from config
             trade.setTakeProfit(request.getTakeProfit());
             trade.setStopLoss(request.getStopLoss());
             trade.setStatus("PENDING");
@@ -153,10 +165,16 @@ public class TradeService {
                 quantityPrecision
             );
 
-            // 1. Set leverage
+            // Get trade config for margin mode
+            TradeManagementConfig config = getTradeConfig(1L);
+
+            // 1. Set margin mode (ISOLATED or CROSS)
+            setMarginMode(symbol, config.getMarginMode());
+
+            // 2. Set leverage
             setLeverage(symbol, trade.getLeverage());
 
-            // 2. Place LIMIT order at entry price
+            // 3. Place LIMIT order at entry price
             LinkedHashMap<String, Object> orderParams = new LinkedHashMap<>();
             orderParams.put("symbol", symbol);
             orderParams.put("side", side);
@@ -179,13 +197,13 @@ public class TradeService {
 
             trade.setBinanceOrderId(orderId);
 
-            // 3. Place Stop-Loss (using NEW Algo API)
+            // 4. Place Stop-Loss (using Algo API)
             if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
                 double roundedSlPrice = roundToPrecision(trade.getStopLoss(), pricePrecision);
                 placeStopLoss(symbol, side, roundedQuantity, roundedSlPrice);
             }
 
-            // 4. Place Take-Profit (using NEW Algo API)
+            // 5. Place Take-Profit (using Algo API)
             if (trade.getTakeProfit() != null && trade.getTakeProfit() > 0) {
                 double roundedTpPrice = roundToPrecision(trade.getTakeProfit(), pricePrecision);
                 placeTakeProfit(symbol, side, roundedQuantity, roundedTpPrice);
@@ -554,5 +572,39 @@ public class TradeService {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    /**
+     * Get trade management config or create default
+     */
+    private TradeManagementConfig getTradeConfig(Long userId) {
+        return configRepository.findByUserId(userId).orElseGet(() -> {
+            TradeManagementConfig defaultConfig = new TradeManagementConfig();
+            defaultConfig.setUserId(userId);
+            return configRepository.save(defaultConfig);
+        });
+    }
+
+    /**
+     * Set margin mode for symbol (ISOLATED or CROSS)
+     * Endpoint: POST /fapi/v1/marginType
+     */
+    private void setMarginMode(String symbol, String marginMode) {
+        try {
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("symbol", symbol);
+            params.put("marginType", marginMode.toUpperCase()); // ISOLATED or CROSSED
+            params.put("recvWindow", 60000);
+            futuresClient.account().changeMarginType(params);
+            log.info("⚙️ Margin mode set to {} for {}", marginMode, symbol);
+        } catch (Exception e) {
+            // If margin mode is already set, Binance returns error -4046
+            // This is OK, we can ignore it
+            if (e.getMessage().contains("-4046") || e.getMessage().contains("No need to change margin type")) {
+                log.debug("ℹ️ Margin mode already set to {} for {}", marginMode, symbol);
+            } else {
+                log.warn("⚠️ Error setting margin mode: {}", e.getMessage());
+            }
+        }
     }
 }

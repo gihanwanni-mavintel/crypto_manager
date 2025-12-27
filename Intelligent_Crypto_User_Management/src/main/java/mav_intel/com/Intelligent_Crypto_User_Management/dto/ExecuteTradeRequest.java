@@ -9,14 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExecuteTradeRequest {
     private String pair;
-    private String side; // BUY or SELL
+    private String side; // LONG or SHORT
     private Double entry;
     private Double quantity;
-    private Integer leverage;
+    private Integer leverage; // Default: 20x
+    private Double takeProfit;
     private Double stopLoss;
-    private Double tp1;
-    private Double tp2;
-    private Double tp3;
-    private Double tp4;
     private Long signalId; // Optional: link to original signal
 }

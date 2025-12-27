@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { Radio, TrendingUp, ArrowLeftRight, History, ChevronLeft, ChevronRight } from "lucide-react"
+import { Radio, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface SidebarProps {
@@ -20,16 +20,6 @@ const navItems = [
     id: "positions",
     label: "Active Positions",
     icon: TrendingUp,
-  },
-  {
-    id: "trading",
-    label: "Manual Trading",
-    icon: ArrowLeftRight,
-  },
-  {
-    id: "history",
-    label: "Trade History",
-    icon: History,
   },
 ]
 

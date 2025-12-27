@@ -624,3 +624,731 @@ telethon.errors.common.TypeNotFoundError: Could not find a matching Constructor 
 2025-11-06 12:30:28,381 - INFO - Disconnection from 91.108.56.185:443/TcpFull complete!
 2025-11-06 12:30:28,382 - INFO - [DB WORKER] Worker cancelled, shutting down...
 2025-11-06 12:30:28,495 - INFO - [STOP] Shutdown complete
+2025-12-23 12:42:22,124 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 12:42:22,634 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-12-23 12:42:22,636 - INFO - HTTP health server started on port 8082
+2025-12-23 12:42:22,636 - INFO - WebSocket server started on port 6789
+2025-12-23 12:42:22,637 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 12:42:22,724 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 12:42:23,512 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 12:42:23,513 - INFO - Listening for Telegram messages...
+2025-12-23 12:51:32,779 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 12:51:32,780 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 12:51:32,781 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 12:51:32,883 - INFO - [STOP] Shutdown complete
+2025-12-23 12:51:39,454 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 12:51:39,915 - INFO - [OK] Tables ready (recreated with correct schema)
+2025-12-23 12:51:39,916 - INFO - HTTP health server started on port 8082
+2025-12-23 12:51:39,917 - INFO - WebSocket server started on port 6789
+2025-12-23 12:51:39,918 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 12:51:40,014 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 12:51:40,736 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 12:51:40,737 - INFO - Listening for Telegram messages...
+2025-12-23 14:06:41,240 - INFO - Got difference for account updates
+2025-12-23 15:01:15,331 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 15:01:15,338 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:01:15,354 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 15:01:15,466 - INFO - [STOP] Shutdown complete
+2025-12-23 15:01:29,450 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 15:01:29,451 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 15:01:29,452 - INFO - HTTP health server started on port 8082
+2025-12-23 15:01:29,452 - INFO - WebSocket server started on port 6789
+2025-12-23 15:01:29,452 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 15:01:29,523 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:01:30,631 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 15:01:30,632 - INFO - Listening for Telegram messages...
+2025-12-23 15:23:30,846 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 15:31:30,960 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 15:44:03,626 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 15:44:03,630 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:44:03,633 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 15:44:03,739 - INFO - [STOP] Shutdown complete
+2025-12-23 15:44:10,986 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 15:44:10,986 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 15:44:10,988 - INFO - HTTP health server started on port 8082
+2025-12-23 15:44:10,988 - INFO - WebSocket server started on port 6789
+2025-12-23 15:44:10,989 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 15:44:11,075 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:44:11,798 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 15:44:11,798 - INFO - Listening for Telegram messages...
+2025-12-23 15:46:15,816 - INFO - 
+============================================================
+2025-12-23 15:46:15,816 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:16:15+00:00
+2025-12-23 15:46:15,816 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1710 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:46:15,817 - INFO - Total lines in message: 10
+2025-12-23 15:46:15,818 - INFO - [SIGNAL DETECTION] Is Signal: False
+2025-12-23 15:46:15,819 - INFO - 
+[NON-SIGNAL] Detected as MARKET MESSAGE (not a signal)
+2025-12-23 15:46:15,819 - INFO - [NON-SIGNAL] Sender: Gihan
+2025-12-23 15:46:15,819 - INFO - [NON-SIGNAL] Message content: #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1710 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:46:15,820 - INFO - [NON-SIGNAL] Saving to market_messages table...
+2025-12-23 15:46:16,063 - INFO - [NON-SIGNAL] [OK] Saved to database
+2025-12-23 15:46:16,063 - INFO - [NON-SIGNAL] Broadcasting to 0 connected clients...
+2025-12-23 15:46:16,064 - INFO - [NON-SIGNAL] [OK] Broadcast complete
+2025-12-23 15:46:16,064 - INFO - ============================================================
+
+2025-12-23 15:47:48,512 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 15:47:48,513 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:47:48,514 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 15:47:48,628 - INFO - [STOP] Shutdown complete
+2025-12-23 15:47:53,701 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 15:47:53,702 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 15:47:53,703 - INFO - HTTP health server started on port 8082
+2025-12-23 15:47:53,703 - INFO - WebSocket server started on port 6789
+2025-12-23 15:47:53,704 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 15:47:53,794 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:47:54,441 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 15:47:54,441 - INFO - Listening for Telegram messages...
+2025-12-23 15:48:09,002 - INFO - 
+============================================================
+2025-12-23 15:48:09,002 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:18:08+00:00
+2025-12-23 15:48:09,003 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1700 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:48:09,003 - INFO - Total lines in message: 10
+2025-12-23 15:48:09,003 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 15:48:09,003 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 15:48:09,003 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 15:48:09,004 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 15:48:09,004 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 15:48:09,004 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 15:48:09,010 - INFO - [PARSING] Extracted ENTRY: None
+2025-12-23 15:48:09,010 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 15:48:09,010 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 15:48:09,010 - INFO -   Setup: LONG
+2025-12-23 15:48:09,011 - INFO -   Entry: None
+2025-12-23 15:48:09,011 - INFO -   Take Profit (Calculated): None
+2025-12-23 15:48:09,011 - INFO -   Stop Loss (Calculated): None
+2025-12-23 15:48:09,011 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 15:48:09,011 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 15:48:09,012 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 15:48:09,012 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 15:48:09,012 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 15:48:09,012 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 15:48:09,012 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=None
+2025-12-23 15:48:09,013 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 15:48:09,541 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 15:48:09,541 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 15:48:09,542 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Missing required fields","trade_id":null,"trade_status":"FAILED","signal_id":1,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 15:48:09,542 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 15:48:09,542 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 15:48:09,543 - INFO - ============================================================
+
+2025-12-23 15:48:09,543 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 15:48:09,543 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 15:48:09,543 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 15:48:09,720 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 15:48:09,720 - INFO - ============================================================
+
+2025-12-23 15:51:09,328 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 15:51:09,329 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:51:09,330 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 15:51:09,432 - INFO - [STOP] Shutdown complete
+2025-12-23 15:51:13,289 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 15:51:13,290 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 15:51:13,291 - INFO - HTTP health server started on port 8082
+2025-12-23 15:51:13,292 - INFO - WebSocket server started on port 6789
+2025-12-23 15:51:13,293 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 15:51:13,376 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 15:51:14,018 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 15:51:14,018 - INFO - Listening for Telegram messages...
+2025-12-23 15:51:49,624 - INFO - 
+============================================================
+2025-12-23 15:51:49,624 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:21:49+00:00
+2025-12-23 15:51:49,624 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1702 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:51:49,624 - INFO - Total lines in message: 10
+2025-12-23 15:51:49,625 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 15:51:49,625 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 15:51:49,625 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 15:51:49,625 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 15:51:49,625 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 15:51:49,625 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 15:51:49,628 - INFO - [PARSING] Extracted ENTRY: 0.1702
+2025-12-23 15:51:49,628 - INFO - [CALC] Direction=LONG, Entry=0.1702, TP=0.1744550, SL=0.161690
+2025-12-23 15:51:49,628 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 15:51:49,629 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 15:51:49,629 - INFO -   Setup: LONG
+2025-12-23 15:51:49,629 - INFO -   Entry: 0.1702
+2025-12-23 15:51:49,629 - INFO -   Take Profit (Calculated): 0.1744550
+2025-12-23 15:51:49,629 - INFO -   Stop Loss (Calculated): 0.161690
+2025-12-23 15:51:49,630 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 15:51:49,630 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 15:51:49,630 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 15:51:49,630 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 15:51:49,630 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 15:51:49,631 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 15:51:49,631 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1702
+2025-12-23 15:51:49,631 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 15:51:51,485 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 15:51:51,486 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 15:51:51,486 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":2,"trade_status":"FAILED","signal_id":3,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 15:51:51,486 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 15:51:51,486 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 15:51:51,486 - INFO - ============================================================
+
+2025-12-23 15:51:51,487 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 15:51:51,487 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 15:51:51,487 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 15:51:51,661 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 15:51:51,662 - INFO - ============================================================
+
+2025-12-23 15:54:48,942 - INFO - 
+============================================================
+2025-12-23 15:54:48,942 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:24:48+00:00
+2025-12-23 15:54:48,942 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1711 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:54:48,943 - INFO - Total lines in message: 10
+2025-12-23 15:54:48,943 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 15:54:48,943 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 15:54:48,943 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 15:54:48,943 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 15:54:48,943 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 15:54:48,944 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 15:54:48,944 - INFO - [PARSING] Extracted ENTRY: 0.1711
+2025-12-23 15:54:48,944 - INFO - [CALC] Direction=LONG, Entry=0.1711, TP=0.1753775, SL=0.162545
+2025-12-23 15:54:48,944 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 15:54:48,944 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 15:54:48,944 - INFO -   Setup: LONG
+2025-12-23 15:54:48,944 - INFO -   Entry: 0.1711
+2025-12-23 15:54:48,945 - INFO -   Take Profit (Calculated): 0.1753775
+2025-12-23 15:54:48,945 - INFO -   Stop Loss (Calculated): 0.162545
+2025-12-23 15:54:48,945 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 15:54:48,945 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 15:54:48,945 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 15:54:48,945 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 15:54:48,945 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 15:54:48,945 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 15:54:48,945 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1711
+2025-12-23 15:54:48,945 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 15:54:50,780 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 15:54:50,781 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 15:54:50,781 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":3,"trade_status":"FAILED","signal_id":5,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 15:54:50,782 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 15:54:50,782 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 15:54:50,782 - INFO - ============================================================
+
+2025-12-23 15:54:50,782 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 15:54:50,783 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 15:54:50,783 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 15:54:50,878 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 15:54:50,879 - INFO - ============================================================
+
+2025-12-23 15:56:48,121 - INFO - 
+============================================================
+2025-12-23 15:56:48,122 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:26:48+00:00
+2025-12-23 15:56:48,122 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1701 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 15:56:48,122 - INFO - Total lines in message: 10
+2025-12-23 15:56:48,122 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 15:56:48,123 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 15:56:48,123 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 15:56:48,123 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 15:56:48,123 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 15:56:48,123 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 15:56:48,124 - INFO - [PARSING] Extracted ENTRY: 0.1701
+2025-12-23 15:56:48,124 - INFO - [CALC] Direction=LONG, Entry=0.1701, TP=0.1743525, SL=0.161595
+2025-12-23 15:56:48,124 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 15:56:48,124 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 15:56:48,124 - INFO -   Setup: LONG
+2025-12-23 15:56:48,125 - INFO -   Entry: 0.1701
+2025-12-23 15:56:48,125 - INFO -   Take Profit (Calculated): 0.1743525
+2025-12-23 15:56:48,125 - INFO -   Stop Loss (Calculated): 0.161595
+2025-12-23 15:56:48,125 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 15:56:48,126 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 15:56:48,126 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 15:56:48,126 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 15:56:48,127 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 15:56:48,127 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 15:56:48,127 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1701
+2025-12-23 15:56:48,127 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 15:56:49,867 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 15:56:49,867 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 15:56:49,867 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":4,"trade_status":"FAILED","signal_id":7,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 15:56:49,868 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 15:56:49,868 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 15:56:49,868 - INFO - ============================================================
+
+2025-12-23 15:56:49,868 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 15:56:49,869 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 15:56:49,869 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 15:56:49,953 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 15:56:49,953 - INFO - ============================================================
+
+2025-12-23 16:06:09,035 - INFO - 
+============================================================
+2025-12-23 16:06:09,035 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:36:09+00:00
+2025-12-23 16:06:09,036 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1703 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 16:06:09,036 - INFO - Total lines in message: 10
+2025-12-23 16:06:09,036 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 16:06:09,036 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 16:06:09,036 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 16:06:09,036 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 16:06:09,037 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 16:06:09,037 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 16:06:09,037 - INFO - [PARSING] Extracted ENTRY: 0.1703
+2025-12-23 16:06:09,037 - INFO - [CALC] Direction=LONG, Entry=0.1703, TP=0.1745575, SL=0.161785
+2025-12-23 16:06:09,037 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 16:06:09,037 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 16:06:09,037 - INFO -   Setup: LONG
+2025-12-23 16:06:09,038 - INFO -   Entry: 0.1703
+2025-12-23 16:06:09,038 - INFO -   Take Profit (Calculated): 0.1745575
+2025-12-23 16:06:09,038 - INFO -   Stop Loss (Calculated): 0.161785
+2025-12-23 16:06:09,038 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 16:06:09,038 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 16:06:09,038 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 16:06:09,038 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 16:06:09,039 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 16:06:09,039 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 16:06:09,039 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1703
+2025-12-23 16:06:09,039 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 16:06:11,332 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 16:06:11,332 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 16:06:11,332 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Failed to place order on Binance","trade_id":5,"trade_status":"FAILED","signal_id":9,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 16:06:11,333 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 16:06:11,333 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 16:06:11,333 - INFO - ============================================================
+
+2025-12-23 16:06:11,333 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 16:06:11,333 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 16:06:11,891 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 16:06:12,087 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 16:06:12,088 - INFO - ============================================================
+
+2025-12-23 16:06:13,957 - INFO - Got difference for account updates
+2025-12-23 16:17:40,329 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:17:40,341 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:17:40,344 - INFO - Closing current connection to begin reconnect...
+2025-12-23 16:17:40,353 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:17:40,357 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:17:40,361 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:17:41,378 - WARNING - Attempt 2 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:17:42,388 - WARNING - Attempt 3 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:17:43,403 - WARNING - Attempt 4 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:17:44,551 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:18:43,661 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:18:43,681 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:18:43,696 - INFO - Closing current connection to begin reconnect...
+2025-12-23 16:18:43,700 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:18:43,700 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:18:43,710 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:18:44,804 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:20:38,496 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 16:20:38,496 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:20:38,498 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 16:20:38,600 - INFO - [STOP] Shutdown complete
+2025-12-23 16:20:42,033 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 16:20:42,034 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 16:20:42,035 - INFO - HTTP health server started on port 8082
+2025-12-23 16:20:42,035 - INFO - WebSocket server started on port 6789
+2025-12-23 16:20:42,036 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:20:42,117 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:20:42,710 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 16:20:42,710 - INFO - Listening for Telegram messages...
+2025-12-23 16:20:46,625 - INFO - 
+============================================================
+2025-12-23 16:20:46,626 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 10:50:46+00:00
+2025-12-23 16:20:46,626 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1704 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 16:20:46,626 - INFO - Total lines in message: 10
+2025-12-23 16:20:46,626 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 16:20:46,626 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 16:20:46,627 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 16:20:46,627 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 16:20:46,627 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 16:20:46,627 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 16:20:46,628 - INFO - [PARSING] Extracted ENTRY: 0.1704
+2025-12-23 16:20:46,628 - INFO - [CALC] Direction=LONG, Entry=0.1704, TP=0.1746600, SL=0.161880
+2025-12-23 16:20:46,628 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 16:20:46,628 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 16:20:46,628 - INFO -   Setup: LONG
+2025-12-23 16:20:46,628 - INFO -   Entry: 0.1704
+2025-12-23 16:20:46,629 - INFO -   Take Profit (Calculated): 0.1746600
+2025-12-23 16:20:46,629 - INFO -   Stop Loss (Calculated): 0.161880
+2025-12-23 16:20:46,629 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 16:20:46,629 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 16:20:46,629 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 16:20:46,629 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 16:20:46,629 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 16:20:46,630 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 16:20:46,630 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1704
+2025-12-23 16:20:46,630 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 16:20:49,367 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 16:20:49,367 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 16:20:49,367 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":6,"trade_status":"SUCCESS","signal_id":11,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 16:20:49,368 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 16:20:49,368 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 16:20:49,368 - INFO - ============================================================
+
+2025-12-23 16:20:49,368 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 16:20:49,368 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 16:20:49,369 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 16:20:49,532 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 16:20:49,533 - INFO - ============================================================
+
+2025-12-23 16:31:06,749 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:31:06,767 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:31:06,768 - INFO - Closing current connection to begin reconnect...
+2025-12-23 16:31:06,791 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:31:06,793 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:31:06,796 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 16:31:07,967 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:35:27,995 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:35:28,021 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:35:28,042 - INFO - Closing current connection to begin reconnect...
+2025-12-23 16:35:28,058 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 16:35:28,058 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:35:28,205 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:47:29,294 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 16:47:29,295 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:47:29,296 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 16:47:29,405 - INFO - [STOP] Shutdown complete
+2025-12-23 16:47:33,057 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 16:47:33,058 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 16:47:33,059 - INFO - HTTP health server started on port 8082
+2025-12-23 16:47:33,059 - INFO - WebSocket server started on port 6789
+2025-12-23 16:47:33,061 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 16:47:33,131 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 16:47:33,828 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 16:47:33,828 - INFO - Listening for Telegram messages...
+2025-12-23 16:47:54,910 - INFO - 
+============================================================
+2025-12-23 16:47:54,910 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 11:17:54+00:00
+2025-12-23 16:47:54,911 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1706 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 16:47:54,911 - INFO - Total lines in message: 10
+2025-12-23 16:47:54,911 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 16:47:54,912 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 16:47:54,912 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 16:47:54,912 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 16:47:54,913 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 16:47:54,913 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 16:47:54,913 - INFO - [PARSING] Extracted ENTRY: 0.1706
+2025-12-23 16:47:54,913 - INFO - [CALC] Direction=LONG, Entry=0.1706, TP=0.1748650, SL=0.162070
+2025-12-23 16:47:54,914 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 16:47:54,914 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 16:47:54,914 - INFO -   Setup: LONG
+2025-12-23 16:47:54,914 - INFO -   Entry: 0.1706
+2025-12-23 16:47:54,914 - INFO -   Take Profit (Calculated): 0.1748650
+2025-12-23 16:47:54,915 - INFO -   Stop Loss (Calculated): 0.162070
+2025-12-23 16:47:54,915 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 16:47:54,915 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 16:47:54,915 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 16:47:54,915 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 16:47:54,916 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 16:47:54,916 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 16:47:54,916 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1706
+2025-12-23 16:47:54,916 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 16:47:57,932 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 16:47:57,932 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 16:47:57,932 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":7,"trade_status":"SUCCESS","signal_id":13,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 16:47:57,932 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 16:47:57,933 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 16:47:57,933 - INFO - ============================================================
+
+2025-12-23 16:47:57,933 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 16:47:57,933 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 16:47:57,933 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 16:47:58,090 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 16:47:58,090 - INFO - ============================================================
+
+2025-12-23 17:13:31,138 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 17:13:31,138 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 17:13:31,142 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 17:13:54,087 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-23 17:13:54,090 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-23 17:13:54,093 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-23 17:13:54,202 - INFO - [STOP] Shutdown complete
+2025-12-23 17:14:30,132 - INFO - [OK] Connected to PostgreSQL
+2025-12-23 17:14:30,132 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-23 17:14:30,134 - INFO - HTTP health server started on port 8082
+2025-12-23 17:14:30,135 - INFO - WebSocket server started on port 6789
+2025-12-23 17:14:30,136 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 17:14:30,211 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 17:14:30,867 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-23 17:14:30,867 - INFO - Listening for Telegram messages...
+2025-12-23 17:18:51,800 - INFO - 
+============================================================
+2025-12-23 17:18:51,800 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 11:48:51+00:00
+2025-12-23 17:18:51,801 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1713 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 17:18:51,801 - INFO - Total lines in message: 10
+2025-12-23 17:18:51,801 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 17:18:51,801 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 17:18:51,801 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 17:18:51,801 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 17:18:51,802 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 17:18:51,802 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 17:18:51,802 - INFO - [PARSING] Extracted ENTRY: 0.1713
+2025-12-23 17:18:51,802 - INFO - [CALC] Direction=LONG, Entry=0.1713, TP=0.1755825, SL=0.162735
+2025-12-23 17:18:51,803 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 17:18:51,803 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 17:18:51,803 - INFO -   Setup: LONG
+2025-12-23 17:18:51,803 - INFO -   Entry: 0.1713
+2025-12-23 17:18:51,803 - INFO -   Take Profit (Calculated): 0.1755825
+2025-12-23 17:18:51,804 - INFO -   Stop Loss (Calculated): 0.162735
+2025-12-23 17:18:51,804 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 17:18:51,804 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 17:18:51,804 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 17:18:51,804 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 17:18:51,804 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 17:18:51,805 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 17:18:51,805 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1713
+2025-12-23 17:18:51,805 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 17:18:54,963 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 17:18:54,964 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 17:18:54,964 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":8,"trade_status":"SUCCESS","signal_id":15,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 17:18:54,964 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 17:18:54,964 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 17:18:54,965 - INFO - ============================================================
+
+2025-12-23 17:18:54,965 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 17:18:54,965 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 17:18:54,965 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 17:18:55,100 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 17:18:55,100 - INFO - ============================================================
+
+2025-12-23 17:28:18,247 - INFO - 
+============================================================
+2025-12-23 17:28:18,248 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 11:58:18+00:00
+2025-12-23 17:28:18,248 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1713 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 17:28:18,249 - INFO - Total lines in message: 10
+2025-12-23 17:28:18,249 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 17:28:18,249 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 17:28:18,250 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 17:28:18,250 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 17:28:18,250 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 17:28:18,251 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 17:28:18,251 - INFO - [PARSING] Extracted ENTRY: 0.1713
+2025-12-23 17:28:18,251 - INFO - [CALC] Direction=LONG, Entry=0.1713, TP=0.1755825, SL=0.162735
+2025-12-23 17:28:18,251 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 17:28:18,252 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 17:28:18,252 - INFO -   Setup: LONG
+2025-12-23 17:28:18,252 - INFO -   Entry: 0.1713
+2025-12-23 17:28:18,252 - INFO -   Take Profit (Calculated): 0.1755825
+2025-12-23 17:28:18,252 - INFO -   Stop Loss (Calculated): 0.162735
+2025-12-23 17:28:18,253 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 17:28:18,253 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 17:28:18,253 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 17:28:18,253 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 17:28:18,253 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 17:28:18,254 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 17:28:18,254 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1713
+2025-12-23 17:28:18,254 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 17:28:20,951 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-23 17:28:20,951 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-23 17:28:20,951 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":9,"trade_status":"SUCCESS","signal_id":17,"message":"Signal received and trade executed","status":"success"}
+2025-12-23 17:28:20,952 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 17:28:20,952 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 17:28:20,952 - INFO - ============================================================
+
+2025-12-23 17:28:20,952 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 17:28:20,953 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 17:28:21,497 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 17:28:21,669 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 17:28:21,670 - INFO - ============================================================
+
+2025-12-23 17:35:49,267 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 17:35:49,280 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 17:35:49,281 - INFO - Closing current connection to begin reconnect...
+2025-12-23 17:35:49,306 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-23 17:35:49,316 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 17:35:49,323 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-23 17:35:50,475 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 17:44:31,457 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 17:47:32,868 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 17:50:18,199 - INFO - 
+============================================================
+2025-12-23 17:50:18,199 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-23 12:19:22+00:00
+2025-12-23 17:50:18,199 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1713 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-23 17:50:18,200 - INFO - Total lines in message: 10
+2025-12-23 17:50:18,200 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-23 17:50:18,200 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-23 17:50:18,201 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-23 17:50:18,201 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-23 17:50:18,201 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-23 17:50:18,201 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-23 17:50:18,202 - INFO - [PARSING] Extracted ENTRY: 0.1713
+2025-12-23 17:50:18,202 - INFO - [CALC] Direction=LONG, Entry=0.1713, TP=0.1755825, SL=0.162735
+2025-12-23 17:50:18,202 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-23 17:50:18,202 - INFO -   Pair: ALICEUSDT.P
+2025-12-23 17:50:18,203 - INFO -   Setup: LONG
+2025-12-23 17:50:18,203 - INFO -   Entry: 0.1713
+2025-12-23 17:50:18,203 - INFO -   Take Profit (Calculated): 0.1755825
+2025-12-23 17:50:18,203 - INFO -   Stop Loss (Calculated): 0.162735
+2025-12-23 17:50:18,204 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-23 17:50:18,204 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-23 17:50:18,204 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-23 17:50:18,204 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-23 17:50:18,204 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-23 17:50:18,204 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-23 17:50:18,205 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1713
+2025-12-23 17:50:18,205 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-23 17:50:18,371 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-23 17:50:18,371 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#ALICEUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.1713 (CMP)\n\nTP 1 → 0.1780\nTP 2 → 0.1785\nTP 3 → 0.1790\nTP 4 → 0.1795\nTP 5 → Extended Targets\n\nStop Loss: 0.1680 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | ©️ Cruzebow Premium™️) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-23 17:50:18,372 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-23 17:50:18,372 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-23 17:50:18,372 - INFO - ============================================================
+
+2025-12-23 17:50:18,373 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-23 17:50:18,373 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-23 17:50:19,868 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-23 17:50:19,953 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-23 17:50:19,954 - INFO - ============================================================
+
+2025-12-23 17:51:39,067 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 17:56:31,119 - INFO - Closing current connection to begin reconnect...
+2025-12-23 17:56:31,121 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 17:56:31,267 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 17:57:36,214 - INFO - Got difference for channel 2306883616 updates
+2025-12-23 17:59:57,149 - INFO - Got difference for account updates
+2025-12-23 18:01:31,176 - INFO - Closing current connection to begin reconnect...
+2025-12-23 18:01:31,177 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-23 18:01:31,323 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-23 18:02:32,040 - INFO - Got difference for channel 2306883616 updates
+2025-12-27 14:23:48,861 - INFO - [OK] Connected to PostgreSQL
+2025-12-27 14:23:48,862 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-27 14:23:48,863 - INFO - HTTP health server started on port 8082
+2025-12-27 14:23:48,863 - INFO - WebSocket server started on port 6789
+2025-12-27 14:23:48,864 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-27 14:23:48,945 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-27 14:23:49,672 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-27 14:23:49,672 - INFO - Listening for Telegram messages...

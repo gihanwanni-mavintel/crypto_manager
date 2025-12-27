@@ -21,7 +21,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.StreamHandler(encoding='utf-8'),
+        logging.StreamHandler(),
         logging.FileHandler("app.log", encoding='utf-8')
     ]
 )
@@ -115,40 +115,9 @@ async def init_db():
     global db_pool
     db_pool = await asyncpg.create_pool(dsn=DATABASE_URL)
     logger.info("[OK] Connected to PostgreSQL")
-
-    async with db_pool.acquire() as conn:
-        # Drop tables if they exist to ensure correct schema
-        await conn.execute("DROP TABLE IF EXISTS signal_messages CASCADE")
-        await conn.execute("DROP TABLE IF EXISTS market_messages CASCADE")
-
-        # Create tables with correct schema
-        await conn.execute("""
-        CREATE TABLE signal_messages (
-            id SERIAL PRIMARY KEY,
-            pair TEXT,
-            setup_type TEXT,
-            entry NUMERIC(18,8),
-            leverage NUMERIC(18,8),
-            tp1 NUMERIC(18,8),
-            tp2 NUMERIC(18,8),
-            tp3 NUMERIC(18,8),
-            tp4 NUMERIC(18,8),
-            stop_loss NUMERIC(18,8),
-            timestamp TIMESTAMPTZ,
-            full_message TEXT UNIQUE,
-            channel TEXT,
-            quantity NUMERIC(18,8)
-        )
-        """)
-        await conn.execute("""
-        CREATE TABLE market_messages (
-            id SERIAL PRIMARY KEY,
-            sender TEXT,
-            text TEXT,
-            timestamp TIMESTAMPTZ
-        )
-        """)
-    logger.info("[OK] Tables ready (recreated with correct schema)")
+    logger.info("[OK] Using existing tables (signal_messages, market_messages)")
+    # Note: Tables already exist in Neon database with updated schema
+    # No table recreation needed
 
 async def signal_db_worker(batch_size=50):
     while True:
@@ -175,27 +144,23 @@ async def signal_db_worker(batch_size=50):
                     ts = ensure_timezone_aware(m["timestamp"])
                     logger.debug(f"[DB WORKER] Converting signal {idx}: {m['pair']} {m['setup_type']}")
                     values.append((
-                        m["pair"], m["setup_type"],
+                        m["pair"],
+                        m["setup_type"],
                         float(m["entry"]) if m["entry"] is not None else None,
-                        float(m["leverage"]) if m["leverage"] is not None else None,
-                        float(m["tp1"]) if m["tp1"] is not None else None,
-                        float(m["tp2"]) if m["tp2"] is not None else None,
-                        float(m["tp3"]) if m["tp3"] is not None else None,
-                        float(m["tp4"]) if m["tp4"] is not None else None,
+                        float(m["take_profit"]) if m["take_profit"] is not None else None,
                         float(m["stop_loss"]) if m["stop_loss"] is not None else None,
-                        ts, m["full_message"],
-                        "TELEGRAM",  # channel - default value for Telegram signals
-                        None  # quantity - calculated by Java backend
+                        ts,
+                        m["full_message"],
+                        "TELEGRAM"  # channel - default value for Telegram signals
                     ))
 
                 if values:
                     logger.info(f"[DB INSERT] Inserting {len(values)} signal(s) into signal_messages table...")
                     await conn.executemany("""
                     INSERT INTO signal_messages (
-                        pair, setup_type, entry, leverage,
-                        tp1, tp2, tp3, tp4, stop_loss,
-                        timestamp, full_message, channel, quantity
-                    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+                        pair, setup_type, entry, take_profit, stop_loss,
+                        timestamp, full_message, channel
+                    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
                     ON CONFLICT (full_message) DO NOTHING
                     """, values)
                     logger.info(f"[DB INSERT] [OK] Successfully inserted {len(values)} signal(s)")
@@ -266,12 +231,49 @@ def parse_decimal(value: str):
     except (InvalidOperation, AttributeError):
         return None
 
+def calculate_tp_sl(entry: Decimal, direction: str):
+    """
+    Calculate TP and SL based on entry price and direction
+
+    LONG:
+      TP = entry * 1.025  (entry + 2.5%)
+      SL = entry * 0.95   (entry - 5%)
+
+    SHORT:
+      TP = entry * 0.975  (entry - 2.5%)
+      SL = entry * 1.05   (entry + 5%)
+    """
+    if entry is None:
+        return None, None
+
+    try:
+        entry_decimal = Decimal(str(entry))
+
+        if direction == "LONG":
+            tp = entry_decimal * Decimal("1.025")  # +2.5%
+            sl = entry_decimal * Decimal("0.95")   # -5%
+        elif direction == "SHORT":
+            tp = entry_decimal * Decimal("0.975")  # -2.5%
+            sl = entry_decimal * Decimal("1.05")   # +5%
+        else:
+            logger.warning(f"Unknown direction: {direction}, cannot calculate TP/SL")
+            return None, None
+
+        logger.info(f"[CALC] Direction={direction}, Entry={entry}, TP={tp}, SL={sl}")
+        return tp, sl
+    except Exception as e:
+        logger.error(f"Error calculating TP/SL: {e}")
+        return None, None
+
 def extract_value(label, lines):
     pattern = re.compile(rf"{label}\s*:\s*(.+)", re.IGNORECASE)
     for line in lines:
         match = pattern.search(line)
         if match:
+            # Extract value and remove emojis, parentheses content, and extra text
             value = match.group(1).strip().replace("•", "").split("☠️")[0].strip()
+            # Remove anything in parentheses (like "(CMP)")
+            value = re.sub(r'\([^)]*\)', '', value).strip()
             return value
     return None
 
@@ -296,11 +298,12 @@ async def run_telegram_client():
             logger.info(f"Message content (first 100 chars): {text[:100]}...")
             logger.info(f"Total lines in message: {len(lines)}")
 
+            # Detect signal: Must have # symbol, entry, and direction (LONG/SHORT)
+            # TP and SL are now calculated, so we don't require them in the message
             is_signal = (
                 any(line.startswith('#') for line in lines) and
                 any("entry" in line.lower() for line in lines) and
-                any("profit" in line.lower() for line in lines) and
-                any("loss" in line.lower() for line in lines)
+                (any("long" in line.lower() for line in lines) or any("short" in line.lower() for line in lines))
             )
 
             logger.info(f"[SIGNAL DETECTION] Is Signal: {is_signal}")
@@ -317,32 +320,19 @@ async def run_telegram_client():
                 logger.info(f"[PARSING] Extracted PAIR: {pair}")
                 logger.info(f"[PARSING] Extracted SETUP_TYPE: {setup_type}")
 
+                # Extract only ENTRY from telegram message
                 entry = parse_decimal(extract_value("Entry", lines))
                 logger.info(f"[PARSING] Extracted ENTRY: {entry}")
 
-                leverage_raw = extract_value("Leverage", lines)
-                leverage = parse_decimal(leverage_raw.replace("x", "").strip()) if leverage_raw else None
-                logger.info(f"[PARSING] Extracted LEVERAGE: {leverage} (raw: {leverage_raw})")
+                # Calculate TP and SL based on entry and direction
+                take_profit, stop_loss = calculate_tp_sl(entry, setup_type)
 
-                tp1 = parse_decimal(extract_value("Target 1", lines) or extract_value("TP1", lines))
-                logger.info(f"[PARSING] Extracted TP1: {tp1}")
-
-                tp2 = parse_decimal(extract_value("Target 2", lines) or extract_value("TP2", lines))
-                logger.info(f"[PARSING] Extracted TP2: {tp2}")
-
-                tp3 = parse_decimal(extract_value("Target 3", lines) or extract_value("TP3", lines))
-                logger.info(f"[PARSING] Extracted TP3: {tp3}")
-
-                tp4 = parse_decimal(extract_value("Target 4", lines) or extract_value("TP4", lines))
-                logger.info(f"[PARSING] Extracted TP4: {tp4}")
-
-                stop_loss = parse_decimal(extract_value("Stop Loss", lines) or extract_value("SL", lines))
-                logger.info(f"[PARSING] Extracted STOP_LOSS: {stop_loss}")
-
+                # Create simplified data object
                 data = {
-                    "pair": pair, "setup_type": setup_type,
-                    "entry": entry, "leverage": leverage,
-                    "tp1": tp1, "tp2": tp2, "tp3": tp3, "tp4": tp4,
+                    "pair": pair,
+                    "setup_type": setup_type,
+                    "entry": entry,
+                    "take_profit": take_profit,
                     "stop_loss": stop_loss,
                     "timestamp": date,
                     "full_message": text
@@ -352,9 +342,8 @@ async def run_telegram_client():
                 logger.info(f"  Pair: {data['pair']}")
                 logger.info(f"  Setup: {data['setup_type']}")
                 logger.info(f"  Entry: {data['entry']}")
-                logger.info(f"  Leverage: {data['leverage']}")
-                logger.info(f"  TP1: {data['tp1']}, TP2: {data['tp2']}, TP3: {data['tp3']}, TP4: {data['tp4']}")
-                logger.info(f"  Stop Loss: {data['stop_loss']}")
+                logger.info(f"  Take Profit (Calculated): {data['take_profit']}")
+                logger.info(f"  Stop Loss (Calculated): {data['stop_loss']}")
 
                 logger.info(f"\n[QUEUE] Adding signal to database queue...")
                 await signal_queue.put(data)

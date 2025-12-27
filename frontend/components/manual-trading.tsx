@@ -9,7 +9,7 @@ import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
-import type { Trade, TakeProfitLevel } from "@/types/trading"
+import type { Trade } from "@/types/trading"
 import { TrendingUp, TrendingDown, Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -62,22 +62,6 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
       return
     }
 
-    const takeProfitLevels: TakeProfitLevel[] = []
-    if (enableTakeProfit) {
-      if (tp1Price && tp1Percentage) {
-        takeProfitLevels.push({ price: Number.parseFloat(tp1Price), percentage: Number.parseFloat(tp1Percentage) })
-      }
-      if (tp2Price && tp2Percentage) {
-        takeProfitLevels.push({ price: Number.parseFloat(tp2Price), percentage: Number.parseFloat(tp2Percentage) })
-      }
-      if (tp3Price && tp3Percentage) {
-        takeProfitLevels.push({ price: Number.parseFloat(tp3Price), percentage: Number.parseFloat(tp3Percentage) })
-      }
-      if (tp4Price && tp4Percentage) {
-        takeProfitLevels.push({ price: Number.parseFloat(tp4Price), percentage: Number.parseFloat(tp4Percentage) })
-      }
-    }
-
     const trade: Trade = {
       pair,
       side,
@@ -85,7 +69,7 @@ export function ManualTrading({ onExecuteTrade }: ManualTradingProps) {
       quantity: Number.parseFloat(quantity),
       leverage: leverage[0],
       stopLoss: enableStopLoss && stopLoss ? Number.parseFloat(stopLoss) : undefined,
-      takeProfitLevels: takeProfitLevels.length > 0 ? takeProfitLevels : undefined,
+      takeProfit: enableTakeProfit && tp1Price ? Number.parseFloat(tp1Price) : undefined,
     }
 
     onExecuteTrade(trade)

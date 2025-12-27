@@ -73,16 +73,11 @@ public class SignalController {
             signal.setPair(signalDetails.getPair());
             signal.setSetupType(signalDetails.getSetupType());
             signal.setEntry(signalDetails.getEntry());
-            signal.setLeverage(signalDetails.getLeverage());
-            signal.setTp1(signalDetails.getTp1());
-            signal.setTp2(signalDetails.getTp2());
-            signal.setTp3(signalDetails.getTp3());
-            signal.setTp4(signalDetails.getTp4());
+            signal.setTakeProfit(signalDetails.getTakeProfit());
             signal.setStopLoss(signalDetails.getStopLoss());
             signal.setTimestamp(signalDetails.getTimestamp());
             signal.setFullMessage(signalDetails.getFullMessage());
             signal.setChannel(signalDetails.getChannel());
-            signal.setQuantity(signalDetails.getQuantity());
             return signalRepository.save(signal);
         }).orElseThrow(() -> new RuntimeException("Signal not found"));
     }

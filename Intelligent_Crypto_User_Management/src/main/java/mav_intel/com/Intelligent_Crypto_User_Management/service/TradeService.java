@@ -12,13 +12,29 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 @Slf4j
 @Service
 public class TradeService {
+
+    // Default leverage for all trades
+    private static final int DEFAULT_LEVERAGE = 20;
+
+    // Binance minimum notional value with 2% safety buffer
+    private static final double MIN_NOTIONAL_VALUE = 5.10;
 
     @Autowired
     private TradeRepository tradeRepository;
@@ -28,6 +44,14 @@ public class TradeService {
 
     @Autowired(required = false)
     private UMFuturesClientImpl futuresClient;
+
+    @org.springframework.beans.factory.annotation.Value("${binance.api.key:}")
+    private String binanceApiKey;
+
+    @org.springframework.beans.factory.annotation.Value("${binance.api.secret:}")
+    private String binanceApiSecret;
+
+    private static final String BINANCE_FUTURES_BASE_URL = "https://fapi.binance.com";
 
     /**
      * Execute a new trade based on the request
@@ -47,12 +71,9 @@ public class TradeService {
             trade.setSide(request.getSide());
             trade.setEntryPrice(request.getEntry());
             trade.setEntryQuantity(request.getQuantity() != null ? request.getQuantity() : 0.0);
-            trade.setLeverage(request.getLeverage() != null ? request.getLeverage() : 1);
+            trade.setLeverage(request.getLeverage() != null ? request.getLeverage() : DEFAULT_LEVERAGE);
+            trade.setTakeProfit(request.getTakeProfit());
             trade.setStopLoss(request.getStopLoss());
-            trade.setTp1(request.getTp1());
-            trade.setTp2(request.getTp2());
-            trade.setTp3(request.getTp3());
-            trade.setTp4(request.getTp4());
             trade.setStatus("PENDING");
             trade.setOpenedAt(OffsetDateTime.now());
             trade.setSignalId(request.getSignalId());
@@ -112,8 +133,25 @@ public class TradeService {
                 return false;
             }
 
-            String symbol = trade.getPair();
+            // Normalize symbol: Remove .P suffix (e.g., ALICEUSDT.P -> ALICEUSDT)
+            String symbol = normalizeBinanceSymbol(trade.getPair());
             String side = trade.getSide().equalsIgnoreCase("LONG") ? "BUY" : "SELL";
+
+            // Get symbol precision from Binance
+            int pricePrecision = getSymbolPricePrecision(symbol);
+            int quantityPrecision = getSymbolQuantityPrecision(symbol);
+
+            // Round prices to correct precision
+            double roundedEntryPrice = roundToPrecision(trade.getEntryPrice(), pricePrecision);
+
+            // Calculate and round quantity with minimum notional validation
+            double roundedQuantity = calculateQuantity(
+                trade.getEntryQuantity(),
+                trade.getLeverage(),
+                balance,
+                roundedEntryPrice,
+                quantityPrecision
+            );
 
             // 1. Set leverage
             setLeverage(symbol, trade.getLeverage());
@@ -124,12 +162,12 @@ public class TradeService {
             orderParams.put("side", side);
             orderParams.put("type", "LIMIT");
             orderParams.put("timeInForce", "GTC"); // Good Till Cancel
-            orderParams.put("quantity", calculateQuantity(trade.getEntryQuantity(), trade.getLeverage(), balance));
-            orderParams.put("price", trade.getEntryPrice()); // LIMIT order at exact entry price
+            orderParams.put("quantity", roundedQuantity);
+            orderParams.put("price", roundedEntryPrice);
             orderParams.put("recvWindow", 60000);
 
-            log.info("📍 Placing LIMIT order: {} {} @ ${} Qty={}",
-                side, symbol, trade.getEntryPrice(), orderParams.get("quantity"));
+            log.info("📍 Placing LIMIT order: {} {} @ ${} Qty={} (Price Precision: {}, Qty Precision: {})",
+                side, symbol, roundedEntryPrice, roundedQuantity, pricePrecision, quantityPrecision);
 
             String orderResponse = futuresClient.account().newOrder(orderParams);
             JSONObject resp = new JSONObject(orderResponse);
@@ -141,26 +179,19 @@ public class TradeService {
 
             trade.setBinanceOrderId(orderId);
 
-            // 3. Place Stop-Loss
+            // 3. Place Stop-Loss (using NEW Algo API)
             if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
-                placeStopLoss(symbol, side, executedQty, trade.getStopLoss());
+                double roundedSlPrice = roundToPrecision(trade.getStopLoss(), pricePrecision);
+                placeStopLoss(symbol, side, roundedQuantity, roundedSlPrice);
             }
 
-            // 4. Place Take-Profits
-            if (trade.getTp1() != null && trade.getTp1() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp1(), "TP1");
-            }
-            if (trade.getTp2() != null && trade.getTp2() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp2(), "TP2");
-            }
-            if (trade.getTp3() != null && trade.getTp3() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp3(), "TP3");
-            }
-            if (trade.getTp4() != null && trade.getTp4() > 0) {
-                placeTakeProfit(symbol, side, executedQty, trade.getTp4(), "TP4");
+            // 4. Place Take-Profit (using NEW Algo API)
+            if (trade.getTakeProfit() != null && trade.getTakeProfit() > 0) {
+                double roundedTpPrice = roundToPrecision(trade.getTakeProfit(), pricePrecision);
+                placeTakeProfit(symbol, side, roundedQuantity, roundedTpPrice);
             }
 
-            log.info("✅ All orders placed for {}", symbol);
+            log.info("✅ All orders placed for {} (Entry, TP, SL)", symbol);
             return true;
 
         } catch (Exception e) {
@@ -193,17 +224,56 @@ public class TradeService {
     }
 
     /**
-     * Calculate quantity based on available balance and leverage
-     * If quantity is provided, use it; otherwise calculate from balance
+     * Calculate quantity based on available balance, leverage, and minimum notional value
+     * Ensures the order meets Binance's $5 minimum notional requirement
+     *
+     * @param requestedQty User-requested quantity (if provided)
+     * @param leverage Trading leverage
+     * @param balance Available USDT balance
+     * @param price Entry price
+     * @param precision Quantity precision from Binance
+     * @return Quantity rounded to correct precision with minimum notional validation
      */
-    private double calculateQuantity(Double requestedQty, int leverage, double balance) {
+    private double calculateQuantity(Double requestedQty, int leverage, double balance, double price, int precision) {
+        double quantity;
+
         if (requestedQty != null && requestedQty > 0) {
-            return requestedQty; // Use provided quantity
+            quantity = requestedQty;
+        } else {
+            // Default: Use 50% of available balance divided by leverage
+            quantity = (balance * 0.5) / leverage;
         }
-        // Default: Use 50% of available balance divided by leverage
-        double quantity = (balance * 0.5) / leverage;
-        log.info("📊 Auto-calculated quantity: {} (50% of balance / leverage)", quantity);
-        return Math.max(quantity, 0.001); // Minimum quantity
+
+        // Calculate minimum quantity needed to meet Binance's $5 notional requirement
+        // Use $5.10 (2% buffer) to account for rounding
+        double minQuantityForNotional = MIN_NOTIONAL_VALUE / price;
+
+        // Use the larger of: calculated quantity OR minimum notional quantity
+        quantity = Math.max(quantity, minQuantityForNotional);
+
+        // Round to symbol-specific precision
+        quantity = roundToPrecision(quantity, precision);
+
+        // Verify that notional value is still >= $5 after rounding
+        double notionalValue = quantity * price;
+        if (notionalValue < 5.0) {
+            // Add one precision step to ensure we meet minimum
+            quantity += Math.pow(10, -precision);
+            notionalValue = quantity * price;
+            log.warn("⚠️ Adjusted quantity to meet min notional: {} (notional: ${})", quantity, notionalValue);
+        }
+
+        log.info("📊 Calculated quantity: {} | Notional: ${} | Min required: $5.00", quantity,
+            String.format("%.2f", notionalValue));
+        return quantity;
+    }
+
+    /**
+     * Round to specified decimal places
+     */
+    private double roundToPrecision(double value, int decimalPlaces) {
+        double scale = Math.pow(10, decimalPlaces);
+        return Math.round(value * scale) / scale;
     }
 
     /**
@@ -223,48 +293,60 @@ public class TradeService {
     }
 
     /**
-     * Place Stop-Loss order
+     * Place Stop-Loss order using Binance Algo Order API
+     * Required since 2025-12-09 migration to Algo Service
+     * Endpoint: POST /fapi/v1/algoOrder
      */
     private boolean placeStopLoss(String symbol, String side, double qty, double stopPrice) {
         try {
             String slSide = side.equals("BUY") ? "SELL" : "BUY";
-            LinkedHashMap<String, Object> slParams = new LinkedHashMap<>();
-            slParams.put("symbol", symbol);
-            slParams.put("side", slSide);
-            slParams.put("type", "STOP_MARKET");
-            slParams.put("quantity", qty);
-            slParams.put("stopPrice", stopPrice);
-            slParams.put("timeInForce", "GTC");
-            slParams.put("recvWindow", 60000);
 
-            String resp = futuresClient.account().newOrder(slParams);
-            log.info("🛑 Stop-Loss placed: {}", resp);
+            LinkedHashMap<String, Object> algoParams = new LinkedHashMap<>();
+            algoParams.put("algoType", "CONDITIONAL");
+            algoParams.put("symbol", symbol);
+            algoParams.put("side", slSide);
+            algoParams.put("type", "STOP_MARKET");
+            algoParams.put("quantity", qty);
+            algoParams.put("triggerPrice", stopPrice);     // Trigger price for algo order
+            algoParams.put("workingType", "MARK_PRICE");   // Use MARK_PRICE for trigger
+            algoParams.put("reduceOnly", "true");          // Only close position, don't open new
+            algoParams.put("recvWindow", 60000);
+
+            // Make direct HTTP request to Algo Order API endpoint
+            String resp = placeAlgoOrder(algoParams);
+            log.info("🛑 Stop-Loss algo order placed: {}", resp);
             return true;
         } catch (Exception e) {
-            log.error("❌ Error placing Stop-Loss: {}", e.getMessage());
+            log.error("❌ Error placing Stop-Loss: {}", e.getMessage(), e);
             return false;
         }
     }
 
     /**
-     * Place Take-Profit order
+     * Place Take-Profit order using Binance Algo Order API
+     * Required since 2025-12-09 migration to Algo Service
+     * Endpoint: POST /fapi/v1/algoOrder
      */
-    private void placeTakeProfit(String symbol, String side, double qty, double tpPrice, String label) {
+    private void placeTakeProfit(String symbol, String side, double qty, double tpPrice) {
         try {
             String tpSide = side.equals("BUY") ? "SELL" : "BUY";
-            LinkedHashMap<String, Object> tpParams = new LinkedHashMap<>();
-            tpParams.put("symbol", symbol);
-            tpParams.put("side", tpSide);
-            tpParams.put("type", "TAKE_PROFIT_MARKET");
-            tpParams.put("quantity", qty);
-            tpParams.put("stopPrice", tpPrice);
-            tpParams.put("timeInForce", "GTC");
-            tpParams.put("recvWindow", 60000);
 
-            String resp = futuresClient.account().newOrder(tpParams);
-            log.info("📈 {} placed: {}", label, resp);
+            LinkedHashMap<String, Object> algoParams = new LinkedHashMap<>();
+            algoParams.put("algoType", "CONDITIONAL");
+            algoParams.put("symbol", symbol);
+            algoParams.put("side", tpSide);
+            algoParams.put("type", "TAKE_PROFIT_MARKET");
+            algoParams.put("quantity", qty);
+            algoParams.put("triggerPrice", tpPrice);       // Trigger price for algo order
+            algoParams.put("workingType", "MARK_PRICE");   // Use MARK_PRICE for trigger
+            algoParams.put("reduceOnly", "true");          // Only close position, don't open new
+            algoParams.put("recvWindow", 60000);
+
+            // Make direct HTTP request to Algo Order API endpoint
+            String resp = placeAlgoOrder(algoParams);
+            log.info("📈 Take-Profit algo order placed: {}", resp);
         } catch (Exception e) {
-            log.error("❌ Error placing {}: {}", label, e.getMessage());
+            log.error("❌ Error placing Take-Profit: {}", e.getMessage(), e);
         }
     }
 
@@ -302,7 +384,8 @@ public class TradeService {
      */
     private void closePositionOnBinance(Trade trade) {
         try {
-            String symbol = trade.getPair();
+            // Normalize symbol: Remove .P suffix
+            String symbol = normalizeBinanceSymbol(trade.getPair());
             String side = trade.getSide().equalsIgnoreCase("LONG") ? "SELL" : "BUY";
 
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -350,5 +433,126 @@ public class TradeService {
      */
     public List<Trade> getTradesByPair(String pair) {
         return tradeRepository.findByPair(pair);
+    }
+
+    /**
+     * Get symbol price precision from Binance Exchange Info API
+     */
+    private int getSymbolPricePrecision(String symbol) {
+        try {
+            String result = futuresClient.market().exchangeInfo();
+            JSONObject response = new JSONObject(result);
+
+            var symbols = response.getJSONArray("symbols");
+            for (int i = 0; i < symbols.length(); i++) {
+                JSONObject symbolInfo = symbols.getJSONObject(i);
+                if (symbol.equals(symbolInfo.getString("symbol"))) {
+                    int pricePrecision = symbolInfo.getInt("pricePrecision");
+                    log.info("📊 Symbol {} price precision: {}", symbol, pricePrecision);
+                    return pricePrecision;
+                }
+            }
+
+            log.warn("⚠️ Could not find price precision for {}. Using default: 2", symbol);
+            return 2; // Default fallback
+        } catch (Exception e) {
+            log.error("❌ Error fetching price precision: {}", e.getMessage());
+            return 2; // Default fallback
+        }
+    }
+
+    /**
+     * Get symbol quantity precision from Binance Exchange Info API
+     */
+    private int getSymbolQuantityPrecision(String symbol) {
+        try {
+            String result = futuresClient.market().exchangeInfo();
+            JSONObject response = new JSONObject(result);
+
+            var symbols = response.getJSONArray("symbols");
+            for (int i = 0; i < symbols.length(); i++) {
+                JSONObject symbolInfo = symbols.getJSONObject(i);
+                if (symbol.equals(symbolInfo.getString("symbol"))) {
+                    int quantityPrecision = symbolInfo.getInt("quantityPrecision");
+                    log.info("📊 Symbol {} quantity precision: {}", symbol, quantityPrecision);
+                    return quantityPrecision;
+                }
+            }
+
+            log.warn("⚠️ Could not find quantity precision for {}. Using default: 0", symbol);
+            return 0; // Default fallback (whole numbers)
+        } catch (Exception e) {
+            log.error("❌ Error fetching quantity precision: {}", e.getMessage());
+            return 0; // Default fallback
+        }
+    }
+
+    /**
+     * Normalize symbol for Binance API
+     * Removes .P suffix (e.g., ALICEUSDT.P -> ALICEUSDT)
+     */
+    private String normalizeBinanceSymbol(String symbol) {
+        if (symbol == null) return null;
+        // Remove .P suffix if present (Telegram notation for perpetual futures)
+        return symbol.replaceAll("\\.P$", "");
+    }
+
+    /**
+     * Place Algo Order using Binance Algo Order API
+     * Endpoint: POST /fapi/v1/algoOrder
+     * Required since 2025-12-09 migration to Algo Service for conditional orders
+     */
+    private String placeAlgoOrder(LinkedHashMap<String, Object> params) throws Exception {
+        // Add timestamp
+        params.put("timestamp", System.currentTimeMillis());
+
+        // Build query string
+        String queryString = params.entrySet().stream()
+            .map(entry -> entry.getKey() + "=" + entry.getValue())
+            .collect(Collectors.joining("&"));
+
+        // Generate signature using HMAC-SHA256
+        String signature = generateSignature(queryString, binanceApiSecret);
+        String signedQueryString = queryString + "&signature=" + signature;
+
+        // Build HTTP request
+        String url = BINANCE_FUTURES_BASE_URL + "/fapi/v1/algoOrder?" + signedQueryString;
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("X-MBX-APIKEY", binanceApiKey)
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .POST(HttpRequest.BodyPublishers.noBody())
+            .build();
+
+        log.info("📡 Algo Order API Request: POST {}", url.substring(0, Math.min(url.length(), 100)) + "...");
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new RuntimeException("Algo Order API error: " + response.body());
+        }
+
+        return response.body();
+    }
+
+    /**
+     * Generate HMAC-SHA256 signature for Binance API authentication
+     */
+    private String generateSignature(String data, String secret) throws NoSuchAlgorithmException, InvalidKeyException {
+        Mac hmacSha256 = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        hmacSha256.init(secretKeySpec);
+        byte[] hash = hmacSha256.doFinal(data.getBytes(StandardCharsets.UTF_8));
+
+        // Convert to hex string
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

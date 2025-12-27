@@ -9,15 +9,22 @@ public class IntelligentCryptoUserManagementApplication {
 
 	public static void main(String[] args) {
 		// Load .env file and set environment variables
-		Dotenv dotenv = Dotenv.configure()
-				.directory(".")
-				.ignoreIfMissing()
-				.load();
+		try {
+			Dotenv dotenv = Dotenv.configure()
+					.directory(System.getProperty("user.dir"))
+					.ignoreIfMissing()
+					.load();
 
-		// Set system properties from .env file
-		dotenv.entries().forEach(entry ->
-			System.setProperty(entry.getKey(), entry.getValue())
-		);
+			// Set system properties from .env file
+			dotenv.entries().forEach(entry ->
+				System.setProperty(entry.getKey(), entry.getValue())
+			);
+
+			System.out.println("[OK] Loaded .env file from: " + System.getProperty("user.dir"));
+		} catch (Exception e) {
+			System.out.println("[WARN] Could not load .env file: " + e.getMessage());
+			System.out.println("[INFO] Using environment variables or application.properties defaults");
+		}
 
 		SpringApplication.run(IntelligentCryptoUserManagementApplication.class, args);
 	}

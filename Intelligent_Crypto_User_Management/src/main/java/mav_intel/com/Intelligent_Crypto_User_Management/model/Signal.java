@@ -27,20 +27,8 @@ public class Signal {
     @Column(name = "entry")
     private Double entry;
 
-    @Column(name = "leverage")
-    private Integer leverage;
-
-    @Column(name = "tp1")
-    private Double tp1;
-
-    @Column(name = "tp2")
-    private Double tp2;
-
-    @Column(name = "tp3")
-    private Double tp3;
-
-    @Column(name = "tp4")
-    private Double tp4;
+    @Column(name = "take_profit")
+    private Double takeProfit;
 
     @Column(name = "stop_loss")
     private Double stopLoss;
@@ -53,7 +41,4 @@ public class Signal {
 
     @Column(name = "channel")
     private String channel;
-
-    @Column(name = "quantity")
-    private Double quantity;
 }

@@ -4,7 +4,7 @@ export interface Signal {
   action: "BUY" | "SELL"
   entry: number
   stopLoss: number
-  takeProfit: number[]
+  takeProfit: number // Single TP calculated by Python backend
   timestamp: Date
   source: string
   status: "active" | "completed" | "cancelled"
@@ -25,11 +25,6 @@ export interface Position {
   openedAt: Date // Ensuring openedAt is documented for filtering
 }
 
-export interface TakeProfitLevel {
-  price: number
-  percentage: number
-}
-
 export interface Trade {
   pair: string
   side: "LONG" | "SHORT"
@@ -38,7 +33,6 @@ export interface Trade {
   leverage: number
   stopLoss?: number
   takeProfit?: number
-  takeProfitLevels?: TakeProfitLevel[]
 }
 
 export interface TradeHistory {

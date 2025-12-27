@@ -118,19 +118,15 @@ public class AutoTradeExecutor {
     private ExecuteTradeRequest convertSignalToTradeRequest(Signal signal) {
         ExecuteTradeRequest request = new ExecuteTradeRequest();
 
-        // Convert LONG/SHORT to BUY/SELL
-        String setupType = signal.getSetupType();
-        request.setSide(setupType.equalsIgnoreCase("LONG") ? "BUY" : "SELL");
+        // Use LONG/SHORT directly (matching Signal.setupType format)
+        request.setSide(signal.getSetupType()); // LONG or SHORT
 
         request.setPair(signal.getPair());
         request.setEntry(signal.getEntry());
-        request.setLeverage(signal.getLeverage().intValue());
-        request.setTp1(signal.getTp1());
-        request.setTp2(signal.getTp2());
-        request.setTp3(signal.getTp3());
-        request.setTp4(signal.getTp4());
+        request.setLeverage(20); // Default 20x leverage
+        request.setTakeProfit(signal.getTakeProfit()); // Single TP calculated by Python
         request.setStopLoss(signal.getStopLoss());
-        request.setQuantity(signal.getQuantity()); // Can be null, auto-calculated
+        request.setQuantity(null); // Auto-calculated by TradeService
         request.setSignalId(signal.getId());
 
         return request;

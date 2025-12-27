@@ -40,7 +40,7 @@ export default function CryptoPositionManagement() {
           action: signal.setupType === "LONG" ? "BUY" : signal.setupType === "SHORT" ? "SELL" : "BUY",
           entry: signal.entry || 0,
           stopLoss: signal.stopLoss || 0,
-          takeProfit: [signal.tp1, signal.tp2, signal.tp3, signal.tp4].filter(tp => tp != null),
+          takeProfit: signal.takeProfit || 0, // Single TP calculated by Python backend
           timestamp: new Date(signal.timestamp),
           source: signal.channel || "Telegram",
           status: "active",
@@ -141,13 +141,8 @@ export default function CryptoPositionManagement() {
       )}
 
       <header className="border-b border-border bg-card shrink-0">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
-            <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              Total P&L: <span className="font-mono font-semibold text-success">+$700.00</span>
-            </div>
-          </div>
+        <div className="px-3 sm:px-4 py-3 sm:py-4">
+          <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
         </div>
       </header>
 
@@ -158,29 +153,6 @@ export default function CryptoPositionManagement() {
         </div>
 
         <main className="flex-1 overflow-y-auto p-3 sm:p-6 pb-20 md:pb-6">
-          {activeSection !== "history" && (
-            <div className="flex flex-col gap-3 sm:gap-4 mb-4">
-              <div className="flex flex-col gap-1 p-2 bg-muted rounded-lg w-fit">
-                {(["24h", "7d", "52W", "All"] as TimePeriod[]).map((period) => (
-                  <button
-                    key={period}
-                    onClick={() => setSelectedPeriod(period)}
-                    className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded transition-colors ${
-                      selectedPeriod === period
-                        ? "bg-background text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {period}
-                  </button>
-                ))}
-              </div>
-              <div className="w-full">
-                <AccountSummary positions={positions} selectedPeriod={selectedPeriod} />
-              </div>
-            </div>
-          )}
-
           {activeSection === "signals" && <TelegramSignals signals={signals} />}
           {activeSection === "positions" && (
             <PositionManagement positions={positions} onClosePosition={handleClosePosition} />

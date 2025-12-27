@@ -57,15 +57,9 @@ export function TelegramSignals({ signals }: TelegramSignalsProps) {
                 </div>
               </div>
 
-              <div>
-                <p className="text-muted-foreground text-xs mb-1">Take Profit Targets</p>
-                <div className="flex gap-1">
-                  {signal.takeProfit.map((tp, idx) => (
-                    <Badge key={idx} variant="outline" className="font-mono text-xs">
-                      ${tp.toLocaleString()}
-                    </Badge>
-                  ))}
-                </div>
+              <div className="min-w-0">
+                <p className="text-muted-foreground text-xs">Take Profit</p>
+                <p className="font-mono font-semibold text-success truncate">${signal.takeProfit.toLocaleString()}</p>
               </div>
 
               <div className="flex items-center gap-1 text-xs text-muted-foreground pt-2 border-t border-border">

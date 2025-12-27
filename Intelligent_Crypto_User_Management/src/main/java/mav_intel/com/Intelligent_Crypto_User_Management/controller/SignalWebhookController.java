@@ -118,18 +118,11 @@ public class SignalWebhookController {
         signal.setPair(getString(data, "pair"));
         signal.setSetupType(getString(data, "setup_type"));
         signal.setEntry(getDouble(data, "entry"));
-        // Convert Double leverage to Integer
-        Double leverageDouble = getDouble(data, "leverage");
-        signal.setLeverage(leverageDouble != null ? leverageDouble.intValue() : 1);
-        signal.setTp1(getDouble(data, "tp1"));
-        signal.setTp2(getDouble(data, "tp2"));
-        signal.setTp3(getDouble(data, "tp3"));
-        signal.setTp4(getDouble(data, "tp4"));
+        signal.setTakeProfit(getDouble(data, "take_profit")); // Single TP calculated by Python
         signal.setStopLoss(getDouble(data, "stop_loss"));
         signal.setFullMessage(getString(data, "full_message"));
         signal.setChannel("TELEGRAM");
         signal.setTimestamp(OffsetDateTime.now());
-        signal.setQuantity(getDouble(data, "quantity"));
         return signal;
     }
 
@@ -139,21 +132,16 @@ public class SignalWebhookController {
     private ExecuteTradeRequest mapSignalToTradeRequest(Map<String, Object> data, Long signalId) {
         ExecuteTradeRequest request = new ExecuteTradeRequest();
 
-        // Convert LONG/SHORT to BUY/SELL
+        // Use LONG/SHORT directly (matching Signal format)
         String setupType = getString(data, "setup_type");
-        request.setSide(setupType.equalsIgnoreCase("LONG") ? "BUY" : "SELL");
+        request.setSide(setupType); // LONG or SHORT
 
         request.setPair(getString(data, "pair"));
         request.setEntry(getDouble(data, "entry"));
-        // Convert Double leverage to Integer safely
-        Double leverageDouble = getDouble(data, "leverage");
-        request.setLeverage(leverageDouble != null ? leverageDouble.intValue() : 1);
-        request.setTp1(getDouble(data, "tp1"));
-        request.setTp2(getDouble(data, "tp2"));
-        request.setTp3(getDouble(data, "tp3"));
-        request.setTp4(getDouble(data, "tp4"));
+        request.setLeverage(20); // Default 20x leverage
+        request.setTakeProfit(getDouble(data, "take_profit")); // Single TP calculated by Python
         request.setStopLoss(getDouble(data, "stop_loss"));
-        request.setQuantity(getDouble(data, "quantity")); // Can be null, auto-calculated
+        request.setQuantity(null); // Auto-calculated by TradeService
         request.setSignalId(signalId);
 
         return request;

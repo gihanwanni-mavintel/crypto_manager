@@ -1,0 +1,29 @@
+[Unit]
+Description=Crypto Trading Java Backend
+After=network.target
+
+[Service]
+Type=simple
+User=crypto-trader
+WorkingDirectory=/opt/crypto-trading/Intelligent_Crypto_User_Management
+EnvironmentFile=/opt/crypto-trading/Intelligent_Crypto_User_Management/.env
+ExecStart=/usr/bin/java -Xms512m -Xmx1024m -jar /opt/crypto-trading/Intelligent_Crypto_User_Management/target/Intelligent_Crypto_User_Management-0.0.1-SNAPSHOT.jar
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=crypto-trading
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Logging
+SyslogLevel=info
+
+[Install]
+WantedBy=multi-user.target

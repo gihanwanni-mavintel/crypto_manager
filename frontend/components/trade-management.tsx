@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Settings2 } from "lucide-react"
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081'
+
 interface TradeConfig {
   maxPositionSize: number
   maxLeverage: number
@@ -29,7 +31,7 @@ export function TradeManagement() {
     const loadConfig = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch("http://localhost:8081/api/trade-management-config")
+        const response = await fetch(`${API_BASE_URL}/api/trade-management-config`)
         if (response.ok) {
           const data = await response.json()
           // Convert percent to USD (assuming 10% = $1000 for now)
@@ -58,7 +60,7 @@ export function TradeManagement() {
       // Convert USD to percent (assuming $1000 = 10% for now)
       const maxPositionSizePercent = (config.maxPositionSize / 1000) * 10
 
-      const response = await fetch("http://localhost:8081/api/trade-management-config", {
+      const response = await fetch(`${API_BASE_URL}/api/trade-management-config`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

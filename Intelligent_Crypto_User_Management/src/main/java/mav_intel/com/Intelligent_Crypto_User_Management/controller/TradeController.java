@@ -97,4 +97,21 @@ public class TradeController {
         List<Trade> trades = tradeService.getTradesByPair(pair);
         return ResponseEntity.ok(trades);
     }
+
+    /**
+     * Get ALL real-time active positions from Binance account
+     * This endpoint fetches live position data directly from Binance, including:
+     * - Positions opened via this app
+     * - Positions opened manually via Binance web/mobile app
+     * - Real-time P&L and current market prices
+     *
+     * GET /api/trades/positions/live
+     */
+    @GetMapping("/positions/live")
+    public ResponseEntity<List<Trade>> getLivePositions() {
+        log.info("📥 Get real-time positions from Binance account");
+        List<Trade> positions = tradeService.getRealTimePositionsFromBinance();
+        log.info("✅ Returning {} active positions", positions.size());
+        return ResponseEntity.ok(positions);
+    }
 }

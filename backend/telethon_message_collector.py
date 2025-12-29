@@ -345,9 +345,10 @@ async def run_telegram_client():
                 logger.info(f"  Take Profit (Calculated): {data['take_profit']}")
                 logger.info(f"  Stop Loss (Calculated): {data['stop_loss']}")
 
-                logger.info(f"\n[QUEUE] Adding signal to database queue...")
-                await signal_queue.put(data)
-                logger.info(f"[QUEUE] [OK] Signal queued successfully. Queue size: {signal_queue.qsize()}")
+                # Database saving removed - Java backend handles all database operations
+                # logger.info(f"\n[QUEUE] Adding signal to database queue...")
+                # await signal_queue.put(data)
+                # logger.info(f"[QUEUE] [OK] Signal queued successfully. Queue size: {signal_queue.qsize()}")
 
                 logger.info(f"[WEBSOCKET] Broadcasting to {len(connected_clients)} connected clients...")
                 await send_to_clients(data)
@@ -385,7 +386,8 @@ async def run_telegram_client():
 # ----------------------------
 async def main():
     await init_db()
-    db_worker_task = asyncio.create_task(signal_db_worker())
+    # Database worker removed - Java backend handles all signal database operations
+    # db_worker_task = asyncio.create_task(signal_db_worker())
 
     app = web.Application()
     app.router.add_get('/', http_handler)
@@ -406,7 +408,7 @@ async def main():
         logger.error(f"Fatal error: {e}")
     finally:
         await runner.cleanup()
-        db_worker_task.cancel()
+        # db_worker_task.cancel()  # Removed - no longer using db worker
         await asyncio.sleep(0.1)
         logger.info("[STOP] Shutdown complete")
 

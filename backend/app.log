@@ -1415,3 +1415,806 @@ TP 4 → 0.1795
 2025-12-29 10:35:12,624 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
 2025-12-29 10:35:12,627 - INFO - [DB WORKER] Worker cancelled, shutting down...
 2025-12-29 10:35:12,737 - INFO - [STOP] Shutdown complete
+2025-12-29 10:35:19,406 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 10:35:19,407 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 10:35:19,407 - INFO - HTTP health server started on port 8082
+2025-12-29 10:35:19,408 - INFO - WebSocket server started on port 6789
+2025-12-29 10:35:19,408 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 10:35:19,487 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 10:35:20,192 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 10:35:20,192 - INFO - Listening for Telegram messages...
+2025-12-29 11:11:39,442 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 11:11:39,451 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 11:11:39,464 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-29 11:11:39,579 - INFO - [STOP] Shutdown complete
+2025-12-29 11:11:46,307 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 11:11:46,307 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 11:11:46,308 - INFO - HTTP health server started on port 8082
+2025-12-29 11:11:46,308 - INFO - WebSocket server started on port 6789
+2025-12-29 11:11:46,309 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 11:11:46,381 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 11:11:46,982 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 11:11:46,983 - INFO - Listening for Telegram messages...
+2025-12-29 11:26:46,927 - INFO - Got difference for account updates
+2025-12-29 11:56:47,180 - INFO - Got difference for account updates
+2025-12-29 12:11:47,317 - INFO - Got difference for account updates
+2025-12-29 12:26:47,477 - INFO - Got difference for account updates
+2025-12-29 13:10:18,073 - INFO - 
+============================================================
+2025-12-29 13:10:18,076 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:40:17+00:00
+2025-12-29 13:10:18,076 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2573 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:10:18,078 - INFO - Total lines in message: 10
+2025-12-29 13:10:18,079 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:10:18,080 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:10:18,080 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:10:18,080 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:10:18,080 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:10:18,080 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:10:18,093 - INFO - [PARSING] Extracted ENTRY: 0.2573
+2025-12-29 13:10:18,093 - INFO - [CALC] Direction=LONG, Entry=0.2573, TP=0.2637325, SL=0.244435
+2025-12-29 13:10:18,093 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:10:18,094 - INFO -   Pair: METUSDT.P
+2025-12-29 13:10:18,094 - INFO -   Setup: LONG
+2025-12-29 13:10:18,094 - INFO -   Entry: 0.2573
+2025-12-29 13:10:18,094 - INFO -   Take Profit (Calculated): 0.2637325
+2025-12-29 13:10:18,094 - INFO -   Stop Loss (Calculated): 0.244435
+2025-12-29 13:10:18,095 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:10:18,095 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:10:18,095 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:10:18,095 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:10:18,096 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:10:18,096 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:10:18,096 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2573
+2025-12-29 13:10:18,101 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:10:18,527 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 13:10:18,528 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#METUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.2573 (CMP) \n\nTP 1 → 0.2573\nTP 2 → 0.2580\nTP 3 → 0.2590\nTP 4 → 0.2600\nTP 5 → Extended Targets\n\nStop Loss: 0.25 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 13:10:18,529 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:10:18,529 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:10:18,529 - INFO - ============================================================
+
+2025-12-29 13:10:18,529 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:10:18,530 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:10:19,237 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:10:19,734 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:10:19,735 - INFO - ============================================================
+
+2025-12-29 13:11:32,512 - INFO - 
+============================================================
+2025-12-29 13:11:32,513 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:41:32+00:00
+2025-12-29 13:11:32,513 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2563 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:11:32,513 - INFO - Total lines in message: 10
+2025-12-29 13:11:32,513 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:11:32,514 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:11:32,514 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:11:32,514 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:11:32,514 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:11:32,514 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:11:32,515 - INFO - [PARSING] Extracted ENTRY: 0.2563
+2025-12-29 13:11:32,515 - INFO - [CALC] Direction=LONG, Entry=0.2563, TP=0.2627075, SL=0.243485
+2025-12-29 13:11:32,515 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:11:32,515 - INFO -   Pair: METUSDT.P
+2025-12-29 13:11:32,515 - INFO -   Setup: LONG
+2025-12-29 13:11:32,516 - INFO -   Entry: 0.2563
+2025-12-29 13:11:32,516 - INFO -   Take Profit (Calculated): 0.2627075
+2025-12-29 13:11:32,516 - INFO -   Stop Loss (Calculated): 0.243485
+2025-12-29 13:11:32,516 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:11:32,516 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:11:32,517 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:11:32,517 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:11:32,517 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:11:32,517 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:11:32,517 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2563
+2025-12-29 13:11:32,518 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:11:32,801 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 13:11:32,801 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#METUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.2563 (CMP) \n\nTP 1 → 0.2573\nTP 2 → 0.2580\nTP 3 → 0.2590\nTP 4 → 0.2600\nTP 5 → Extended Targets\n\nStop Loss: 0.25 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 13:11:32,802 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:11:32,802 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:11:32,802 - INFO - ============================================================
+
+2025-12-29 13:11:32,802 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:11:32,802 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:11:32,803 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:11:32,916 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:11:32,917 - INFO - ============================================================
+
+2025-12-29 13:19:44,449 - INFO - 
+============================================================
+2025-12-29 13:19:44,449 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:49:44+00:00
+2025-12-29 13:19:44,450 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2565 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:19:44,450 - INFO - Total lines in message: 10
+2025-12-29 13:19:44,450 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:19:44,450 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:19:44,451 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:19:44,451 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:19:44,451 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:19:44,451 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:19:44,451 - INFO - [PARSING] Extracted ENTRY: 0.2565
+2025-12-29 13:19:44,452 - INFO - [CALC] Direction=LONG, Entry=0.2565, TP=0.2629125, SL=0.243675
+2025-12-29 13:19:44,452 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:19:44,452 - INFO -   Pair: METUSDT.P
+2025-12-29 13:19:44,452 - INFO -   Setup: LONG
+2025-12-29 13:19:44,452 - INFO -   Entry: 0.2565
+2025-12-29 13:19:44,453 - INFO -   Take Profit (Calculated): 0.2629125
+2025-12-29 13:19:44,453 - INFO -   Stop Loss (Calculated): 0.243675
+2025-12-29 13:19:44,453 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:19:44,453 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:19:44,453 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:19:44,454 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:19:44,454 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:19:44,454 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:19:44,454 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2565
+2025-12-29 13:19:44,455 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:19:44,776 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 13:19:44,777 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#METUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.2565 (CMP) \n\nTP 1 → 0.2573\nTP 2 → 0.2580\nTP 3 → 0.2590\nTP 4 → 0.2600\nTP 5 → Extended Targets\n\nStop Loss: 0.25 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 13:19:44,777 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:19:44,777 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:19:44,777 - INFO - ============================================================
+
+2025-12-29 13:19:44,778 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:19:44,778 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:19:45,307 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:19:45,467 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:19:45,467 - INFO - ============================================================
+
+2025-12-29 13:23:25,378 - INFO - 
+============================================================
+2025-12-29 13:23:25,378 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:53:25+00:00
+2025-12-29 13:23:25,378 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2561 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:23:25,378 - INFO - Total lines in message: 10
+2025-12-29 13:23:25,379 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:23:25,379 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:23:25,379 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:23:25,379 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:23:25,379 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:23:25,379 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:23:25,379 - INFO - [PARSING] Extracted ENTRY: 0.2561
+2025-12-29 13:23:25,379 - INFO - [CALC] Direction=LONG, Entry=0.2561, TP=0.2625025, SL=0.243295
+2025-12-29 13:23:25,380 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:23:25,380 - INFO -   Pair: METUSDT.P
+2025-12-29 13:23:25,380 - INFO -   Setup: LONG
+2025-12-29 13:23:25,380 - INFO -   Entry: 0.2561
+2025-12-29 13:23:25,380 - INFO -   Take Profit (Calculated): 0.2625025
+2025-12-29 13:23:25,380 - INFO -   Stop Loss (Calculated): 0.243295
+2025-12-29 13:23:25,380 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:23:25,380 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:23:25,380 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:23:25,380 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:23:25,380 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:23:25,380 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:23:25,381 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2561
+2025-12-29 13:23:25,381 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:23:25,854 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:23:25,854 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:23:25,854 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2561,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:23:25,856 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:23:25,856 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:23:25,856 - INFO - ============================================================
+
+2025-12-29 13:23:25,856 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:23:25,856 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:23:25,857 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:23:25,951 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:23:25,952 - INFO - ============================================================
+
+2025-12-29 13:23:36,088 - INFO - 
+============================================================
+2025-12-29 13:23:36,088 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:53:35+00:00
+2025-12-29 13:23:36,088 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2555 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:23:36,088 - INFO - Total lines in message: 10
+2025-12-29 13:23:36,089 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:23:36,089 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:23:36,089 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:23:36,089 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:23:36,089 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:23:36,090 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:23:36,090 - INFO - [PARSING] Extracted ENTRY: 0.2555
+2025-12-29 13:23:36,090 - INFO - [CALC] Direction=LONG, Entry=0.2555, TP=0.2618875, SL=0.242725
+2025-12-29 13:23:36,090 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:23:36,090 - INFO -   Pair: METUSDT.P
+2025-12-29 13:23:36,090 - INFO -   Setup: LONG
+2025-12-29 13:23:36,090 - INFO -   Entry: 0.2555
+2025-12-29 13:23:36,090 - INFO -   Take Profit (Calculated): 0.2618875
+2025-12-29 13:23:36,090 - INFO -   Stop Loss (Calculated): 0.242725
+2025-12-29 13:23:36,090 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:23:36,090 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:23:36,090 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:23:36,091 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:23:36,091 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:23:36,091 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:23:36,091 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2555
+2025-12-29 13:23:36,091 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:23:36,335 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:23:36,336 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:23:36,336 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2555,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:23:36,337 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:23:36,337 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:23:36,338 - INFO - ============================================================
+
+2025-12-29 13:23:36,338 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:23:36,339 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:23:36,339 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:23:36,435 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:23:36,435 - INFO - ============================================================
+
+2025-12-29 13:24:10,562 - INFO - 
+============================================================
+2025-12-29 13:24:10,562 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 07:54:10+00:00
+2025-12-29 13:24:10,562 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2565 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:24:10,563 - INFO - Total lines in message: 10
+2025-12-29 13:24:10,563 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:24:10,563 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:24:10,563 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:24:10,563 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:24:10,564 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:24:10,564 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:24:10,564 - INFO - [PARSING] Extracted ENTRY: 0.2565
+2025-12-29 13:24:10,564 - INFO - [CALC] Direction=LONG, Entry=0.2565, TP=0.2629125, SL=0.243675
+2025-12-29 13:24:10,565 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:24:10,565 - INFO -   Pair: METUSDT.P
+2025-12-29 13:24:10,565 - INFO -   Setup: LONG
+2025-12-29 13:24:10,565 - INFO -   Entry: 0.2565
+2025-12-29 13:24:10,565 - INFO -   Take Profit (Calculated): 0.2629125
+2025-12-29 13:24:10,566 - INFO -   Stop Loss (Calculated): 0.243675
+2025-12-29 13:24:10,566 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:24:10,566 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:24:10,566 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:24:10,567 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:24:10,567 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:24:10,567 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:24:10,567 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2565
+2025-12-29 13:24:10,567 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:24:10,830 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:24:10,830 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:24:10,830 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2565,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:24:10,830 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:24:10,831 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:24:10,831 - INFO - ============================================================
+
+2025-12-29 13:24:10,831 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:24:10,831 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:24:10,832 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:24:10,946 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:24:10,946 - INFO - ============================================================
+
+2025-12-29 13:31:00,613 - INFO - 
+============================================================
+2025-12-29 13:31:00,613 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:01:00+00:00
+2025-12-29 13:31:00,613 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2568 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:31:00,614 - INFO - Total lines in message: 10
+2025-12-29 13:31:00,614 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:31:00,614 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:31:00,614 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:31:00,615 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:31:00,615 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:31:00,615 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:31:00,615 - INFO - [PARSING] Extracted ENTRY: 0.2568
+2025-12-29 13:31:00,616 - INFO - [CALC] Direction=LONG, Entry=0.2568, TP=0.2632200, SL=0.243960
+2025-12-29 13:31:00,616 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:31:00,616 - INFO -   Pair: METUSDT.P
+2025-12-29 13:31:00,616 - INFO -   Setup: LONG
+2025-12-29 13:31:00,616 - INFO -   Entry: 0.2568
+2025-12-29 13:31:00,617 - INFO -   Take Profit (Calculated): 0.2632200
+2025-12-29 13:31:00,617 - INFO -   Stop Loss (Calculated): 0.243960
+2025-12-29 13:31:00,617 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:31:00,617 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:31:00,617 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:31:00,618 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:31:00,618 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:31:00,618 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:31:00,618 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2568
+2025-12-29 13:31:00,618 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:31:00,830 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:31:00,831 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:31:00,831 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2568,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:31:00,832 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:31:00,832 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:31:00,833 - INFO - ============================================================
+
+2025-12-29 13:31:00,833 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: METUSDT.P
+2025-12-29 13:31:00,833 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:31:01,437 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:31:01,620 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:31:01,620 - INFO - ============================================================
+
+2025-12-29 13:37:02,971 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 13:37:02,975 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:37:02,982 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-29 13:37:03,096 - INFO - [STOP] Shutdown complete
+2025-12-29 13:37:07,888 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 13:37:07,888 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 13:37:07,889 - INFO - HTTP health server started on port 8082
+2025-12-29 13:37:07,890 - INFO - WebSocket server started on port 6789
+2025-12-29 13:37:07,893 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:37:08,013 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:37:08,779 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 13:37:08,780 - INFO - Listening for Telegram messages...
+2025-12-29 13:37:32,659 - INFO - 
+============================================================
+2025-12-29 13:37:32,659 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:07:32+00:00
+2025-12-29 13:37:32,659 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2568 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:37:32,659 - INFO - Total lines in message: 10
+2025-12-29 13:37:32,660 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:37:32,660 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:37:32,660 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:37:32,660 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:37:32,660 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:37:32,661 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:37:32,661 - INFO - [PARSING] Extracted ENTRY: 0.2568
+2025-12-29 13:37:32,661 - INFO - [CALC] Direction=LONG, Entry=0.2568, TP=0.2632200, SL=0.243960
+2025-12-29 13:37:32,661 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:37:32,662 - INFO -   Pair: METUSDT.P
+2025-12-29 13:37:32,662 - INFO -   Setup: LONG
+2025-12-29 13:37:32,662 - INFO -   Entry: 0.2568
+2025-12-29 13:37:32,662 - INFO -   Take Profit (Calculated): 0.2632200
+2025-12-29 13:37:32,662 - INFO -   Stop Loss (Calculated): 0.243960
+2025-12-29 13:37:32,663 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:37:32,663 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:37:32,663 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:37:32,663 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:37:32,664 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2568
+2025-12-29 13:37:32,664 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:37:32,935 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:37:32,936 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:37:32,936 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2568,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:37:32,936 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:37:32,937 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:37:32,937 - INFO - ============================================================
+
+2025-12-29 13:37:42,930 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 13:37:42,931 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:37:43,042 - INFO - [STOP] Shutdown complete
+2025-12-29 13:37:47,737 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 13:37:47,738 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 13:37:47,739 - INFO - HTTP health server started on port 8082
+2025-12-29 13:37:47,739 - INFO - WebSocket server started on port 6789
+2025-12-29 13:37:47,740 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:37:47,831 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:37:48,635 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 13:37:48,635 - INFO - Listening for Telegram messages...
+2025-12-29 13:43:45,755 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:45,785 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:45,786 - INFO - Closing current connection to begin reconnect...
+2025-12-29 13:43:45,796 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:45,808 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:43:45,813 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-29 13:43:46,975 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:43:53,277 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:53,315 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:53,402 - INFO - Closing current connection to begin reconnect...
+2025-12-29 13:43:53,493 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 13:43:53,559 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:43:53,768 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:49:02,614 - INFO - 
+============================================================
+2025-12-29 13:49:02,615 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:19:02+00:00
+2025-12-29 13:49:02,615 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2573 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-29 13:49:02,615 - INFO - Total lines in message: 10
+2025-12-29 13:49:02,615 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:49:02,616 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:49:02,616 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:49:02,616 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-29 13:49:02,616 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-29 13:49:02,616 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:49:02,617 - INFO - [PARSING] Extracted ENTRY: 0.2573
+2025-12-29 13:49:02,617 - INFO - [CALC] Direction=LONG, Entry=0.2573, TP=0.2637325, SL=0.244435
+2025-12-29 13:49:02,617 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:49:02,617 - INFO -   Pair: METUSDT.P
+2025-12-29 13:49:02,617 - INFO -   Setup: LONG
+2025-12-29 13:49:02,618 - INFO -   Entry: 0.2573
+2025-12-29 13:49:02,618 - INFO -   Take Profit (Calculated): 0.2637325
+2025-12-29 13:49:02,618 - INFO -   Stop Loss (Calculated): 0.244435
+2025-12-29 13:49:02,618 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:49:02,619 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:49:02,619 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:49:02,619 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:49:02,619 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2573
+2025-12-29 13:49:02,619 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:49:02,842 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 13:49:02,843 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-29 13:49:02,843 - INFO - [JAVA RESPONSE] Response body: {"entry":0.2573,"message":"Signal rejected - same entry price already exists for this coin","pair":"METUSDT.P","status":"duplicate"}
+2025-12-29 13:49:02,844 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:49:02,844 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-29 13:49:02,844 - INFO - ============================================================
+
+2025-12-29 13:55:56,909 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 13:55:56,910 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:55:57,021 - INFO - [STOP] Shutdown complete
+2025-12-29 13:56:01,334 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 13:56:01,335 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 13:56:01,336 - INFO - HTTP health server started on port 8082
+2025-12-29 13:56:01,337 - INFO - WebSocket server started on port 6789
+2025-12-29 13:56:01,338 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:56:01,442 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:56:02,153 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 13:56:02,153 - INFO - Listening for Telegram messages...
+2025-12-29 13:56:10,349 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 13:56:10,350 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:56:10,351 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-29 13:56:10,461 - INFO - [STOP] Shutdown complete
+2025-12-29 13:56:16,521 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 13:56:16,522 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 13:56:16,523 - INFO - HTTP health server started on port 8082
+2025-12-29 13:56:16,523 - INFO - WebSocket server started on port 6789
+2025-12-29 13:56:16,524 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 13:56:16,601 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 13:56:17,370 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 13:56:17,370 - INFO - Listening for Telegram messages...
+2025-12-29 13:59:09,545 - INFO - 
+============================================================
+2025-12-29 13:59:09,545 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:29:09+00:00
+2025-12-29 13:59:09,545 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1713 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-29 13:59:09,545 - INFO - Total lines in message: 10
+2025-12-29 13:59:09,546 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 13:59:09,546 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 13:59:09,546 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 13:59:09,546 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-29 13:59:09,547 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-29 13:59:09,547 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 13:59:09,547 - INFO - [PARSING] Extracted ENTRY: 0.1713
+2025-12-29 13:59:09,547 - INFO - [CALC] Direction=LONG, Entry=0.1713, TP=0.1755825, SL=0.162735
+2025-12-29 13:59:09,548 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 13:59:09,548 - INFO -   Pair: ALICEUSDT.P
+2025-12-29 13:59:09,548 - INFO -   Setup: LONG
+2025-12-29 13:59:09,549 - INFO -   Entry: 0.1713
+2025-12-29 13:59:09,549 - INFO -   Take Profit (Calculated): 0.1755825
+2025-12-29 13:59:09,549 - INFO -   Stop Loss (Calculated): 0.162735
+2025-12-29 13:59:09,549 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 13:59:09,549 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 13:59:09,550 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 13:59:09,550 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 13:59:09,550 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 13:59:09,550 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 13:59:09,551 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1713
+2025-12-29 13:59:09,551 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 13:59:09,914 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 13:59:09,915 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#ALICEUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.1713 (CMP)\n\nTP 1 → 0.1780\nTP 2 → 0.1785\nTP 3 → 0.1790\nTP 4 → 0.1795\nTP 5 → Extended Targets\n\nStop Loss: 0.1680 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 13:59:09,915 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 13:59:09,915 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-29 13:59:09,916 - INFO - ============================================================
+
+2025-12-29 13:59:09,916 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-29 13:59:09,916 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 13:59:09,916 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 13:59:10,097 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 13:59:10,097 - INFO - ============================================================
+
+2025-12-29 14:00:12,222 - INFO - 
+============================================================
+2025-12-29 14:00:12,223 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:30:12+00:00
+2025-12-29 14:00:12,223 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1720 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-29 14:00:12,223 - INFO - Total lines in message: 10
+2025-12-29 14:00:12,224 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 14:00:12,224 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 14:00:12,224 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 14:00:12,224 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-29 14:00:12,225 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-29 14:00:12,225 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 14:00:12,225 - INFO - [PARSING] Extracted ENTRY: 0.1720
+2025-12-29 14:00:12,225 - INFO - [CALC] Direction=LONG, Entry=0.1720, TP=0.1763000, SL=0.163400
+2025-12-29 14:00:12,225 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 14:00:12,226 - INFO -   Pair: ALICEUSDT.P
+2025-12-29 14:00:12,226 - INFO -   Setup: LONG
+2025-12-29 14:00:12,226 - INFO -   Entry: 0.1720
+2025-12-29 14:00:12,226 - INFO -   Take Profit (Calculated): 0.1763000
+2025-12-29 14:00:12,227 - INFO -   Stop Loss (Calculated): 0.163400
+2025-12-29 14:00:12,227 - INFO - 
+[QUEUE] Adding signal to database queue...
+2025-12-29 14:00:12,227 - INFO - [QUEUE] [OK] Signal queued successfully. Queue size: 1
+2025-12-29 14:00:12,228 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 14:00:12,228 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 14:00:12,228 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 14:00:12,228 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 14:00:12,228 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1720
+2025-12-29 14:00:12,229 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 14:00:12,783 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 14:00:12,783 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#ALICEUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.1720 (CMP)\n\nTP 1 → 0.1780\nTP 2 → 0.1785\nTP 3 → 0.1790\nTP 4 → 0.1795\nTP 5 → Extended Targets\n\nStop Loss: 0.1680 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 14:00:12,784 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 14:00:12,784 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-29 14:00:12,784 - INFO - ============================================================
+
+2025-12-29 14:00:12,784 - INFO - 
+[DB WORKER] Received 1 signal from queue. Pair: ALICEUSDT.P
+2025-12-29 14:00:12,785 - INFO - [DB WORKER] Processing batch of 1 signal(s)...
+2025-12-29 14:00:12,785 - INFO - [DB INSERT] Inserting 1 signal(s) into signal_messages table...
+2025-12-29 14:00:12,891 - INFO - [DB INSERT] [OK] Successfully inserted 1 signal(s)
+2025-12-29 14:00:12,891 - INFO - ============================================================
+
+2025-12-29 14:03:49,829 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 14:03:49,830 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 14:03:49,831 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-29 14:03:49,945 - INFO - [STOP] Shutdown complete
+2025-12-29 14:03:54,194 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 14:03:54,195 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 14:03:54,197 - INFO - HTTP health server started on port 8082
+2025-12-29 14:03:54,197 - INFO - WebSocket server started on port 6789
+2025-12-29 14:03:54,198 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 14:03:54,268 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 14:03:54,998 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 14:03:54,999 - INFO - Listening for Telegram messages...
+2025-12-29 14:04:11,800 - INFO - 
+============================================================
+2025-12-29 14:04:11,800 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:34:11+00:00
+2025-12-29 14:04:11,800 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1726 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-29 14:04:11,801 - INFO - Total lines in message: 10
+2025-12-29 14:04:11,801 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 14:04:11,801 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 14:04:11,802 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 14:04:11,802 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-29 14:04:11,802 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-29 14:04:11,802 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 14:04:11,803 - INFO - [PARSING] Extracted ENTRY: 0.1726
+2025-12-29 14:04:11,803 - INFO - [CALC] Direction=LONG, Entry=0.1726, TP=0.1769150, SL=0.163970
+2025-12-29 14:04:11,803 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 14:04:11,803 - INFO -   Pair: ALICEUSDT.P
+2025-12-29 14:04:11,803 - INFO -   Setup: LONG
+2025-12-29 14:04:11,804 - INFO -   Entry: 0.1726
+2025-12-29 14:04:11,804 - INFO -   Take Profit (Calculated): 0.1769150
+2025-12-29 14:04:11,804 - INFO -   Stop Loss (Calculated): 0.163970
+2025-12-29 14:04:11,804 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 14:04:11,804 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 14:04:11,804 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 14:04:11,805 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 14:04:11,805 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1726
+2025-12-29 14:04:11,805 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 14:04:12,289 - INFO - [JAVA RESPONSE] Status Code: 500
+2025-12-29 14:04:12,289 - ERROR - [JAVA RESPONSE] [ERROR] 500: {"message":"Failed to process signal: could not execute statement [ERROR: duplicate key value violates unique constraint \"signal_messages_full_message_key\"\n  Detail: Key (full_message)=(#ALICEUSDT.P | LONG \uD83D\uDFE2\n\nEntry: 0.1726 (CMP)\n\nTP 1 → 0.1780\nTP 2 → 0.1785\nTP 3 → 0.1790\nTP 4 → 0.1795\nTP 5 → Extended Targets\n\nStop Loss: 0.1680 ☠️\n\nRisk it like a pro, not a gambler.\nCBW Radar | © Cruzebow Premium™) already exists.] [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; SQL [insert into signal_messages (channel,entry,full_message,pair,setup_type,stop_loss,take_profit,timestamp) values (?,?,?,?,?,?,?,?)]; constraint [signal_messages_full_message_key]","status":"error"}
+2025-12-29 14:04:12,290 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 14:04:12,290 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-29 14:04:12,290 - INFO - ============================================================
+
+2025-12-29 14:07:12,068 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 14:07:12,068 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 14:07:12,174 - INFO - [STOP] Shutdown complete
+2025-12-29 14:07:18,162 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 14:07:18,163 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 14:07:18,164 - INFO - HTTP health server started on port 8082
+2025-12-29 14:07:18,164 - INFO - WebSocket server started on port 6789
+2025-12-29 14:07:18,165 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 14:07:18,249 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 14:07:19,020 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 14:07:19,021 - INFO - Listening for Telegram messages...
+2025-12-29 14:07:47,864 - INFO - 
+============================================================
+2025-12-29 14:07:47,864 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 08:37:47+00:00
+2025-12-29 14:07:47,864 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1721 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-29 14:07:47,864 - INFO - Total lines in message: 10
+2025-12-29 14:07:47,864 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 14:07:47,865 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 14:07:47,865 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 14:07:47,865 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-29 14:07:47,865 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-29 14:07:47,865 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 14:07:47,866 - INFO - [PARSING] Extracted ENTRY: 0.1721
+2025-12-29 14:07:47,866 - INFO - [CALC] Direction=LONG, Entry=0.1721, TP=0.1764025, SL=0.163495
+2025-12-29 14:07:47,866 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 14:07:47,866 - INFO -   Pair: ALICEUSDT.P
+2025-12-29 14:07:47,867 - INFO -   Setup: LONG
+2025-12-29 14:07:47,867 - INFO -   Entry: 0.1721
+2025-12-29 14:07:47,867 - INFO -   Take Profit (Calculated): 0.1764025
+2025-12-29 14:07:47,867 - INFO -   Stop Loss (Calculated): 0.163495
+2025-12-29 14:07:47,867 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 14:07:47,868 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 14:07:47,868 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 14:07:47,868 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 14:07:47,868 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1721
+2025-12-29 14:07:47,868 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 14:07:52,203 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 14:07:52,204 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-29 14:07:52,204 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":30,"trade_status":"SUCCESS","signal_id":75,"message":"Signal received and trade executed","status":"success"}
+2025-12-29 14:07:52,204 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 14:07:52,204 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-29 14:07:52,205 - INFO - ============================================================
+
+2025-12-29 14:22:17,252 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 14:22:17,253 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 14:22:17,363 - INFO - [STOP] Shutdown complete
+2025-12-29 15:45:33,533 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 15:45:33,533 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 15:45:33,534 - INFO - HTTP health server started on port 8082
+2025-12-29 15:45:33,534 - INFO - WebSocket server started on port 6789
+2025-12-29 15:45:33,535 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 15:45:33,609 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 15:45:34,399 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 15:45:34,400 - INFO - Listening for Telegram messages...
+2025-12-29 16:10:41,400 - INFO - 
+============================================================
+2025-12-29 16:10:41,400 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-29 10:40:41+00:00
+2025-12-29 16:10:41,401 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1659 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-29 16:10:41,401 - INFO - Total lines in message: 10
+2025-12-29 16:10:41,401 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-29 16:10:41,401 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-29 16:10:41,402 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-29 16:10:41,402 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-29 16:10:41,402 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-29 16:10:41,402 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-29 16:10:41,403 - INFO - [PARSING] Extracted ENTRY: 0.1659
+2025-12-29 16:10:41,403 - INFO - [CALC] Direction=LONG, Entry=0.1659, TP=0.1700475, SL=0.157605
+2025-12-29 16:10:41,403 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-29 16:10:41,403 - INFO -   Pair: ALICEUSDT.P
+2025-12-29 16:10:41,404 - INFO -   Setup: LONG
+2025-12-29 16:10:41,404 - INFO -   Entry: 0.1659
+2025-12-29 16:10:41,404 - INFO -   Take Profit (Calculated): 0.1700475
+2025-12-29 16:10:41,404 - INFO -   Stop Loss (Calculated): 0.157605
+2025-12-29 16:10:41,404 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-29 16:10:41,405 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-29 16:10:41,405 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-29 16:10:41,405 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-29 16:10:41,405 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1659
+2025-12-29 16:10:41,406 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-29 16:10:44,939 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-29 16:10:44,939 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-29 16:10:44,940 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Order placed successfully on Binance","trade_id":32,"trade_status":"SUCCESS","signal_id":76,"message":"Signal received and trade executed","status":"success"}
+2025-12-29 16:10:44,940 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-29 16:10:44,941 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-29 16:10:44,941 - INFO - ============================================================
+

@@ -13,14 +13,14 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081'
 interface TradeConfig {
   maxPositionSize: number
   maxLeverage: number
-  marginMode: "ISOLATED" | "CROSSED"
+  marginMode: "ISOLATED" | "CROSS"
 }
 
 export function TradeManagement() {
   const [config, setConfig] = useState<TradeConfig>({
     maxPositionSize: 1000,
     maxLeverage: 20,
-    marginMode: "ISOLATED",
+    marginMode: "CROSS",
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -91,7 +91,7 @@ export function TradeManagement() {
     setConfig({
       maxPositionSize: 1000,
       maxLeverage: 20,
-      marginMode: "ISOLATED",
+      marginMode: "CROSS",
     })
   }
 
@@ -171,9 +171,9 @@ export function TradeManagement() {
                 <span className="text-sm font-medium text-muted-foreground">Isolated</span>
                 <Switch
                   id="marginMode"
-                  checked={config.marginMode === "CROSSED"}
+                  checked={config.marginMode === "CROSS"}
                   onCheckedChange={(checked) =>
-                    setConfig({ ...config, marginMode: checked ? "CROSSED" : "ISOLATED" })
+                    setConfig({ ...config, marginMode: checked ? "CROSS" : "ISOLATED" })
                   }
                 />
                 <span className="text-sm font-medium">Cross</span>

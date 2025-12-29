@@ -51,6 +51,30 @@ export default function CryptoPositionManagement() {
         }))
 
         setSignals(transformedSignals)
+
+        // Fetch real-time active positions from Binance account
+        // This includes positions opened via our app AND manually via Binance web/mobile
+        const livePositions = await tradingAPI.getLivePositions()
+        console.log("[OK] Live positions fetched from Binance:", livePositions)
+
+        // Transform backend Trade data to frontend Position type
+        const transformedPositions: Position[] = livePositions.map((trade: any) => ({
+          id: trade.id?.toString() || `binance-${trade.pair}`,
+          pair: trade.pair,
+          side: trade.side === "BUY" ? "LONG" : trade.side === "SELL" ? "SHORT" : trade.side,
+          entryPrice: trade.entryPrice || 0,
+          currentPrice: trade.exitPrice || trade.entryPrice || 0, // exitPrice stores current market price
+          quantity: trade.entryQuantity || 0,
+          leverage: trade.leverage || 1,
+          pnl: trade.pnl || 0,
+          pnlPercentage: trade.pnlPercent || 0,
+          stopLoss: trade.stopLoss,
+          takeProfit: trade.takeProfit,
+          openedAt: new Date(trade.openedAt || Date.now()),
+        }))
+
+        setPositions(transformedPositions)
+        console.log(`[OK] Displaying ${transformedPositions.length} active positions`)
       } catch (apiErr) {
         console.log("Backend not available - running in frontend-only mode")
       }
@@ -59,6 +83,34 @@ export default function CryptoPositionManagement() {
     }
 
     loadData()
+
+    // Set up auto-refresh for positions every 10 seconds
+    const refreshInterval = setInterval(async () => {
+      try {
+        const livePositions = await tradingAPI.getLivePositions()
+        const transformedPositions: Position[] = livePositions.map((trade: any) => ({
+          id: trade.id?.toString() || `binance-${trade.pair}`,
+          pair: trade.pair,
+          side: trade.side === "BUY" ? "LONG" : trade.side === "SELL" ? "SHORT" : trade.side,
+          entryPrice: trade.entryPrice || 0,
+          currentPrice: trade.exitPrice || trade.entryPrice || 0,
+          quantity: trade.entryQuantity || 0,
+          leverage: trade.leverage || 1,
+          pnl: trade.pnl || 0,
+          pnlPercentage: trade.pnlPercent || 0,
+          stopLoss: trade.stopLoss,
+          takeProfit: trade.takeProfit,
+          openedAt: new Date(trade.openedAt || Date.now()),
+        }))
+        setPositions(transformedPositions)
+        console.log(`[REFRESH] Updated ${transformedPositions.length} positions`)
+      } catch (err) {
+        console.log("Failed to refresh positions:", err)
+      }
+    }, 10000) // Refresh every 10 seconds
+
+    // Cleanup interval on unmount
+    return () => clearInterval(refreshInterval)
   }, [])
 
   // WebSocket connection disabled - will be enabled when backend is ready

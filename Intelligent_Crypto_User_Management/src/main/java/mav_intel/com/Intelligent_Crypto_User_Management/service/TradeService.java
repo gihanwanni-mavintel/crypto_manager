@@ -454,6 +454,97 @@ public class TradeService {
     }
 
     /**
+     * Get ALL real-time active positions from Binance account
+     * This fetches live position data directly from Binance, including:
+     * - Positions opened via this app
+     * - Positions opened manually via Binance web/mobile
+     * - Real-time P&L and current prices
+     *
+     * Endpoint: GET /fapi/v2/positionRisk
+     */
+    public List<Trade> getRealTimePositionsFromBinance() {
+        List<Trade> positions = new java.util.ArrayList<>();
+
+        if (futuresClient == null) {
+            log.warn("⚠️ Binance client not available. Cannot fetch real-time positions.");
+            return positions;
+        }
+
+        try {
+            log.info("📡 Fetching real-time positions from Binance account...");
+
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("recvWindow", 60000);
+
+            String response = futuresClient.account().positionInformation(params);
+            org.json.JSONArray positionsArray = new org.json.JSONArray(response);
+
+            log.info("📊 Received {} position entries from Binance", positionsArray.length());
+
+            int activePositions = 0;
+            for (int i = 0; i < positionsArray.length(); i++) {
+                org.json.JSONObject pos = positionsArray.getJSONObject(i);
+
+                // Only include positions with non-zero quantity
+                double positionAmt = Math.abs(pos.optDouble("positionAmt", 0.0));
+                if (positionAmt == 0) {
+                    continue; // Skip closed positions
+                }
+
+                activePositions++;
+
+                // Extract position data from Binance response
+                String symbol = pos.optString("symbol", "");
+                double entryPrice = pos.optDouble("entryPrice", 0.0);
+                double markPrice = pos.optDouble("markPrice", 0.0); // Current market price
+                double unrealizedProfit = pos.optDouble("unRealizedProfit", 0.0);
+                int leverage = pos.optInt("leverage", 1);
+                String marginType = pos.optString("marginType", "isolated");
+
+                // Determine if LONG or SHORT based on position amount sign
+                String side = positionAmt > 0 ? "LONG" : "SHORT";
+
+                // Calculate P&L percentage
+                double pnlPercent = 0.0;
+                if (entryPrice > 0 && positionAmt > 0) {
+                    double notionalValue = Math.abs(positionAmt * entryPrice);
+                    if (notionalValue > 0) {
+                        pnlPercent = (unrealizedProfit / notionalValue) * 100;
+                    }
+                }
+
+                // Create Trade object with live Binance data
+                Trade trade = new Trade();
+                trade.setPair(symbol);
+                trade.setSide(side);
+                trade.setEntryPrice(entryPrice);
+                trade.setEntryQuantity(Math.abs(positionAmt));
+                trade.setLeverage(leverage);
+                trade.setPnl(unrealizedProfit);
+                trade.setPnlPercent(pnlPercent);
+                trade.setStatus("OPEN");
+
+                // Store current mark price in a custom field (we'll use exitPrice temporarily for this)
+                // In a real implementation, you might want to add a 'currentPrice' field to Trade model
+                trade.setExitPrice(markPrice);
+
+                positions.add(trade);
+
+                log.info("✅ Active position: {} {} | Entry: ${} | Current: ${} | Qty: {} | P&L: ${} ({} %)",
+                    side, symbol, entryPrice, markPrice, positionAmt, unrealizedProfit,
+                    String.format("%.2f", pnlPercent));
+            }
+
+            log.info("📊 Total active positions found: {}", activePositions);
+
+        } catch (Exception e) {
+            log.error("❌ Error fetching real-time positions from Binance: {}", e.getMessage(), e);
+        }
+
+        return positions;
+    }
+
+    /**
      * Get symbol price precision from Binance Exchange Info API
      */
     private int getSymbolPricePrecision(String symbol) {

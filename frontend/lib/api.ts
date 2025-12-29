@@ -190,6 +190,14 @@ export const tradingAPI = {
     if (!response.ok) throw new Error('Failed to fetch trades by pair');
     return response.json();
   },
+
+  // Get real-time active positions from Binance account
+  // This fetches ALL positions including those opened manually via Binance web/mobile
+  getLivePositions: async () => {
+    const response = await apiRequest('/api/trades/positions/live');
+    if (!response.ok) throw new Error('Failed to fetch live positions');
+    return response.json();
+  },
 };
 
 // Trading Signals API

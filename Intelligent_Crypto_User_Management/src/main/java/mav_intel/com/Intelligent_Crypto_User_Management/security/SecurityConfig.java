@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/test", "/auth/health").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register", "/auth/test", "/auth/health").permitAll()
                         .requestMatchers("/api/signals/**").permitAll()
                         .requestMatchers("/api/webhook/**").permitAll()
                         .requestMatchers("/api/trade-management-config/**").permitAll()

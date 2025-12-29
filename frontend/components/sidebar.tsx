@@ -34,11 +34,11 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "border-r border-border bg-card h-[calc(100vh-73px)] sticky top-[73px] transition-all duration-300",
+        "border-r border-border bg-card h-[calc(100vh-73px)] sticky top-[73px] transition-all duration-300 flex flex-col",
         isCollapsed ? "w-16" : "w-64",
       )}
     >
-      <nav className="p-4 space-y-2">
+      <nav className="p-4 space-y-2 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeSection === item.id
@@ -62,16 +62,19 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         })}
       </nav>
 
-      <div className={cn("px-4 pb-4", isCollapsed && "px-2")}>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className={cn("w-full", isCollapsed && "px-0 justify-center")}
-        >
-          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          {!isCollapsed && <span className="ml-2">Collapse</span>}
-        </Button>
+      <div className="border-t border-border">
+        {/* Collapse Button */}
+        <div className={cn("px-4 py-4", isCollapsed && "px-2")}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={cn("w-full", isCollapsed && "px-0 justify-center")}
+          >
+            {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+            {!isCollapsed && <span className="ml-2">Collapse</span>}
+          </Button>
+        </div>
       </div>
     </aside>
   )

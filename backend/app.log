@@ -1377,3 +1377,41 @@ TP 4 → 0.1795
 2025-12-27 15:04:14,926 - INFO - Connecting to 91.108.56.188:443/TcpFull...
 2025-12-27 15:04:14,935 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
 2025-12-27 15:04:16,031 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-27 16:56:29,903 - INFO - Got difference for account updates
+2025-12-27 17:11:30,009 - INFO - Got difference for account updates
+2025-12-27 17:24:30,059 - INFO - Got difference for channel 2306883616 updates
+2025-12-27 17:26:30,117 - INFO - Got difference for account updates
+2025-12-27 17:39:30,235 - INFO - Got difference for channel 2306883616 updates
+2025-12-27 17:41:30,248 - INFO - Got difference for account updates
+2025-12-27 17:48:30,917 - INFO - Got difference for channel 2306883616 updates
+2025-12-27 17:54:21,124 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-27 17:54:21,126 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-27 17:54:21,128 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-27 17:54:21,243 - INFO - [STOP] Shutdown complete
+2025-12-29 08:46:19,164 - INFO - [OK] Connected to PostgreSQL
+2025-12-29 08:46:19,168 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-29 08:46:19,170 - INFO - HTTP health server started on port 8082
+2025-12-29 08:46:19,171 - INFO - WebSocket server started on port 6789
+2025-12-29 08:46:19,173 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 08:46:19,265 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 08:46:20,063 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-29 08:46:20,063 - INFO - Listening for Telegram messages...
+2025-12-29 09:22:49,055 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 09:22:49,093 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 09:22:49,094 - INFO - Closing current connection to begin reconnect...
+2025-12-29 09:22:49,096 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 09:22:49,107 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 09:22:49,113 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-29 09:22:50,204 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 10:09:59,884 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 10:09:59,910 - INFO - Connection closed while sending data
+2025-12-29 10:09:59,925 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 10:09:59,938 - INFO - Closing current connection to begin reconnect...
+2025-12-29 10:09:59,946 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-29 10:09:59,964 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-29 10:09:59,991 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-29 10:10:01,111 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-29 10:35:12,623 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-29 10:35:12,624 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-29 10:35:12,627 - INFO - [DB WORKER] Worker cancelled, shutting down...
+2025-12-29 10:35:12,737 - INFO - [STOP] Shutdown complete

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { ProtectedRoute } from "@/components/protected-route"
 import { TelegramSignals } from "@/components/telegram-signals"
 import { PositionManagement } from "@/components/position-management"
 import { ManualTrading } from "@/components/manual-trading"
@@ -9,12 +10,14 @@ import { TradeManagement } from "@/components/trade-management"
 import { Sidebar } from "@/components/sidebar"
 import { AccountSummary } from "@/components/account-summary"
 import { tradingAPI, signalsAPI } from "@/lib/api"
-import { Radio, TrendingUp, ArrowLeftRight, History } from "lucide-react"
+import { useAuth } from "@/contexts/auth-context"
+import { Radio, TrendingUp, ArrowLeftRight, History, LogOut, User as UserIcon } from "lucide-react"
 import type { Signal, Position, Trade, TradeHistory } from "@/types/trading"
 
 type TimePeriod = "24h" | "7d" | "52W" | "All"
 
 export default function CryptoPositionManagement() {
+  const { user, logout } = useAuth()
   const [activeSection, setActiveSection] = useState("signals")
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("All")
   const [isLoading, setIsLoading] = useState(true)
@@ -128,24 +131,38 @@ export default function CryptoPositionManagement() {
   }
 
   return (
-    <div className="min-h-screen h-screen bg-background flex flex-col">
-      {error && (
-        <div className="bg-destructive/10 border border-destructive text-destructive px-3 py-2 sm:px-4 sm:py-3 rounded-md m-2 sm:m-4 text-xs sm:text-sm">
-          <p className="font-medium">{error}</p>
-          <button
-            onClick={() => setError(null)}
-            className="text-xs mt-2 underline hover:no-underline"
-          >
-            Dismiss
-          </button>
-        </div>
-      )}
+    <ProtectedRoute>
+      <div className="min-h-screen h-screen bg-background flex flex-col">
+        {error && (
+          <div className="bg-destructive/10 border border-destructive text-destructive px-3 py-2 sm:px-4 sm:py-3 rounded-md m-2 sm:m-4 text-xs sm:text-sm">
+            <p className="font-medium">{error}</p>
+            <button
+              onClick={() => setError(null)}
+              className="text-xs mt-2 underline hover:no-underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
 
-      <header className="border-b border-border bg-card shrink-0">
-        <div className="px-3 sm:px-4 py-3 sm:py-4">
-          <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
-        </div>
-      </header>
+        <header className="border-b border-border bg-card shrink-0">
+          <div className="px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
+            <h1 className="text-lg sm:text-2xl font-bold text-foreground">Crypto Position Manager</h1>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 px-2 sm:px-3 py-1 sm:py-2 bg-secondary/50 rounded-lg">
+                <UserIcon className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs sm:text-sm font-medium">{user?.username}</span>
+              </div>
+              <button
+                onClick={logout}
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm text-muted-foreground hover:text-destructive transition-colors rounded-lg hover:bg-destructive/10"
+              >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            </div>
+          </div>
+        </header>
 
       <div className="flex flex-1 overflow-hidden">
         {/* Desktop Sidebar */}
@@ -189,5 +206,6 @@ export default function CryptoPositionManagement() {
         </div>
       </nav>
     </div>
+    </ProtectedRoute>
   )
 }

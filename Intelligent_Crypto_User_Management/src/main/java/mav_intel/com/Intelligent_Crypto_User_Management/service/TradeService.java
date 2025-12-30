@@ -70,15 +70,15 @@ public class TradeService {
 
             log.info("🚀 Executing trade: {} {} @ ${}", request.getSide(), request.getPair(), request.getEntry());
 
-            // Check for duplicate entry (same pair + same entry price)
-            if (isDuplicateEntry(request.getPair(), request.getEntry())) {
-                log.warn("⚠️ Duplicate signal rejected: {} with entry ${} already has an active position/order",
-                    request.getPair(), request.getEntry());
+            // Check for duplicate entry (same pair + same entry price + same direction)
+            if (isDuplicateEntry(request.getPair(), request.getEntry(), request.getSide())) {
+                log.warn("⚠️ Duplicate signal rejected: {} {} with entry ${} already has an active position/order",
+                    request.getSide(), request.getPair(), request.getEntry());
                 return new ExecuteTradeResponse(
                     null,
                     request.getPair(),
                     "REJECTED",
-                    "Duplicate signal rejected: Active position/order with same entry price already exists"
+                    "Duplicate signal rejected: Active position/order with same entry price and direction already exists"
                 );
             }
 
@@ -331,7 +331,9 @@ public class TradeService {
      */
     private boolean placeStopLoss(String symbol, String side, double qty, double stopPrice) {
         try {
-            String slSide = side.equals("BUY") ? "SELL" : "BUY";
+            // For LONG/BUY positions, we need SELL orders to close
+            // For SHORT/SELL positions, we need BUY orders to close
+            String slSide = (side.equals("BUY") || side.equals("LONG")) ? "SELL" : "BUY";
 
             LinkedHashMap<String, Object> algoParams = new LinkedHashMap<>();
             algoParams.put("algoType", "CONDITIONAL");
@@ -361,7 +363,9 @@ public class TradeService {
      */
     private void placeTakeProfit(String symbol, String side, double qty, double tpPrice) {
         try {
-            String tpSide = side.equals("BUY") ? "SELL" : "BUY";
+            // For LONG/BUY positions, we need SELL orders to close
+            // For SHORT/SELL positions, we need BUY orders to close
+            String tpSide = (side.equals("BUY") || side.equals("LONG")) ? "SELL" : "BUY";
 
             LinkedHashMap<String, Object> algoParams = new LinkedHashMap<>();
             algoParams.put("algoType", "CONDITIONAL");
@@ -527,20 +531,32 @@ public class TradeService {
                     }
                 }
 
-                // Create Trade object with live Binance data
-                Trade trade = new Trade();
-                trade.setPair(symbol);
-                trade.setSide(side);
-                trade.setEntryPrice(entryPrice);
-                trade.setEntryQuantity(Math.abs(positionAmt));
-                trade.setLeverage(leverage);
-                trade.setPnl(unrealizedProfit);
-                trade.setPnlPercent(pnlPercent);
-                trade.setStatus("OPEN");
-
-                // Store current mark price in a custom field (we'll use exitPrice temporarily for this)
-                // In a real implementation, you might want to add a 'currentPrice' field to Trade model
-                trade.setExitPrice(markPrice);
+                // Try to find matching trade in database by symbol and status
+                Trade trade = null;
+                List<Trade> dbTrades = tradeRepository.findByPairAndStatus(symbol, "OPEN");
+                if (!dbTrades.isEmpty()) {
+                    // Use the most recent open trade for this symbol
+                    trade = dbTrades.get(0);
+                    // Update with live data from Binance
+                    trade.setEntryQuantity(Math.abs(positionAmt));
+                    trade.setPnl(unrealizedProfit);
+                    trade.setPnlPercent(pnlPercent);
+                    trade.setExitPrice(markPrice); // Current market price
+                    log.debug("✓ Matched Binance position {} with database Trade ID {}", symbol, trade.getId());
+                } else {
+                    // Position exists on Binance but not in our database (manually opened)
+                    trade = new Trade();
+                    trade.setPair(symbol);
+                    trade.setSide(side);
+                    trade.setEntryPrice(entryPrice);
+                    trade.setEntryQuantity(Math.abs(positionAmt));
+                    trade.setLeverage(leverage);
+                    trade.setPnl(unrealizedProfit);
+                    trade.setPnlPercent(pnlPercent);
+                    trade.setStatus("OPEN");
+                    trade.setExitPrice(markPrice);
+                    log.debug("ℹ️ Position {} found on Binance but not in database (manual trade)", symbol);
+                }
 
                 positions.add(trade);
 
@@ -680,11 +696,22 @@ public class TradeService {
     }
 
     /**
-     * Check if there's an active position or pending order with the same pair and entry price
-     * Rejects duplicate signals with same pair + same entry price
-     * Allows signals with same pair but different entry price
+     * Check if two sides represent the same direction
+     * LONG/BUY are the same direction
+     * SHORT/SELL are the same direction
      */
-    private boolean isDuplicateEntry(String pair, double entryPrice) {
+    private boolean isSameDirection(String side1, String side2) {
+        boolean isLong1 = "LONG".equals(side1) || "BUY".equals(side1);
+        boolean isLong2 = "LONG".equals(side2) || "BUY".equals(side2);
+        return isLong1 == isLong2;
+    }
+
+    /**
+     * Check if there's an active position or pending order with the same pair, entry price, and direction
+     * Rejects duplicate signals with same pair + same entry price + same direction
+     * Allows opposite direction signals (hedging) and signals with different entry prices
+     */
+    private boolean isDuplicateEntry(String pair, double entryPrice, String side) {
         // Get all active and pending trades for this pair
         List<Trade> activeTrades = tradeRepository.findByPair(pair);
 
@@ -696,9 +723,13 @@ public class TradeService {
             if ("OPEN".equals(trade.getStatus()) || "PENDING".equals(trade.getStatus())) {
                 // Check if entry prices are the same (within tolerance)
                 double priceDiff = Math.abs(trade.getEntryPrice() - entryPrice);
-                if (priceDiff <= tolerance) {
-                    log.debug("🔍 Duplicate found: Trade ID {} has same entry ${} (diff: ${})",
-                        trade.getId(), trade.getEntryPrice(), priceDiff);
+
+                // Check if it's the same direction (LONG/BUY or SHORT/SELL)
+                boolean sameDirection = isSameDirection(trade.getSide(), side);
+
+                if (priceDiff <= tolerance && sameDirection) {
+                    log.debug("🔍 Duplicate found: Trade ID {} has same {} entry ${} (diff: ${})",
+                        trade.getId(), side, trade.getEntryPrice(), priceDiff);
                     return true;
                 }
             }

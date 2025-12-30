@@ -2571,3 +2571,492 @@ TP 4 → 0.1795
 2025-12-30 11:12:23,238 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
 2025-12-30 11:12:23,238 - INFO - ============================================================
 
+2025-12-30 11:26:14,425 - INFO - 
+============================================================
+2025-12-30 11:26:14,426 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 05:56:14+00:00
+2025-12-30 11:26:14,426 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2515 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-30 11:26:14,426 - INFO - Total lines in message: 10
+2025-12-30 11:26:14,426 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 11:26:14,427 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 11:26:14,427 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 11:26:14,427 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-30 11:26:14,427 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-30 11:26:14,427 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-30 11:26:14,428 - INFO - [PARSING] Extracted ENTRY: 0.2515
+2025-12-30 11:26:14,428 - INFO - [CALC] Direction=LONG, Entry=0.2515, TP=0.2577875, SL=0.238925
+2025-12-30 11:26:14,428 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 11:26:14,428 - INFO -   Pair: METUSDT.P
+2025-12-30 11:26:14,429 - INFO -   Setup: LONG
+2025-12-30 11:26:14,429 - INFO -   Entry: 0.2515
+2025-12-30 11:26:14,429 - INFO -   Take Profit (Calculated): 0.2577875
+2025-12-30 11:26:14,429 - INFO -   Stop Loss (Calculated): 0.238925
+2025-12-30 11:26:14,429 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 11:26:14,430 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 11:26:14,430 - INFO - [DUPLICATE CHECK] Signal METUSDT.P:0.2515:LONG is unique. Proceeding.
+2025-12-30 11:26:14,430 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 11:26:14,430 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 11:26:14,430 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2515
+2025-12-30 11:26:14,431 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 11:26:14,522 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 11:26:14,522 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-30 11:26:14,522 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 11:26:14,523 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 11:26:14,523 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-30 11:26:14,523 - INFO - ============================================================
+
+2025-12-30 11:26:35,758 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 11:26:35,759 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:26:35,865 - INFO - [STOP] Shutdown complete
+2025-12-30 11:26:40,195 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 11:26:40,196 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 11:26:40,197 - INFO - HTTP health server started on port 8082
+2025-12-30 11:26:40,197 - INFO - WebSocket server started on port 6789
+2025-12-30 11:26:40,198 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:26:40,280 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:26:40,956 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 11:26:40,957 - INFO - Listening for Telegram messages...
+2025-12-30 11:32:25,857 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 11:32:25,858 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:32:25,963 - INFO - [STOP] Shutdown complete
+2025-12-30 11:32:33,535 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 11:32:33,535 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 11:32:33,536 - INFO - HTTP health server started on port 8082
+2025-12-30 11:32:33,536 - INFO - WebSocket server started on port 6789
+2025-12-30 11:32:33,536 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:32:33,622 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:32:34,326 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 11:32:34,327 - INFO - Listening for Telegram messages...
+2025-12-30 11:34:20,596 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:20,624 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:20,638 - INFO - Closing current connection to begin reconnect...
+2025-12-30 11:34:20,647 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:20,655 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:34:20,819 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:34:27,885 - WARNING - Server closed the connection: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:27,895 - INFO - Connection closed while receiving data: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:27,915 - INFO - Closing current connection to begin reconnect...
+2025-12-30 11:34:27,922 - INFO - <class 'ConnectionAbortedError'> during disconnect: [WinError 1236] The network connection was aborted by the local system
+2025-12-30 11:34:27,927 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:34:27,934 - WARNING - Attempt 1 at connecting failed: OSError: [WinError 1231] The network location cannot be reached. For information about network troubleshooting, see Windows Help
+2025-12-30 11:34:29,167 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:44:03,387 - INFO - 
+============================================================
+2025-12-30 11:44:03,387 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 06:14:03+00:00
+2025-12-30 11:44:03,387 - INFO - Message content (first 100 chars): #METUSDT.P | SHORT 🔴
+
+Entry: 0.2515 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+...
+2025-12-30 11:44:03,388 - INFO - Total lines in message: 10
+2025-12-30 11:44:03,391 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 11:44:03,392 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 11:44:03,392 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 11:44:03,392 - INFO - [PARSING] First line: '#METUSDT.P | SHORT 🔴'
+2025-12-30 11:44:03,392 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-30 11:44:03,392 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 11:44:03,393 - INFO - [PARSING] Extracted ENTRY: 0.2515
+2025-12-30 11:44:03,393 - INFO - [CALC] Direction=SHORT, Entry=0.2515, TP=0.2452125, SL=0.264075
+2025-12-30 11:44:03,393 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 11:44:03,394 - INFO -   Pair: METUSDT.P
+2025-12-30 11:44:03,394 - INFO -   Setup: SHORT
+2025-12-30 11:44:03,394 - INFO -   Entry: 0.2515
+2025-12-30 11:44:03,394 - INFO -   Take Profit (Calculated): 0.2452125
+2025-12-30 11:44:03,394 - INFO -   Stop Loss (Calculated): 0.264075
+2025-12-30 11:44:03,394 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 11:44:03,395 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 11:44:03,395 - INFO - [DUPLICATE CHECK] Signal METUSDT.P:0.2515:SHORT is unique. Proceeding.
+2025-12-30 11:44:03,395 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 11:44:03,395 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 11:44:03,395 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=SHORT, Entry=0.2515
+2025-12-30 11:44:03,396 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 11:44:03,630 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 11:44:03,631 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-30 11:44:03,631 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 11:44:03,631 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 11:44:03,632 - INFO - [OK] Signal fully processed: METUSDT.P SHORT [SUCCESS]
+2025-12-30 11:44:03,632 - INFO - ============================================================
+
+2025-12-30 11:59:58,846 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 11:59:58,846 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:59:58,960 - INFO - [STOP] Shutdown complete
+2025-12-30 12:00:05,540 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 12:00:05,540 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 12:00:05,541 - INFO - HTTP health server started on port 8082
+2025-12-30 12:00:05,541 - INFO - WebSocket server started on port 6789
+2025-12-30 12:00:05,542 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 12:00:05,620 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 12:00:06,221 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 12:00:06,221 - INFO - Listening for Telegram messages...
+2025-12-30 12:00:51,790 - INFO - 
+============================================================
+2025-12-30 12:00:51,790 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 06:30:51+00:00
+2025-12-30 12:00:51,790 - INFO - Message content (first 100 chars): #METUSDT.P | SHORT 🔴
+
+Entry: 0.2501 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+...
+2025-12-30 12:00:51,791 - INFO - Total lines in message: 10
+2025-12-30 12:00:51,791 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 12:00:51,791 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 12:00:51,791 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 12:00:51,791 - INFO - [PARSING] First line: '#METUSDT.P | SHORT 🔴'
+2025-12-30 12:00:51,791 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-30 12:00:51,792 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 12:00:51,792 - INFO - [PARSING] Extracted ENTRY: 0.2501
+2025-12-30 12:00:51,792 - INFO - [CALC] Direction=SHORT, Entry=0.2501, TP=0.2438475, SL=0.262605
+2025-12-30 12:00:51,792 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 12:00:51,793 - INFO -   Pair: METUSDT.P
+2025-12-30 12:00:51,793 - INFO -   Setup: SHORT
+2025-12-30 12:00:51,793 - INFO -   Entry: 0.2501
+2025-12-30 12:00:51,793 - INFO -   Take Profit (Calculated): 0.2438475
+2025-12-30 12:00:51,793 - INFO -   Stop Loss (Calculated): 0.262605
+2025-12-30 12:00:51,793 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 12:00:51,793 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 12:00:51,794 - INFO - [DUPLICATE CHECK] Signal METUSDT.P:0.2501:SHORT is unique. Proceeding.
+2025-12-30 12:00:51,794 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 12:00:51,794 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 12:00:51,794 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=SHORT, Entry=0.2501
+2025-12-30 12:00:51,795 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 12:00:51,997 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 12:00:51,997 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-30 12:00:51,997 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 12:00:51,998 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 12:00:51,998 - INFO - [OK] Signal fully processed: METUSDT.P SHORT [SUCCESS]
+2025-12-30 12:00:51,998 - INFO - ============================================================
+
+2025-12-30 12:15:17,192 - INFO - 
+============================================================
+2025-12-30 12:15:17,192 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 06:45:17+00:00
+2025-12-30 12:15:17,193 - INFO - Message content (first 100 chars): #METUSDT.P | SHORT 🔴
+
+Entry: 0.2499 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+...
+2025-12-30 12:15:17,193 - INFO - Total lines in message: 10
+2025-12-30 12:15:17,193 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 12:15:17,193 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 12:15:17,193 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 12:15:17,194 - INFO - [PARSING] First line: '#METUSDT.P | SHORT 🔴'
+2025-12-30 12:15:17,194 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-30 12:15:17,194 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 12:15:17,194 - INFO - [PARSING] Extracted ENTRY: 0.2499
+2025-12-30 12:15:17,195 - INFO - [CALC] Direction=SHORT, Entry=0.2499, TP=0.2436525, SL=0.262395
+2025-12-30 12:15:17,195 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 12:15:17,195 - INFO -   Pair: METUSDT.P
+2025-12-30 12:15:17,195 - INFO -   Setup: SHORT
+2025-12-30 12:15:17,195 - INFO -   Entry: 0.2499
+2025-12-30 12:15:17,196 - INFO -   Take Profit (Calculated): 0.2436525
+2025-12-30 12:15:17,196 - INFO -   Stop Loss (Calculated): 0.262395
+2025-12-30 12:15:17,196 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 12:15:17,196 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 12:15:17,196 - INFO - [DUPLICATE CHECK] Signal METUSDT.P:0.2499:SHORT is unique. Proceeding.
+2025-12-30 12:15:17,197 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 12:15:17,197 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 12:15:17,197 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=SHORT, Entry=0.2499
+2025-12-30 12:15:17,197 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 12:15:17,389 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 12:15:17,389 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-30 12:15:17,390 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 12:15:17,390 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 12:15:17,391 - INFO - [OK] Signal fully processed: METUSDT.P SHORT [SUCCESS]
+2025-12-30 12:15:17,391 - INFO - ============================================================
+
+2025-12-30 12:25:58,959 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 12:25:58,961 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 12:25:59,063 - INFO - [STOP] Shutdown complete
+2025-12-30 12:26:06,031 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 12:26:06,032 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 12:26:06,034 - INFO - HTTP health server started on port 8082
+2025-12-30 12:26:06,034 - INFO - WebSocket server started on port 6789
+2025-12-30 12:26:06,036 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 12:26:06,106 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 12:26:06,911 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 12:26:06,912 - INFO - Listening for Telegram messages...
+2025-12-30 12:44:24,032 - INFO - 
+============================================================
+2025-12-30 12:44:24,033 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:14:23+00:00
+2025-12-30 12:44:24,033 - INFO - Message content (first 100 chars): #TRUUSDT.P | SHORT 🔴
+
+Entry: 0.0952 (CMP) 
+
+TP 1 → 0.0902
+TP 2 → 0.0895
+TP 3 → 0.0885
+TP 4 → 0.0875
+...
+2025-12-30 12:44:24,033 - INFO - Total lines in message: 10
+2025-12-30 12:44:24,033 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 12:44:24,033 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 12:44:24,033 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 12:44:24,034 - INFO - [PARSING] First line: '#TRUUSDT.P | SHORT 🔴'
+2025-12-30 12:44:24,034 - INFO - [PARSING] Extracted PAIR: TRUUSDT.P
+2025-12-30 12:44:24,034 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 12:44:24,035 - INFO - [PARSING] Extracted ENTRY: 0.0952
+2025-12-30 12:44:24,035 - INFO - [CALC] Direction=SHORT, Entry=0.0952, TP=0.0928200, SL=0.099960
+2025-12-30 12:44:24,035 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 12:44:24,035 - INFO -   Pair: TRUUSDT.P
+2025-12-30 12:44:24,035 - INFO -   Setup: SHORT
+2025-12-30 12:44:24,035 - INFO -   Entry: 0.0952
+2025-12-30 12:44:24,036 - INFO -   Take Profit (Calculated): 0.0928200
+2025-12-30 12:44:24,036 - INFO -   Stop Loss (Calculated): 0.099960
+2025-12-30 12:44:24,036 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 12:44:24,036 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 12:44:24,037 - INFO - [DUPLICATE CHECK] Signal TRUUSDT.P:0.0952:SHORT is unique. Proceeding.
+2025-12-30 12:44:24,037 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 12:44:24,037 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 12:44:24,037 - INFO - [JAVA SEND] Payload: Pair=TRUUSDT.P, Setup=SHORT, Entry=0.0952
+2025-12-30 12:44:24,038 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 12:44:24,260 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 12:44:24,261 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: TRUUSDT.P
+2025-12-30 12:44:24,261 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 12:44:24,262 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 12:44:24,262 - INFO - [OK] Signal fully processed: TRUUSDT.P SHORT [SUCCESS]
+2025-12-30 12:44:24,263 - INFO - ============================================================
+
+2025-12-30 13:04:17,038 - INFO - 
+============================================================
+2025-12-30 13:04:17,038 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:34:16+00:00
+2025-12-30 13:04:17,038 - INFO - Message content (first 100 chars): #METUSDT.P | LONG 🟢
+
+Entry: 0.2512 (CMP) 
+
+TP 1 → 0.2573
+TP 2 → 0.2580
+TP 3 → 0.2590
+TP 4 → 0.2600
+T...
+2025-12-30 13:04:17,039 - INFO - Total lines in message: 10
+2025-12-30 13:04:17,039 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 13:04:17,039 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 13:04:17,039 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 13:04:17,039 - INFO - [PARSING] First line: '#METUSDT.P | LONG 🟢'
+2025-12-30 13:04:17,040 - INFO - [PARSING] Extracted PAIR: METUSDT.P
+2025-12-30 13:04:17,040 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-30 13:04:17,040 - INFO - [PARSING] Extracted ENTRY: 0.2512
+2025-12-30 13:04:17,040 - INFO - [CALC] Direction=LONG, Entry=0.2512, TP=0.2574800, SL=0.238640
+2025-12-30 13:04:17,041 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 13:04:17,041 - INFO -   Pair: METUSDT.P
+2025-12-30 13:04:17,041 - INFO -   Setup: LONG
+2025-12-30 13:04:17,041 - INFO -   Entry: 0.2512
+2025-12-30 13:04:17,041 - INFO -   Take Profit (Calculated): 0.2574800
+2025-12-30 13:04:17,042 - INFO -   Stop Loss (Calculated): 0.238640
+2025-12-30 13:04:17,042 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 13:04:17,042 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 13:04:17,042 - INFO - [DUPLICATE CHECK] Signal METUSDT.P:0.2512:LONG is unique. Proceeding.
+2025-12-30 13:04:17,042 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 13:04:17,043 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 13:04:17,043 - INFO - [JAVA SEND] Payload: Pair=METUSDT.P, Setup=LONG, Entry=0.2512
+2025-12-30 13:04:17,043 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 13:04:17,238 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 13:04:17,238 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: METUSDT.P
+2025-12-30 13:04:17,238 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 13:04:17,239 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 13:04:17,239 - INFO - [OK] Signal fully processed: METUSDT.P LONG [SUCCESS]
+2025-12-30 13:04:17,239 - INFO - ============================================================
+
+2025-12-30 13:18:44,621 - INFO - 
+============================================================
+2025-12-30 13:18:44,621 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:48:44+00:00
+2025-12-30 13:18:44,621 - INFO - Message content (first 100 chars): #TRUUSDT.P | SHORT 🔴
+
+Entry: 0.1038 (CMP) 
+
+TP 1 → 0.0902
+TP 2 → 0.0895
+TP 3 → 0.0885
+TP 4 → 0.0875
+...
+2025-12-30 13:18:44,622 - INFO - Total lines in message: 10
+2025-12-30 13:18:44,622 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 13:18:44,622 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 13:18:44,622 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 13:18:44,622 - INFO - [PARSING] First line: '#TRUUSDT.P | SHORT 🔴'
+2025-12-30 13:18:44,623 - INFO - [PARSING] Extracted PAIR: TRUUSDT.P
+2025-12-30 13:18:44,623 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 13:18:44,623 - INFO - [PARSING] Extracted ENTRY: 0.1038
+2025-12-30 13:18:44,623 - INFO - [CALC] Direction=SHORT, Entry=0.1038, TP=0.1012050, SL=0.108990
+2025-12-30 13:18:44,623 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 13:18:44,623 - INFO -   Pair: TRUUSDT.P
+2025-12-30 13:18:44,624 - INFO -   Setup: SHORT
+2025-12-30 13:18:44,624 - INFO -   Entry: 0.1038
+2025-12-30 13:18:44,624 - INFO -   Take Profit (Calculated): 0.1012050
+2025-12-30 13:18:44,624 - INFO -   Stop Loss (Calculated): 0.108990
+2025-12-30 13:18:44,624 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 13:18:44,624 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 13:18:44,625 - INFO - [DUPLICATE CHECK] Signal TRUUSDT.P:0.1038:SHORT is unique. Proceeding.
+2025-12-30 13:18:44,625 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 13:18:44,625 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 13:18:44,625 - INFO - [JAVA SEND] Payload: Pair=TRUUSDT.P, Setup=SHORT, Entry=0.1038
+2025-12-30 13:18:44,625 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 13:18:44,799 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 13:18:44,800 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: TRUUSDT.P
+2025-12-30 13:18:44,800 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 13:18:44,800 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 13:18:44,800 - INFO - [OK] Signal fully processed: TRUUSDT.P SHORT [SUCCESS]
+2025-12-30 13:18:44,801 - INFO - ============================================================
+
+2025-12-30 13:19:45,203 - INFO - 
+============================================================
+2025-12-30 13:19:45,203 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:49:45+00:00
+2025-12-30 13:19:45,204 - INFO - Message content (first 100 chars): #TRUUSDT.P | SHORT 🔴
+
+Entry: 0.1033 (CMP) 
+
+TP 1 → 0.0902
+TP 2 → 0.0895
+TP 3 → 0.0885
+TP 4 → 0.0875
+...
+2025-12-30 13:19:45,204 - INFO - Total lines in message: 10
+2025-12-30 13:19:45,204 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 13:19:45,205 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 13:19:45,205 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 13:19:45,205 - INFO - [PARSING] First line: '#TRUUSDT.P | SHORT 🔴'
+2025-12-30 13:19:45,205 - INFO - [PARSING] Extracted PAIR: TRUUSDT.P
+2025-12-30 13:19:45,205 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 13:19:45,206 - INFO - [PARSING] Extracted ENTRY: 0.1033
+2025-12-30 13:19:45,206 - INFO - [CALC] Direction=SHORT, Entry=0.1033, TP=0.1007175, SL=0.108465
+2025-12-30 13:19:45,206 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 13:19:45,206 - INFO -   Pair: TRUUSDT.P
+2025-12-30 13:19:45,206 - INFO -   Setup: SHORT
+2025-12-30 13:19:45,207 - INFO -   Entry: 0.1033
+2025-12-30 13:19:45,207 - INFO -   Take Profit (Calculated): 0.1007175
+2025-12-30 13:19:45,207 - INFO -   Stop Loss (Calculated): 0.108465
+2025-12-30 13:19:45,207 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 13:19:45,208 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 13:19:45,208 - INFO - [DUPLICATE CHECK] Signal TRUUSDT.P:0.1033:SHORT is unique. Proceeding.
+2025-12-30 13:19:45,208 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 13:19:45,208 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 13:19:45,208 - INFO - [JAVA SEND] Payload: Pair=TRUUSDT.P, Setup=SHORT, Entry=0.1033
+2025-12-30 13:19:45,209 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 13:19:45,385 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 13:19:45,385 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: TRUUSDT.P
+2025-12-30 13:19:45,385 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 13:19:45,386 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 13:19:45,386 - INFO - [OK] Signal fully processed: TRUUSDT.P SHORT [SUCCESS]
+2025-12-30 13:19:45,386 - INFO - ============================================================
+
+2025-12-30 13:21:21,213 - INFO - 
+============================================================
+2025-12-30 13:21:21,213 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:51:21+00:00
+2025-12-30 13:21:21,214 - INFO - Message content (first 100 chars): #TRUUSDT.P | SHORT 🔴
+
+Entry: 0.01034 (CMP) 
+
+TP 1 → 0.0902
+TP 2 → 0.0895
+TP 3 → 0.0885
+TP 4 → 0.0875...
+2025-12-30 13:21:21,214 - INFO - Total lines in message: 10
+2025-12-30 13:21:21,214 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 13:21:21,214 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 13:21:21,215 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 13:21:21,215 - INFO - [PARSING] First line: '#TRUUSDT.P | SHORT 🔴'
+2025-12-30 13:21:21,215 - INFO - [PARSING] Extracted PAIR: TRUUSDT.P
+2025-12-30 13:21:21,215 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 13:21:21,215 - INFO - [PARSING] Extracted ENTRY: 0.01034
+2025-12-30 13:21:21,216 - INFO - [CALC] Direction=SHORT, Entry=0.01034, TP=0.01008150, SL=0.0108570
+2025-12-30 13:21:21,216 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 13:21:21,216 - INFO -   Pair: TRUUSDT.P
+2025-12-30 13:21:21,216 - INFO -   Setup: SHORT
+2025-12-30 13:21:21,216 - INFO -   Entry: 0.01034
+2025-12-30 13:21:21,217 - INFO -   Take Profit (Calculated): 0.01008150
+2025-12-30 13:21:21,217 - INFO -   Stop Loss (Calculated): 0.0108570
+2025-12-30 13:21:21,217 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 13:21:21,217 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 13:21:21,217 - INFO - [DUPLICATE CHECK] Signal TRUUSDT.P:0.01034:SHORT is unique. Proceeding.
+2025-12-30 13:21:21,218 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 13:21:21,218 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 13:21:21,218 - INFO - [JAVA SEND] Payload: Pair=TRUUSDT.P, Setup=SHORT, Entry=0.01034
+2025-12-30 13:21:21,218 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 13:21:21,418 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 13:21:21,418 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: TRUUSDT.P
+2025-12-30 13:21:21,418 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 13:21:21,419 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 13:21:21,419 - INFO - [OK] Signal fully processed: TRUUSDT.P SHORT [SUCCESS]
+2025-12-30 13:21:21,419 - INFO - ============================================================
+
+2025-12-30 13:21:54,465 - INFO - 
+============================================================
+2025-12-30 13:21:54,466 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 07:51:54+00:00
+2025-12-30 13:21:54,466 - INFO - Message content (first 100 chars): #TRUUSDT.P | SHORT 🔴
+
+Entry: 0.01034 (CMP) 
+
+TP 1 → 0.0902
+TP 2 → 0.0895
+TP 3 → 0.0885
+TP 4 → 0.0875...
+2025-12-30 13:21:54,466 - INFO - Total lines in message: 10
+2025-12-30 13:21:54,466 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 13:21:54,466 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 13:21:54,467 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 13:21:54,467 - INFO - [PARSING] First line: '#TRUUSDT.P | SHORT 🔴'
+2025-12-30 13:21:54,467 - INFO - [PARSING] Extracted PAIR: TRUUSDT.P
+2025-12-30 13:21:54,467 - INFO - [PARSING] Extracted SETUP_TYPE: SHORT
+2025-12-30 13:21:54,467 - INFO - [PARSING] Extracted ENTRY: 0.01034
+2025-12-30 13:21:54,468 - INFO - [CALC] Direction=SHORT, Entry=0.01034, TP=0.01008150, SL=0.0108570
+2025-12-30 13:21:54,468 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 13:21:54,468 - INFO -   Pair: TRUUSDT.P
+2025-12-30 13:21:54,468 - INFO -   Setup: SHORT
+2025-12-30 13:21:54,468 - INFO -   Entry: 0.01034
+2025-12-30 13:21:54,468 - INFO -   Take Profit (Calculated): 0.01008150
+2025-12-30 13:21:54,469 - INFO -   Stop Loss (Calculated): 0.0108570
+2025-12-30 13:21:54,469 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 13:21:54,469 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 13:21:54,470 - WARNING - [DUPLICATE DETECTED] Signal TRUUSDT.P:0.01034:SHORT was sent 33.252s ago. Skipping.
+2025-12-30 13:21:54,470 - WARNING - [DUPLICATE] Skipping duplicate signal: TRUUSDT.P SHORT @ 0.01034
+2025-12-30 13:21:54,470 - INFO - ============================================================
+
+2025-12-30 13:24:43,692 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 13:24:43,693 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 13:24:43,797 - INFO - [STOP] Shutdown complete

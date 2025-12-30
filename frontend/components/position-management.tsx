@@ -112,10 +112,18 @@ export function PositionManagement({ positions, onClosePosition }: PositionManag
                   </div>
                 )}
 
-                <Button variant="destructive" size="sm" className="w-full" onClick={() => onClosePosition(position.id)}>
-                  <X className="h-4 w-4 mr-2" />
-                  Close Position
-                </Button>
+                {position.id.startsWith("binance-") ? (
+                  <div className="w-full p-2 sm:p-3 bg-muted rounded-lg text-center">
+                    <p className="text-xs text-muted-foreground">
+                      Manual position - close via Binance app
+                    </p>
+                  </div>
+                ) : (
+                  <Button variant="destructive" size="sm" className="w-full" onClick={() => onClosePosition(position.id)}>
+                    <X className="h-4 w-4 mr-2" />
+                    Close Position
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ))}

@@ -1,0 +1,137 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Program%20Files/Apache/apache-maven-3.9.11/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------< mav-intel.com:Intelligent_Crypto_User_Management >----------
+[INFO] Building Intelligent_Crypto_User_Management 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.4:run (default-cli) > test-compile @ Intelligent_Crypto_User_Management >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ Intelligent_Crypto_User_Management ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ Intelligent_Crypto_User_Management ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ Intelligent_Crypto_User_Management ---
+[INFO] skip non existing resourceDirectory C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ Intelligent_Crypto_User_Management ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.4:run (default-cli) < test-compile @ Intelligent_Crypto_User_Management <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.4:run (default-cli) @ Intelligent_Crypto_User_Management ---
+[INFO] Attaching agents: []
+[OK] Loaded .env file from: C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management
+12:26:44,914 |-INFO in ch.qos.logback.classic.LoggerContext[default] - This is logback-classic version 1.5.18
+12:26:44,915 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Here is a list of configurators discovered as a service, by rank: 
+12:26:44,915 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 -   org.springframework.boot.logging.logback.RootLogLevelConfigurator
+12:26:44,915 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - They will be invoked in order until ExecutionStatus.DO_NOT_INVOKE_NEXT_IF_ANY is returned.
+12:26:44,915 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Constructed configurator of type class org.springframework.boot.logging.logback.RootLogLevelConfigurator
+12:26:44,918 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - org.springframework.boot.logging.logback.RootLogLevelConfigurator.configure() call lasted 1 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+12:26:44,918 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+12:26:44,919 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+12:26:44,919 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.scmo]
+12:26:44,919 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.scmo]
+12:26:44,919 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 0 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+12:26:44,919 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+12:26:44,920 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+12:26:44,920 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+12:26:44,920 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/C:/Users/DELL/.m2/repository/io/github/binance/binance-futures-connector-java/3.0.5/binance-futures-connector-java-3.0.5.jar!/logback.xml]
+12:26:44,926 |-INFO in ConfigurationWatchList(mainURL=jar:file:/C:/Users/DELL/.m2/repository/io/github/binance/binance-futures-connector-java/3.0.5/binance-futures-connector-java-3.0.5.jar!/logback.xml, fileWatchList={}, urlWatchList=[}) - URL [jar:file:/C:/Users/DELL/.m2/repository/io/github/binance/binance-futures-connector-java/3.0.5/binance-futures-connector-java-3.0.5.jar!/logback.xml] is not of type file
+12:26:44,994 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 3
+12:26:45,062 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word epoch with class [com.binance.connector.futures.logging.util.MsEpochConverter]
+12:26:45,066 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "binance-java-connector" substituted for "${SYSTEM}"
+12:26:45,067 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "binance-java-connector.log" substituted for "${SYSTEM}.log"
+12:26:45,068 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [stdout]
+12:26:45,068 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:26:45,077 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:26:45,079 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "%date{yyyy-MM-dd HH:mm:ss.SSS}[%epoch] | %-5level | %-10thread{10} | %-36logger{36} - %msg%n" substituted for "${LOG_PATTERN}"
+12:26:45,126 |-INFO in ch.qos.logback.core.ConsoleAppender[stdout] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+12:26:45,126 |-INFO in ch.qos.logback.core.ConsoleAppender[stdout] - console in production environments, especially in high volume systems.
+12:26:45,126 |-INFO in ch.qos.logback.core.ConsoleAppender[stdout] - See also https://logback.qos.ch/codes.html#slowConsole
+12:26:45,126 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [dailyFile]
+12:26:45,126 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+12:26:45,129 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "./logs/binance-java-connector.log" substituted for "${BASE_DIR}/${FILE_NAME}"
+12:26:45,132 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:26:45,132 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "%date{yyyy-MM-dd HH:mm:ss.SSS}[%epoch] | %-5level | %-10thread{10} | %-36logger{36} - %msg%n" substituted for "${LOG_PATTERN}"
+12:26:45,134 |-INFO in ch.qos.logback.core.model.processor.ModelInterpretationContext@6aba2b86 - value "./logs/binance-java-connector/binance-java-connector.log.%d{yyyy-MM-dd}.gz" substituted for "${BASE_DIR}/${OLD_DIR}/${FILE_NAME}.%d{yyyy-MM-dd}.gz"
+12:26:45,135 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@22600334 - Will use gz compression
+12:26:45,137 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@22600334 - Will use the pattern ./logs/binance-java-connector/binance-java-connector.log.%d{yyyy-MM-dd} for the active file
+12:26:45,151 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - The date pattern is 'yyyy-MM-dd' from file name pattern './logs/binance-java-connector/binance-java-connector.log.%d{yyyy-MM-dd}.gz'.
+12:26:45,151 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Roll-over at midnight.
+12:26:45,156 |-INFO in c.q.l.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy - Setting initial period to 2025-12-30T06:52:29.576Z
+12:26:45,158 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[dailyFile] - Active log file name: ./logs/binance-java-connector.log
+12:26:45,158 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[dailyFile] - File property is set to [./logs/binance-java-connector.log]
+12:26:45,160 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [dailyFileAsync]
+12:26:45,160 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+12:26:45,162 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [dailyFile] to ch.qos.logback.classic.AsyncAppender[dailyFileAsync]
+12:26:45,162 |-INFO in ch.qos.logback.classic.AsyncAppender[dailyFileAsync] - Attaching appender named [dailyFile] to AsyncAppender.
+12:26:45,163 |-INFO in ch.qos.logback.classic.AsyncAppender[dailyFileAsync] - Setting discardingThreshold to 0
+12:26:45,164 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+12:26:45,164 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [stdout] to Logger[ROOT]
+12:26:45,164 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [dailyFileAsync] to Logger[ROOT]
+12:26:45,164 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@74e52303 - End of configuration.
+12:26:45,165 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@47af7f3d - Registering current configuration as safe fallback point
+12:26:45,165 |-INFO in ch.qos.logback.classic.util.ContextInitializer@32eff876 - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 245 milliseconds. ExecutionStatus=DO_NOT_INVOKE_NEXT_IF_ANY
+
+12:26:45,492 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 3
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.4)
+
+2025-12-30 12:26:45.537[1767077805537] | INFO  | background-preinit | o.h.validator.internal.util.Version  - HV000001: Hibernate Validator 8.0.2.Final
+2025-12-30 12:26:45.581[1767077805581] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Starting IntelligentCryptoUserManagementApplication using Java 24.0.1 with PID 54332 (C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management\target\classes started by DELL in C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management)
+2025-12-30 12:26:45.583[1767077805583] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-30 12:26:46.161[1767077806161] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-30 12:26:46.216[1767077806216] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 4 JPA repository interfaces.
+2025-12-30 12:26:46.681[1767077806681] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat initialized with port 8081 (http)
+2025-12-30 12:26:46.690[1767077806690] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Initializing ProtocolHandler ["http-nio-8081"]
+2025-12-30 12:26:46.692[1767077806692] | INFO  | main       | o.a.catalina.core.StandardService    - Starting service [Tomcat]
+2025-12-30 12:26:46.692[1767077806692] | INFO  | main       | o.a.catalina.core.StandardEngine     - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-12-30 12:26:46.738[1767077806738] | INFO  | main       | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring embedded WebApplicationContext
+2025-12-30 12:26:46.738[1767077806738] | INFO  | main       | o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1109 ms
+2025-12-30 12:26:46.861[1767077806861] | INFO  | main       | o.h.jpa.internal.util.LogHelper      - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-30 12:26:46.899[1767077806899] | INFO  | main       | org.hibernate.Version                - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-12-30 12:26:46.925[1767077806925] | INFO  | main       | o.h.c.i.RegionFactoryInitiator       - HHH000026: Second-level cache disabled
+2025-12-30 12:26:47.150[1767077807150] | INFO  | main       | o.s.o.j.p.SpringPersistenceUnitInfo  - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-30 12:26:47.173[1767077807173] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Starting...
+2025-12-30 12:26:48.423[1767077808423] | INFO  | main       | com.zaxxer.hikari.pool.HikariPool    - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1dbff71c
+2025-12-30 12:26:48.424[1767077808424] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Start completed.
+2025-12-30 12:26:48.538[1767077808538] | WARN  | main       | org.hibernate.orm.deprecation        - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-30 12:26:48.816[1767077808816] | INFO  | main       | o.hibernate.orm.connections.pooling  - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.7
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-30 12:26:49.559[1767077809559] | INFO  | main       | o.h.e.t.j.p.i.JtaPlatformInitiator   - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-30 12:26:50.109[1767077810109] | INFO  | main       | o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-30 12:26:50.434[1767077810434] | INFO  | main       | o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-30 12:26:50.517[1767077810517] | INFO  | main       | m.c.I.config.BinanceConfig           - ✅ Binance Futures client initialized in LIVE mode
+2025-12-30 12:26:50.593[1767077810593] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🚀 Starting Binance User Data Stream...
+2025-12-30 12:26:50.595[1767077810595] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - POST https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 12:26:51.844[1767077811844] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔑 Created listenKey: JOd2wrzGLn...
+2025-12-30 12:26:51.844[1767077811844] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔌 Connecting to Binance User Data Stream: wss://fstream.binance.com/ws/JOd2wrzGLn7PvPjOJfq72g7SKqn3EievKHI9P2Q9gawEl7P1LYdth7gmLRjIW4yz
+2025-12-30 12:26:52.440[1767077812440] | INFO  | ForkJoinPool.commonPool-worker-1 | m.c.I.s.BinanceUserDataStreamService - ✅ WebSocket connection opened
+2025-12-30 12:26:52.440[1767077812440] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - ✅ Binance User Data Stream started successfully
+2025-12-30 12:26:52.468[1767077812468] | WARN  | main       | o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-30 12:26:52.889[1767077812889] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Starting ProtocolHandler ["http-nio-8081"]
+2025-12-30 12:26:52.899[1767077812899] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat started on port 8081 (http) with context path '/'
+2025-12-30 12:26:52.907[1767077812907] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Started IntelligentCryptoUserManagementApplication in 7.672 seconds (process running for 8.18)
+2025-12-30 12:26:52.910[1767077812910] | INFO  | scheduling-1 | c.b.c.f.client.utils.RequestHandler  - PUT https://fapi.binance.com/fapi/v1/listenKey

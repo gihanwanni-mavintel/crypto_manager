@@ -17,4 +17,5 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
     List<Trade> findBySignalId(Long signalId);
     List<Trade> findAllByOrderByOpenedAtDesc();
     Optional<Trade> findByBinanceOrderId(String binanceOrderId);
+    List<Trade> findByPairAndStatus(String pair, String status);
 }

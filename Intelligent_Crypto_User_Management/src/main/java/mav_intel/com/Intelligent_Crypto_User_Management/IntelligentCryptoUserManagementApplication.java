@@ -3,8 +3,10 @@ package mav_intel.com.Intelligent_Crypto_User_Management;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class IntelligentCryptoUserManagementApplication {
 
 	public static void main(String[] args) {

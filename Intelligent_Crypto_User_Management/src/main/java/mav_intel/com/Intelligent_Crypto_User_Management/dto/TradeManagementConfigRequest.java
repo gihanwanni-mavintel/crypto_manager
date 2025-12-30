@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 @Data
 public class TradeManagementConfigRequest {
     private Long userId;
-    private String marginMode; // ISOLATED or CROSS
+    private String marginMode; // ISOLATED or CROSSED
     private BigDecimal maxLeverage;
     private BigDecimal maxPositionSizePercent;
 }

@@ -18,7 +18,7 @@ public class TradeManagementConfig {
     private Long userId;
 
     @Column(name = "margin_mode", nullable = false)
-    private String marginMode = "ISOLATED"; // ISOLATED or CROSS
+    private String marginMode = "ISOLATED"; // ISOLATED or CROSSED
 
     @Column(name = "max_leverage", nullable = false, precision = 5, scale = 2)
     private BigDecimal maxLeverage = new BigDecimal("20.00");

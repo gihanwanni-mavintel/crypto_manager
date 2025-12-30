@@ -70,6 +70,18 @@ public class TradeService {
 
             log.info("🚀 Executing trade: {} {} @ ${}", request.getSide(), request.getPair(), request.getEntry());
 
+            // Check for duplicate entry (same pair + same entry price)
+            if (isDuplicateEntry(request.getPair(), request.getEntry())) {
+                log.warn("⚠️ Duplicate signal rejected: {} with entry ${} already has an active position/order",
+                    request.getPair(), request.getEntry());
+                return new ExecuteTradeResponse(
+                    null,
+                    request.getPair(),
+                    "REJECTED",
+                    "Duplicate signal rejected: Active position/order with same entry price already exists"
+                );
+            }
+
             // Load trade management config (default userId = 1)
             TradeManagementConfig config = getTradeConfig(1L);
             int leverage = config.getMaxLeverage().intValue();
@@ -168,7 +180,7 @@ public class TradeService {
             // Get trade config for margin mode
             TradeManagementConfig config = getTradeConfig(1L);
 
-            // 1. Set margin mode (ISOLATED or CROSS)
+            // 1. Set margin mode (ISOLATED or CROSSED)
             setMarginMode(symbol, config.getMarginMode());
 
             // 2. Set leverage
@@ -197,19 +209,21 @@ public class TradeService {
 
             trade.setBinanceOrderId(orderId);
 
-            // 4. Place Stop-Loss (using Algo API)
-            if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
-                double roundedSlPrice = roundToPrecision(trade.getStopLoss(), pricePrecision);
-                placeStopLoss(symbol, side, roundedQuantity, roundedSlPrice);
-            }
+            // TP/SL will be placed automatically when order fills via User Data Stream WebSocket
+            // This prevents "would immediately trigger" errors for LIMIT orders
+            log.info("📌 Entry order placed. TP/SL will be placed when order fills (via WebSocket)");
 
-            // 5. Place Take-Profit (using Algo API)
-            if (trade.getTakeProfit() != null && trade.getTakeProfit() > 0) {
-                double roundedTpPrice = roundToPrecision(trade.getTakeProfit(), pricePrecision);
-                placeTakeProfit(symbol, side, roundedQuantity, roundedTpPrice);
-            }
+            // NOTE: Old immediate placement (commented out - now handled by BinanceUserDataStreamService)
+            // if (trade.getStopLoss() != null && trade.getStopLoss() > 0) {
+            //     double roundedSlPrice = roundToPrecision(trade.getStopLoss(), pricePrecision);
+            //     placeStopLoss(symbol, side, roundedQuantity, roundedSlPrice);
+            // }
+            // if (trade.getTakeProfit() != null && trade.getTakeProfit() > 0) {
+            //     double roundedTpPrice = roundToPrecision(trade.getTakeProfit(), pricePrecision);
+            //     placeTakeProfit(symbol, side, roundedQuantity, roundedTpPrice);
+            // }
 
-            log.info("✅ All orders placed for {} (Entry, TP, SL)", symbol);
+            log.info("✅ Entry order placed for {} | Order ID: {}", symbol, orderId);
             return true;
 
         } catch (Exception e) {
@@ -666,6 +680,34 @@ public class TradeService {
     }
 
     /**
+     * Check if there's an active position or pending order with the same pair and entry price
+     * Rejects duplicate signals with same pair + same entry price
+     * Allows signals with same pair but different entry price
+     */
+    private boolean isDuplicateEntry(String pair, double entryPrice) {
+        // Get all active and pending trades for this pair
+        List<Trade> activeTrades = tradeRepository.findByPair(pair);
+
+        // Entry price tolerance: 0.1% (to handle small rounding differences)
+        double tolerance = entryPrice * 0.001;
+
+        for (Trade trade : activeTrades) {
+            // Only check trades that are active or pending (not closed)
+            if ("OPEN".equals(trade.getStatus()) || "PENDING".equals(trade.getStatus())) {
+                // Check if entry prices are the same (within tolerance)
+                double priceDiff = Math.abs(trade.getEntryPrice() - entryPrice);
+                if (priceDiff <= tolerance) {
+                    log.debug("🔍 Duplicate found: Trade ID {} has same entry ${} (diff: ${})",
+                        trade.getId(), trade.getEntryPrice(), priceDiff);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get trade management config or create default
      */
     private TradeManagementConfig getTradeConfig(Long userId) {
@@ -677,15 +719,18 @@ public class TradeService {
     }
 
     /**
-     * Set margin mode for symbol (ISOLATED or CROSS)
+     * Set margin mode for symbol (ISOLATED or CROSSED)
      * Endpoint: POST /fapi/v1/marginType
      */
     private void setMarginMode(String symbol, String marginMode) {
         try {
             LinkedHashMap<String, Object> params = new LinkedHashMap<>();
             params.put("symbol", symbol);
-            params.put("marginType", marginMode.toUpperCase()); // ISOLATED or CROSSED
+
+            // Use margin mode as-is (already "ISOLATED" or "CROSSED")
+            params.put("marginType", marginMode.toUpperCase());
             params.put("recvWindow", 60000);
+
             futuresClient.account().changeMarginType(params);
             log.info("⚙️ Margin mode set to {} for {}", marginMode, symbol);
         } catch (Exception e) {
@@ -696,6 +741,41 @@ public class TradeService {
             } else {
                 log.warn("⚠️ Error setting margin mode: {}", e.getMessage());
             }
+        }
+    }
+
+    // ============================================================
+    // PUBLIC METHODS FOR USER DATA STREAM SERVICE
+    // ============================================================
+
+    /**
+     * Public method to place Stop-Loss for a filled trade
+     * Called by BinanceUserDataStreamService when entry order fills
+     */
+    public boolean placeStopLossForTrade(Long tradeId, String symbol, String side, double quantity, double stopPrice) {
+        try {
+            int pricePrecision = getSymbolPricePrecision(symbol);
+            double roundedSlPrice = roundToPrecision(stopPrice, pricePrecision);
+            return placeStopLoss(symbol, side, quantity, roundedSlPrice);
+        } catch (Exception e) {
+            log.error("❌ Error placing SL for trade {}: {}", tradeId, e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Public method to place Take-Profit for a filled trade
+     * Called by BinanceUserDataStreamService when entry order fills
+     */
+    public boolean takeProfitForTrade(Long tradeId, String symbol, String side, double quantity, double tpPrice) {
+        try {
+            int pricePrecision = getSymbolPricePrecision(symbol);
+            double roundedTpPrice = roundToPrecision(tpPrice, pricePrecision);
+            placeTakeProfit(symbol, side, quantity, roundedTpPrice);
+            return true;
+        } catch (Exception e) {
+            log.error("❌ Error placing TP for trade {}: {}", tradeId, e.getMessage());
+            return false;
         }
     }
 }

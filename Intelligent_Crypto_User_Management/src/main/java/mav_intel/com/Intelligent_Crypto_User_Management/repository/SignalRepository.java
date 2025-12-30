@@ -19,4 +19,7 @@ public interface SignalRepository extends JpaRepository<Signal, Long> {
 
     // Find signals by channel
     List<Signal> findByChannel(String channel);
+
+    // Find signals by pair, setup type, and entry (for duplicate detection)
+    List<Signal> findByPairAndSetupTypeAndEntry(String pair, String setupType, Double entry);
 }

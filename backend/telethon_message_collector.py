@@ -111,6 +111,37 @@ def ensure_timezone_aware(dt):
 db_pool = None
 signal_queue = asyncio.Queue()
 
+# ----------------------------
+# Duplicate Signal Detection
+# ----------------------------
+recent_signals = {}  # Cache: {signal_key: timestamp}
+DUPLICATE_WINDOW_SECONDS = 60  # Consider signals within 60 seconds as duplicates
+
+def get_signal_key(pair, entry, setup_type):
+    """Generate unique key for signal deduplication"""
+    return f"{pair}:{entry}:{setup_type}"
+
+def is_duplicate_signal(pair, entry, setup_type):
+    """Check if signal was recently sent (within DUPLICATE_WINDOW_SECONDS)"""
+    signal_key = get_signal_key(pair, entry, setup_type)
+    current_time = datetime.now(timezone.utc).timestamp()
+
+    # Clean up old entries (older than DUPLICATE_WINDOW_SECONDS)
+    expired_keys = [k for k, ts in recent_signals.items() if current_time - ts > DUPLICATE_WINDOW_SECONDS]
+    for k in expired_keys:
+        del recent_signals[k]
+
+    # Check if this signal was recently sent
+    if signal_key in recent_signals:
+        time_since_last = current_time - recent_signals[signal_key]
+        logger.warning(f"[DUPLICATE DETECTED] Signal {signal_key} was sent {time_since_last:.3f}s ago. Skipping.")
+        return True
+
+    # Mark as sent
+    recent_signals[signal_key] = current_time
+    logger.info(f"[DUPLICATE CHECK] Signal {signal_key} is unique. Proceeding.")
+    return False
+
 async def init_db():
     global db_pool
     db_pool = await asyncpg.create_pool(dsn=DATABASE_URL)
@@ -353,6 +384,12 @@ async def run_telegram_client():
                 logger.info(f"[WEBSOCKET] Broadcasting to {len(connected_clients)} connected clients...")
                 await send_to_clients(data)
                 logger.info(f"[WEBSOCKET] [OK] Broadcast complete")
+
+                # Check for duplicate signal before sending to Java backend
+                if is_duplicate_signal(pair, entry, setup_type):
+                    logger.warning(f"[DUPLICATE] Skipping duplicate signal: {pair} {setup_type} @ {entry}")
+                    logger.info(f"{'='*60}\n")
+                    return
 
                 # Send signal to Java backend for automatic trade execution
                 logger.info(f"[JAVA BACKEND] Attempting to send signal to Java backend...")

@@ -2462,3 +2462,112 @@ TP 4 → 0.1795
 2025-12-30 10:44:48,541 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
 2025-12-30 10:44:48,541 - INFO - ============================================================
 
+2025-12-30 11:02:31,791 - INFO - 
+============================================================
+2025-12-30 11:02:31,791 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 05:32:31+00:00
+2025-12-30 11:02:31,791 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1680 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-30 11:02:31,792 - INFO - Total lines in message: 10
+2025-12-30 11:02:31,792 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 11:02:31,792 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 11:02:31,792 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 11:02:31,792 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-30 11:02:31,793 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-30 11:02:31,793 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-30 11:02:31,793 - INFO - [PARSING] Extracted ENTRY: 0.1680
+2025-12-30 11:02:31,793 - INFO - [CALC] Direction=LONG, Entry=0.1680, TP=0.1722000, SL=0.159600
+2025-12-30 11:02:31,793 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 11:02:31,793 - INFO -   Pair: ALICEUSDT.P
+2025-12-30 11:02:31,794 - INFO -   Setup: LONG
+2025-12-30 11:02:31,794 - INFO -   Entry: 0.1680
+2025-12-30 11:02:31,794 - INFO -   Take Profit (Calculated): 0.1722000
+2025-12-30 11:02:31,794 - INFO -   Stop Loss (Calculated): 0.159600
+2025-12-30 11:02:31,794 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 11:02:31,794 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 11:02:31,795 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 11:02:31,795 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 11:02:31,795 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1680
+2025-12-30 11:02:31,795 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 11:02:32,171 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 11:02:32,171 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-30 11:02:32,171 - INFO - [JAVA RESPONSE] Response body: {"trade_message":"Duplicate signal rejected: Active position/order with same entry price already exists","trade_id":null,"trade_status":"REJECTED","signal_id":87,"message":"Signal received and trade e
+2025-12-30 11:02:32,172 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 11:02:32,172 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-30 11:02:32,172 - INFO - ============================================================
+
+2025-12-30 11:06:08,858 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 11:06:08,859 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:06:08,968 - INFO - [STOP] Shutdown complete
+2025-12-30 11:07:38,135 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 11:07:38,135 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 11:07:38,136 - INFO - HTTP health server started on port 8082
+2025-12-30 11:07:38,137 - INFO - WebSocket server started on port 6789
+2025-12-30 11:07:38,137 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:07:38,205 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:07:38,816 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 11:07:38,816 - INFO - Listening for Telegram messages...
+2025-12-30 11:10:31,673 - INFO - Disconnecting from 91.108.56.188:443/TcpFull...
+2025-12-30 11:10:31,674 - INFO - Disconnection from 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:10:31,775 - INFO - [STOP] Shutdown complete
+2025-12-30 11:10:38,505 - INFO - [OK] Connected to PostgreSQL
+2025-12-30 11:10:38,505 - INFO - [OK] Using existing tables (signal_messages, market_messages)
+2025-12-30 11:10:38,507 - INFO - HTTP health server started on port 8082
+2025-12-30 11:10:38,507 - INFO - WebSocket server started on port 6789
+2025-12-30 11:10:38,508 - INFO - Connecting to 91.108.56.188:443/TcpFull...
+2025-12-30 11:10:38,580 - INFO - Connection to 91.108.56.188:443/TcpFull complete!
+2025-12-30 11:10:39,180 - INFO - [USER] Connected as: Gihan (ID: 1706977568)
+2025-12-30 11:10:39,180 - INFO - Listening for Telegram messages...
+2025-12-30 11:12:22,967 - INFO - 
+============================================================
+2025-12-30 11:12:22,967 - INFO - [RECEIVED MESSAGE] Timestamp: 2025-12-30 05:42:22+00:00
+2025-12-30 11:12:22,967 - INFO - Message content (first 100 chars): #ALICEUSDT.P | LONG 🟢
+
+Entry: 0.1672 (CMP)
+
+TP 1 → 0.1780
+TP 2 → 0.1785
+TP 3 → 0.1790
+TP 4 → 0.1795
+...
+2025-12-30 11:12:22,968 - INFO - Total lines in message: 10
+2025-12-30 11:12:22,968 - INFO - [SIGNAL DETECTION] Is Signal: True
+2025-12-30 11:12:22,968 - INFO - [DETAILS] Detected as SIGNAL [OK]
+2025-12-30 11:12:22,969 - INFO - 
+[PARSING] Starting to parse signal...
+2025-12-30 11:12:22,969 - INFO - [PARSING] First line: '#ALICEUSDT.P | LONG 🟢'
+2025-12-30 11:12:22,969 - INFO - [PARSING] Extracted PAIR: ALICEUSDT.P
+2025-12-30 11:12:22,969 - INFO - [PARSING] Extracted SETUP_TYPE: LONG
+2025-12-30 11:12:22,970 - INFO - [PARSING] Extracted ENTRY: 0.1672
+2025-12-30 11:12:22,970 - INFO - [CALC] Direction=LONG, Entry=0.1672, TP=0.1713800, SL=0.158840
+2025-12-30 11:12:22,970 - INFO - 
+[DATA OBJECT] Created signal data object:
+2025-12-30 11:12:22,970 - INFO -   Pair: ALICEUSDT.P
+2025-12-30 11:12:22,970 - INFO -   Setup: LONG
+2025-12-30 11:12:22,971 - INFO -   Entry: 0.1672
+2025-12-30 11:12:22,971 - INFO -   Take Profit (Calculated): 0.1713800
+2025-12-30 11:12:22,971 - INFO -   Stop Loss (Calculated): 0.158840
+2025-12-30 11:12:22,971 - INFO - [WEBSOCKET] Broadcasting to 0 connected clients...
+2025-12-30 11:12:22,971 - INFO - [WEBSOCKET] [OK] Broadcast complete
+2025-12-30 11:12:22,971 - INFO - [DUPLICATE CHECK] Signal ALICEUSDT.P:0.1672:LONG is unique. Proceeding.
+2025-12-30 11:12:22,971 - INFO - [JAVA BACKEND] Attempting to send signal to Java backend...
+2025-12-30 11:12:22,972 - INFO - 
+[JAVA SEND] Target URL: http://localhost:8081/api/webhook/signal
+2025-12-30 11:12:22,972 - INFO - [JAVA SEND] Payload: Pair=ALICEUSDT.P, Setup=LONG, Entry=0.1672
+2025-12-30 11:12:22,972 - INFO - [JAVA SEND] Sending HTTP POST request to Java backend...
+2025-12-30 11:12:23,237 - INFO - [JAVA RESPONSE] Status Code: 200
+2025-12-30 11:12:23,237 - INFO - [JAVA RESPONSE] [SUCCESS] Signal sent to Java backend: ALICEUSDT.P
+2025-12-30 11:12:23,237 - INFO - [JAVA RESPONSE] Response body: {"message":"Duplicate signal rejected","status":"duplicate"}
+2025-12-30 11:12:23,238 - INFO - [JAVA BACKEND] Signal sent (see previous logs for response)
+2025-12-30 11:12:23,238 - INFO - [OK] Signal fully processed: ALICEUSDT.P LONG [SUCCESS]
+2025-12-30 11:12:23,238 - INFO - ============================================================
+

@@ -60,8 +60,18 @@ public class SignalWebhookController {
         try {
             log.info("📡 Received signal from Python backend: {}", signalData.get("pair"));
 
-            // 1. Save signal to database
+            // 1. Check for duplicate signal (same pair, entry, setup_type within last 60 seconds)
             Signal signal = mapToSignal(signalData);
+            if (isDuplicateSignal(signal)) {
+                log.warn("⚠️ Duplicate signal detected and rejected: {} {} @ {}",
+                    signal.getPair(), signal.getSetupType(), signal.getEntry());
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", "duplicate");
+                response.put("message", "Duplicate signal rejected");
+                return ResponseEntity.ok(response);
+            }
+
+            // 2. Save signal to database
             Signal savedSignal = signalRepository.save(signal);
             log.info("✅ Signal saved to database with ID: {}", savedSignal.getId());
 
@@ -108,6 +118,38 @@ public class SignalWebhookController {
         status.put("auto_execute_enabled", autoExecuteEnabled);
         status.put("timestamp", System.currentTimeMillis());
         return ResponseEntity.ok(status);
+    }
+
+    /**
+     * Check if signal is a duplicate (same pair, entry, setup_type within last 60 seconds)
+     */
+    private boolean isDuplicateSignal(Signal signal) {
+        try {
+            // Look for signals with same pair, entry price, and setup type in the last 60 seconds
+            OffsetDateTime sixtySecondsAgo = OffsetDateTime.now().minusSeconds(60);
+
+            // Query for existing signals
+            var existingSignals = signalRepository.findByPairAndSetupTypeAndEntry(
+                signal.getPair(),
+                signal.getSetupType(),
+                signal.getEntry()
+            );
+
+            // Check if any match within the time window
+            for (Signal existing : existingSignals) {
+                if (existing.getTimestamp() != null &&
+                    existing.getTimestamp().isAfter(sixtySecondsAgo)) {
+                    log.debug("Found duplicate signal ID {} from {} seconds ago",
+                        existing.getId(),
+                        java.time.Duration.between(existing.getTimestamp(), OffsetDateTime.now()).getSeconds());
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            log.error("Error checking for duplicate signal: {}", e.getMessage());
+            return false; // If check fails, allow signal through
+        }
     }
 
     /**

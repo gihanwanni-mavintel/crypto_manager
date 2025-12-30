@@ -1265,3 +1265,776 @@ Identify and stop the process that's listening on port 8081 or configure this ap
 2025-12-30 10:46:50.583[1767071810583] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
 2025-12-30 10:46:50.583[1767071810583] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
 2025-12-30 10:46:50.583[1767071810583] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:47:00.376[1767071820376] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:47:00.377[1767071820377] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:47:00.377[1767071820377] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767071820377&signature=13b051439016a587456874ea42c685180f4dd46e1b90cefe0d2e4666fe627378
+2025-12-30 10:47:00.544[1767071820544] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:47:00.545[1767071820545] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:47:00.545[1767071820545] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:47:10.377[1767071830377] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:47:10.377[1767071830377] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:47:10.377[1767071830377] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767071830377&signature=d707ce3fd03cfd7856ae42cdfc5d119c32556d0cde9336adf96876bf3a9a4b8f
+2025-12-30 10:47:10.545[1767071830545] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:47:10.546[1767071830546] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:47:10.546[1767071830546] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:47:20.371[1767071840371] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:47:20.371[1767071840371] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:47:20.371[1767071840371] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767071840371&signature=eb0d88c4a06ade8652cebd10dc75eeea3efdfe5f83f528e8b385319ff93c72ac
+2025-12-30 10:47:20.549[1767071840549] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:47:20.549[1767071840549] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:47:20.550[1767071840550] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:48:29.372[1767071909372] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:48:29.372[1767071909372] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:48:29.372[1767071909372] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767071909372&signature=28bb44e7ac905cb9449809d08a88d370031f72a341fd82ec728dff444afa8963
+2025-12-30 10:48:29.684[1767071909684] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:48:29.685[1767071909685] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:48:29.685[1767071909685] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:49:29.360[1767071969360] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:49:29.360[1767071969360] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:49:29.361[1767071969361] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767071969361&signature=5e98cde642ff5ad1de96089192c18c400fc72840653e9c6eb94ae76d692cf1ed
+2025-12-30 10:49:29.538[1767071969538] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:49:29.538[1767071969538] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:49:29.539[1767071969539] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:49:40.714[1767071980714] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get all trades request
+2025-12-30 10:50:29.462[1767072029462] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:50:29.463[1767072029463] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:50:29.463[1767072029463] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072029463&signature=02fbe5f7eddb0eb1354ebc15876120ce6cc6859c2ed371b7d2ca5a57819e1d2c
+2025-12-30 10:50:29.637[1767072029637] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:50:29.638[1767072029638] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:50:29.638[1767072029638] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:51:29.370[1767072089370] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:51:29.370[1767072089370] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:51:29.371[1767072089371] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072089371&signature=83a03f5ed04be18fbdc1e0fecd40479bae0f8de020b0142dcb5c56637a2b0cfa
+2025-12-30 10:51:29.566[1767072089566] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:51:29.566[1767072089566] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:51:29.566[1767072089566] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:52:29.407[1767072149407] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:52:29.407[1767072149407] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:52:29.408[1767072149408] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072149408&signature=a2f73a1840ce93692f0296222602a3d70a2a30cbb7094ca7a52bd1a56fe47fbe
+2025-12-30 10:52:29.589[1767072149589] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:52:29.590[1767072149590] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:52:29.590[1767072149590] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:53:29.362[1767072209362] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:53:29.362[1767072209362] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:53:29.362[1767072209362] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072209362&signature=e73a6fa49c2a65d40e769160701f13ff0e026f15ca5063aff578788ff45aa484
+2025-12-30 10:53:29.533[1767072209533] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:53:29.534[1767072209534] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:53:29.534[1767072209534] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:54:29.355[1767072269355] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:54:29.355[1767072269355] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:54:29.355[1767072269355] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072269355&signature=fbe39fbb80026fb6c8a0a8757905da89d4c080fb2c99d2f712aef5202c74d78b
+2025-12-30 10:54:29.535[1767072269535] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:54:29.536[1767072269536] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:54:29.536[1767072269536] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:55:29.375[1767072329375] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:55:29.375[1767072329375] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:55:29.375[1767072329375] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072329375&signature=7c73a92a7af3f2ecbe93c85fd712ca6ce8874ae3a8adac8e098c1ea576071a1d
+2025-12-30 10:55:29.547[1767072329547] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:55:29.548[1767072329548] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:55:29.548[1767072329548] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:56:29.363[1767072389363] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:56:29.364[1767072389364] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:56:29.364[1767072389364] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072389364&signature=bda06624e008d9d991884bc67c4f9f0c196e685cc4c69dea2849c806cc59dcb7
+2025-12-30 10:56:29.558[1767072389558] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:56:29.559[1767072389559] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:56:29.559[1767072389559] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:57:29.373[1767072449373] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:57:29.373[1767072449373] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:57:29.374[1767072449374] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072449374&signature=699299d074a17b3820d1745d737ee18bf14a758f85696cf6949c34e7f7add520
+2025-12-30 10:57:29.566[1767072449566] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:57:29.567[1767072449567] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:57:29.567[1767072449567] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:58:21.590[1767072501590] | INFO  | HttpClient-1-Worker-6 | m.c.I.s.BinanceUserDataStreamService - 📊 Order Update: ALICEUSDT 7186225786 - Status: CANCELED
+2025-12-30 10:58:29.393[1767072509393] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:58:29.393[1767072509393] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:58:29.393[1767072509393] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072509393&signature=d9e32569c73c5df85fc101bf0c002b3daa17bd6e8b048d7df05a4c01301cc89b
+2025-12-30 10:58:29.586[1767072509586] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:58:29.586[1767072509586] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:58:29.587[1767072509587] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 10:59:29.366[1767072569366] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 10:59:29.367[1767072569367] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 10:59:29.367[1767072569367] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072569367&signature=d824d279a5771cabd7e9c88dab91b0de704bbc9a257806b3d130acbe4ba33765
+2025-12-30 10:59:29.565[1767072569565] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 10:59:29.565[1767072569565] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 10:59:29.565[1767072569565] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:00:29.365[1767072629365] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:00:29.365[1767072629365] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:00:29.366[1767072629366] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072629366&signature=4caa8b54065aa4a09ec213ee4be18d591ac930ee1c65bcde43ddd6bb2b6d154f
+2025-12-30 11:00:29.569[1767072629569] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:00:29.570[1767072629570] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:00:29.570[1767072629570] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:00:48.006[1767072648006] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:00:48.007[1767072648007] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:00:48.007[1767072648007] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072648007&signature=d5b92fb382532d867a8597e352070ef118ceef1456a0fde44dea062eeb067b81
+2025-12-30 11:00:48.190[1767072648190] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:00:48.190[1767072648190] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:00:48.190[1767072648190] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:00:50.367[1767072650367] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:00:50.367[1767072650367] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:00:50.368[1767072650368] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072650367&signature=6df2fe76911a7d576d29fe5344630a8728a4aa461498cbec32035ac3acc85b66
+2025-12-30 11:00:50.536[1767072650536] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:00:50.537[1767072650537] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:00:50.537[1767072650537] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:01:00.392[1767072660392] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:01:00.392[1767072660392] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:01:00.392[1767072660392] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072660392&signature=d4c4276475e462f61734d8174d4c70e70208adbdf32aaad408fabfcf68af2e9c
+2025-12-30 11:01:00.591[1767072660591] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:01:00.592[1767072660592] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:01:00.592[1767072660592] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:01:10.378[1767072670378] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:01:10.378[1767072670378] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:01:10.379[1767072670379] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072670378&signature=4acc7671754aec99e75304469a221e2dcd4c958139c106dcae24fb586a43cbe8
+2025-12-30 11:01:10.565[1767072670565] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:01:10.566[1767072670566] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:01:10.566[1767072670566] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:01:20.355[1767072680355] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:01:20.356[1767072680356] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:01:20.356[1767072680356] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072680356&signature=71cb82ed32f43bac1cc88d28712860b59021e1f5eafcbd46673c53dd015de6a5
+2025-12-30 11:01:20.843[1767072680843] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:01:20.843[1767072680843] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:01:20.844[1767072680844] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:01:30.643[1767072690643] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:01:30.643[1767072690643] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:01:30.643[1767072690643] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072690643&signature=f1f6ec22dddc8707a6a2f4db6937c8301c5bdc99ef81be641e0acb0d13b761e8
+2025-12-30 11:01:30.909[1767072690909] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:01:30.909[1767072690909] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:01:30.910[1767072690910] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:01:40.382[1767072700382] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:01:40.382[1767072700382] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:01:40.383[1767072700383] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072700383&signature=3f1b132eb80409e1f20860417c87a1b0f19f04d2a918a7d70d7dc1371e6b1346
+2025-12-30 11:01:40.569[1767072700569] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:01:40.570[1767072700570] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:01:40.570[1767072700570] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:02:29.365[1767072749365] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:02:29.366[1767072749366] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:02:29.366[1767072749366] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072749366&signature=33e8566a854ce3b280519fc006aeceb9e864e015cce0c40604c4ce0725ec2a48
+2025-12-30 11:02:29.536[1767072749536] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:02:29.537[1767072749537] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 0
+2025-12-30 11:02:29.537[1767072749537] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 0 active positions
+2025-12-30 11:02:31.800[1767072751800] | INFO  | http-nio-8081-exec-10 | m.c.I.c.SignalWebhookController      - 📡 Received signal from Python backend: ALICEUSDT.P
+2025-12-30 11:02:32.068[1767072752068] | INFO  | http-nio-8081-exec-10 | m.c.I.c.SignalWebhookController      - ✅ Signal saved to database with ID: 87
+2025-12-30 11:02:32.068[1767072752068] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 🚀 Executing trade: LONG ALICEUSDT.P @ $0.168
+2025-12-30 11:02:32.168[1767072752168] | WARN  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ⚠️ Duplicate signal rejected: ALICEUSDT.P with entry $0.168 already has an active position/order
+2025-12-30 11:02:32.168[1767072752168] | INFO  | http-nio-8081-exec-10 | m.c.I.c.SignalWebhookController      - 🎯 Trade auto-executed for signal 87
+2025-12-30 11:02:32.677[1767072752677] | INFO  | HttpClient-1-Worker-7 | m.c.I.s.BinanceUserDataStreamService - 📊 Order Update: ALICEUSDT 7186241653 - Status: NEW
+2025-12-30 11:02:32.677[1767072752677] | INFO  | HttpClient-1-Worker-7 | m.c.I.s.BinanceUserDataStreamService - 📊 Order Update: ALICEUSDT 7186241653 - Status: FILLED
+2025-12-30 11:03:01.943[1767072781943] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:01.944[1767072781944] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:01.944[1767072781944] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072781944&signature=10699441788cac550163f5fd6788e8d9dc9b93a837fd490b576f6c359bb3319d
+2025-12-30 11:03:02.154[1767072782154] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:02.163[1767072782163] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16738811 | Qty: 30.4 | P&L: $-0.01860145 (-0.36 %)
+2025-12-30 11:03:02.163[1767072782163] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:02.163[1767072782163] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:03.645[1767072783645] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:03.645[1767072783645] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:03.646[1767072783646] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072783645&signature=7618bccbeb731de7c43f1177e7fff3e484338e70f7169e1af888589db97834b8
+2025-12-30 11:03:03.844[1767072783844] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:03.845[1767072783845] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.1673881 | Qty: 30.4 | P&L: $-0.01860176 (-0.36 %)
+2025-12-30 11:03:03.845[1767072783845] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:03.845[1767072783845] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:13.561[1767072793561] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:13.562[1767072793562] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:13.562[1767072793562] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072793562&signature=8951af9f870b30a6ef91670c5d4594eeacfc995f7717f2b8f2fa29db96e4cb80
+2025-12-30 11:03:13.767[1767072793767] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:13.768[1767072793768] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16689901 | Qty: 30.4 | P&L: $-0.03347009 (-0.66 %)
+2025-12-30 11:03:13.769[1767072793769] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:13.769[1767072793769] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:23.552[1767072803552] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:23.552[1767072803552] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:23.552[1767072803552] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072803552&signature=ec904f6fba6d3a59f3b8c629cc969097e5ce326e29c21ed657a0bc6944920ce0
+2025-12-30 11:03:23.769[1767072803769] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:23.770[1767072803770] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16676866 | Qty: 30.4 | P&L: $-0.03743273 (-0.73 %)
+2025-12-30 11:03:23.770[1767072803770] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:23.770[1767072803770] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:33.548[1767072813548] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:33.548[1767072813548] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:33.549[1767072813549] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072813548&signature=4ffb4388659cc49edc6617234fee4394e7dd30400c5970950a23ec76533cd9dd
+2025-12-30 11:03:33.736[1767072813736] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:33.737[1767072813737] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16657898 | Qty: 30.4 | P&L: $-0.043199 (-0.85 %)
+2025-12-30 11:03:33.738[1767072813738] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:33.738[1767072813738] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:43.597[1767072823597] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:43.598[1767072823598] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:43.598[1767072823598] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072823598&signature=d2c86e6df0b0b6b2ba11f29848cf7c17588382c8b126366fd722f73da5a8199d
+2025-12-30 11:03:43.780[1767072823780] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:43.781[1767072823781] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16690112 | Qty: 30.4 | P&L: $-0.03340595 (-0.65 %)
+2025-12-30 11:03:43.782[1767072823782] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:43.782[1767072823782] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:03:53.563[1767072833563] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:03:53.563[1767072833563] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:03:53.563[1767072833563] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072833563&signature=65d58603aa53720e002baeae13ce23dfc5894725d5639e282dde0f84a76bf183
+2025-12-30 11:03:53.741[1767072833741] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:03:53.742[1767072833742] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16689899 | Qty: 30.4 | P&L: $-0.0334707 (-0.66 %)
+2025-12-30 11:03:53.742[1767072833742] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:03:53.742[1767072833742] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:03.587[1767072843587] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:03.588[1767072843588] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:03.588[1767072843588] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072843588&signature=74fc2a18c3c5c493c60fdc505634ca62f64ac626df8f47f9125c86351836bb00
+2025-12-30 11:04:03.749[1767072843749] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:03.749[1767072843749] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650103 | Qty: 30.4 | P&L: $-0.04556868 (-0.89 %)
+2025-12-30 11:04:03.749[1767072843749] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:03.750[1767072843750] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:13.584[1767072853584] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:13.584[1767072853584] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:13.584[1767072853584] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072853584&signature=dcb4094c3b80be1c325ce8753471f19be05009a147113c332619d4f810188384
+2025-12-30 11:04:13.752[1767072853752] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:13.752[1767072853752] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.166672 | Qty: 30.4 | P&L: $-0.0403712 (-0.79 %)
+2025-12-30 11:04:13.752[1767072853752] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:13.752[1767072853752] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:23.557[1767072863557] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:23.558[1767072863558] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:23.558[1767072863558] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072863558&signature=3b22696de0dd07e1d57480be88538bf4b290a2c5e7600a38dff064ef4cb48b4c
+2025-12-30 11:04:23.726[1767072863726] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:23.727[1767072863727] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16640019 | Qty: 30.4 | P&L: $-0.04863422 (-0.95 %)
+2025-12-30 11:04:23.727[1767072863727] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:23.727[1767072863727] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:33.562[1767072873562] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:33.563[1767072873563] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:33.563[1767072873563] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072873563&signature=de04a39efa866c1d99f1f1ae40172b5e95bfc237339f9642cb3561e2830ddd91
+2025-12-30 11:04:33.743[1767072873743] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:33.743[1767072873743] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650846 | Qty: 30.4 | P&L: $-0.04534281 (-0.89 %)
+2025-12-30 11:04:33.743[1767072873743] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:33.743[1767072873743] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:43.557[1767072883557] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:43.557[1767072883557] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:43.558[1767072883558] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072883557&signature=be651d14eac934cd8300c3b0e8705334179f6af9db5c88e660d679aa26abe9d9
+2025-12-30 11:04:43.741[1767072883741] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:43.741[1767072883741] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.1665207 | Qty: 30.4 | P&L: $-0.04497072 (-0.88 %)
+2025-12-30 11:04:43.741[1767072883741] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:43.741[1767072883741] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:04:53.556[1767072893556] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:04:53.556[1767072893556] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:04:53.556[1767072893556] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072893556&signature=f6b93d7ed8b0dc3e32eb564c5812024d33c3548c057c0bf7139095e420365e41
+2025-12-30 11:04:53.728[1767072893728] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:04:53.729[1767072893729] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650347 | Qty: 30.4 | P&L: $-0.04549451 (-0.89 %)
+2025-12-30 11:04:53.729[1767072893729] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:04:53.729[1767072893729] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:03.684[1767072903684] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:05:03.685[1767072903685] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:05:03.685[1767072903685] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072903685&signature=6c01cad83457e55a790e33604fbbef4c29b4a11efd3333e32a7692a733f80498
+2025-12-30 11:05:03.873[1767072903873] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:05:03.874[1767072903874] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.1665012 | Qty: 30.4 | P&L: $-0.04556352 (-0.89 %)
+2025-12-30 11:05:03.874[1767072903874] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:05:03.874[1767072903874] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:13.557[1767072913557] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:05:13.557[1767072913557] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:05:13.557[1767072913557] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072913557&signature=18c4dbf6e871f2698b1377714b4e83e12b18e77802c1672fe03b3406a088b73a
+2025-12-30 11:05:13.719[1767072913719] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:05:13.719[1767072913719] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650967 | Qty: 30.4 | P&L: $-0.04530603 (-0.89 %)
+2025-12-30 11:05:13.719[1767072913719] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:05:13.720[1767072913720] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:23.547[1767072923547] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:05:23.547[1767072923547] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:05:23.547[1767072923547] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072923547&signature=be0428c48161e37caf81f7171bed044d8cbb8e43f234b3f52e89f5e02238bc8f
+2025-12-30 11:05:23.715[1767072923715] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:05:23.715[1767072923715] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650323 | Qty: 30.4 | P&L: $-0.0455018 (-0.89 %)
+2025-12-30 11:05:23.716[1767072923716] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:05:23.716[1767072923716] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:33.573[1767072933573] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:05:33.575[1767072933575] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:05:33.575[1767072933575] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072933575&signature=d3e853f6a5510c6530c4249c7bd9d742907ac556685f116b20e06501213bb1a5
+2025-12-30 11:05:33.748[1767072933748] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:05:33.749[1767072933749] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650744 | Qty: 30.4 | P&L: $-0.04537382 (-0.89 %)
+2025-12-30 11:05:33.749[1767072933749] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:05:33.749[1767072933749] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:43.559[1767072943559] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:05:43.559[1767072943559] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:05:43.559[1767072943559] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767072943559&signature=0ab8592972cc628845ecbf99339c5ed7cd6bb6e89752a1076a79f521ba0ee416
+2025-12-30 11:05:43.743[1767072943743] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:05:43.744[1767072943744] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650534 | Qty: 30.4 | P&L: $-0.04543766 (-0.89 %)
+2025-12-30 11:05:43.744[1767072943744] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:05:43.744[1767072943744] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:05:51.392[1767072951392] | INFO  | SpringApplicationShutdownHook | o.s.b.w.e.tomcat.GracefulShutdown    - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-30 11:05:51.420[1767072951420] | INFO  | tomcat-shutdown | o.s.b.w.e.tomcat.GracefulShutdown    - Graceful shutdown complete
+2025-12-30 11:05:51.424[1767072951424] | INFO  | SpringApplicationShutdownHook | m.c.I.s.BinanceUserDataStreamService - 🔌 User data stream WebSocket closed
+2025-12-30 11:05:51.424[1767072951424] | INFO  | SpringApplicationShutdownHook | c.b.c.f.client.utils.RequestHandler  - DELETE https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:05:51.589[1767072951589] | INFO  | SpringApplicationShutdownHook | m.c.I.s.BinanceUserDataStreamService - 🔑 ListenKey closed
+2025-12-30 11:05:51.592[1767072951592] | INFO  | SpringApplicationShutdownHook | o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-30 11:05:51.595[1767072951595] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown initiated...
+2025-12-30 11:05:51.661[1767072951661] | WARN  | HttpClient-1-Worker-8 | m.c.I.s.BinanceUserDataStreamService - ⚠️ WebSocket closed: 1000 - 
+2025-12-30 11:05:51.711[1767072951711] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown completed.
+2025-12-30 11:07:41.016[1767073061016] | INFO  | background-preinit | o.h.validator.internal.util.Version  - HV000001: Hibernate Validator 8.0.2.Final
+2025-12-30 11:07:41.065[1767073061065] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Starting IntelligentCryptoUserManagementApplication using Java 24.0.1 with PID 42596 (C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management\target\classes started by DELL in C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management)
+2025-12-30 11:07:41.066[1767073061066] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-30 11:07:41.833[1767073061833] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-30 11:07:41.917[1767073061917] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73 ms. Found 4 JPA repository interfaces.
+2025-12-30 11:07:42.485[1767073062485] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat initialized with port 8081 (http)
+2025-12-30 11:07:42.498[1767073062498] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Initializing ProtocolHandler ["http-nio-8081"]
+2025-12-30 11:07:42.501[1767073062501] | INFO  | main       | o.a.catalina.core.StandardService    - Starting service [Tomcat]
+2025-12-30 11:07:42.502[1767073062502] | INFO  | main       | o.a.catalina.core.StandardEngine     - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-12-30 11:07:42.560[1767073062560] | INFO  | main       | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring embedded WebApplicationContext
+2025-12-30 11:07:42.561[1767073062561] | INFO  | main       | o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1449 ms
+2025-12-30 11:07:42.681[1767073062681] | INFO  | main       | o.h.jpa.internal.util.LogHelper      - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-30 11:07:42.725[1767073062725] | INFO  | main       | org.hibernate.Version                - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-12-30 11:07:42.757[1767073062757] | INFO  | main       | o.h.c.i.RegionFactoryInitiator       - HHH000026: Second-level cache disabled
+2025-12-30 11:07:43.015[1767073063015] | INFO  | main       | o.s.o.j.p.SpringPersistenceUnitInfo  - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-30 11:07:43.044[1767073063044] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Starting...
+2025-12-30 11:07:44.202[1767073064202] | INFO  | main       | com.zaxxer.hikari.pool.HikariPool    - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@dc8b2ff
+2025-12-30 11:07:44.204[1767073064204] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Start completed.
+2025-12-30 11:07:44.340[1767073064340] | WARN  | main       | org.hibernate.orm.deprecation        - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-30 11:07:44.584[1767073064584] | INFO  | main       | o.hibernate.orm.connections.pooling  - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.7
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-30 11:07:45.409[1767073065409] | INFO  | main       | o.h.e.t.j.p.i.JtaPlatformInitiator   - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-30 11:07:45.910[1767073065910] | INFO  | main       | o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-30 11:07:46.271[1767073066271] | INFO  | main       | o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-30 11:07:46.339[1767073066339] | INFO  | main       | m.c.I.config.BinanceConfig           - ✅ Binance Futures client initialized in LIVE mode
+2025-12-30 11:07:46.411[1767073066411] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🚀 Starting Binance User Data Stream...
+2025-12-30 11:07:46.413[1767073066413] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - POST https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:07:47.002[1767073067002] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔑 Created listenKey: IDc2IiHmyO...
+2025-12-30 11:07:47.003[1767073067003] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔌 Connecting to Binance User Data Stream: wss://fstream.binance.com/ws/IDc2IiHmyO2wbzrG5cSnp8cBKhokBDjopaDVDRJeJQAKQFjBp4cT8CScdKqVl3NO
+2025-12-30 11:07:47.570[1767073067570] | INFO  | ForkJoinPool.commonPool-worker-1 | m.c.I.s.BinanceUserDataStreamService - ✅ WebSocket connection opened
+2025-12-30 11:07:47.571[1767073067571] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - ✅ Binance User Data Stream started successfully
+2025-12-30 11:07:47.600[1767073067600] | WARN  | main       | o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-30 11:07:48.030[1767073068030] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Starting ProtocolHandler ["http-nio-8081"]
+2025-12-30 11:07:48.055[1767073068055] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat started on port 8081 (http) with context path '/'
+2025-12-30 11:07:48.091[1767073068091] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Started IntelligentCryptoUserManagementApplication in 7.402 seconds (process running for 7.892)
+2025-12-30 11:07:48.097[1767073068097] | INFO  | scheduling-1 | c.b.c.f.client.utils.RequestHandler  - PUT https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:07:54.502[1767073074502] | INFO  | http-nio-8081-exec-2 | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-30 11:07:54.503[1767073074503] | INFO  | http-nio-8081-exec-2 | o.s.web.servlet.DispatcherServlet    - Initializing Servlet 'dispatcherServlet'
+2025-12-30 11:07:54.504[1767073074504] | INFO  | http-nio-8081-exec-2 | o.s.web.servlet.DispatcherServlet    - Completed initialization in 1 ms
+2025-12-30 11:07:54.929[1767073074929] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:07:54.929[1767073074929] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:07:54.932[1767073074932] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073074929&signature=307fe02203bd35ce56bb0c14c6175980ffdc2f8f0d2bb90682bdfb2ea1aba8bc
+2025-12-30 11:07:55.118[1767073075118] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:07:55.120[1767073075120] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649391 | Qty: 30.4 | P&L: $-0.04578513 (-0.90 %)
+2025-12-30 11:07:55.120[1767073075120] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:07:55.120[1767073075120] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:04.650[1767073084650] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:04.651[1767073084651] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:04.651[1767073084651] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073084651&signature=28a9e64492984addb73a3ff341668434d2e87fd1ebb6582d964d23dc714e2c30
+2025-12-30 11:08:04.836[1767073084836] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:04.838[1767073084838] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16666096 | Qty: 30.4 | P&L: $-0.04070681 (-0.80 %)
+2025-12-30 11:08:04.838[1767073084838] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:04.838[1767073084838] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:14.627[1767073094627] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:14.628[1767073094628] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:14.628[1767073094628] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073094628&signature=ea245960558c708f136b9557dc049ebb68781fc8ae2152a66473f46a0cd06c2d
+2025-12-30 11:08:14.793[1767073094793] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:14.794[1767073094794] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16665883 | Qty: 30.4 | P&L: $-0.04077156 (-0.80 %)
+2025-12-30 11:08:14.795[1767073094795] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:14.796[1767073094796] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:24.680[1767073104680] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:24.680[1767073104680] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:24.681[1767073104681] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073104680&signature=8f60f365d71a40b0ef6542a8ce9d0bf32cb9edccf36af6003ce3be36a8aa59cd
+2025-12-30 11:08:24.851[1767073104851] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:24.852[1767073104852] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650845 | Qty: 30.4 | P&L: $-0.04534312 (-0.89 %)
+2025-12-30 11:08:24.852[1767073104852] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:24.853[1767073104853] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:34.636[1767073114636] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:34.637[1767073114637] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:34.637[1767073114637] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073114637&signature=e9f29e9bc1daa68a3183e68f5001551ecee9069a57a8693d33d3babdacbeda37
+2025-12-30 11:08:34.835[1767073114835] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:34.836[1767073114836] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650446 | Qty: 30.4 | P&L: $-0.04546441 (-0.89 %)
+2025-12-30 11:08:34.837[1767073114837] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:34.837[1767073114837] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:44.619[1767073124619] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:44.619[1767073124619] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:44.619[1767073124619] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073124619&signature=978d4d901d96c8d5d47e9db9859c9972fe7493720fc557de9ba1d756b23f320a
+2025-12-30 11:08:44.789[1767073124789] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:44.790[1767073124790] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16650061 | Qty: 30.4 | P&L: $-0.04558145 (-0.89 %)
+2025-12-30 11:08:44.790[1767073124790] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:44.790[1767073124790] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:08:45.604[1767073125604] | INFO  | http-nio-8081-exec-6 | m.c.I.c.TradeManagementConfigController - 📋 Getting trade management config for user: 1
+2025-12-30 11:08:45.811[1767073125811] | INFO  | http-nio-8081-exec-6 | m.c.I.c.TradeManagementConfigController - 📋 Getting trade management config for user: 1
+2025-12-30 11:08:54.669[1767073134669] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:08:54.670[1767073134670] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:08:54.670[1767073134670] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073134670&signature=5bccda7a13bcd9127ab2fdbc247554de346bb62f45298eec12611b7af8fe6b74
+2025-12-30 11:08:54.858[1767073134858] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:08:54.858[1767073134858] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16666972 | Qty: 30.4 | P&L: $-0.04044051 (-0.79 %)
+2025-12-30 11:08:54.858[1767073134858] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:08:54.858[1767073134858] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:04.692[1767073144692] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:04.692[1767073144692] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:04.693[1767073144693] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073144692&signature=315d90c62b0d19e46d6b52e81eb964d858cdd6f3c9c726e3422ca9de61bd51e8
+2025-12-30 11:09:04.878[1767073144878] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:04.879[1767073144879] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16667183 | Qty: 30.4 | P&L: $-0.04037636 (-0.79 %)
+2025-12-30 11:09:04.880[1767073144880] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:04.880[1767073144880] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:14.942[1767073154942] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:14.942[1767073154942] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:14.942[1767073154942] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073154942&signature=2af9e790f14dd38c94fcad214b026079461cd5c8af658989901356978614d824
+2025-12-30 11:09:15.251[1767073155251] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:15.252[1767073155252] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.1666697 | Qty: 30.4 | P&L: $-0.04044112 (-0.79 %)
+2025-12-30 11:09:15.252[1767073155252] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:15.253[1767073155253] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:19.186[1767073159186] | WARN  | http-nio-8081-exec-4 | o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'tradeId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "binance-ALICEUSDT"]
+2025-12-30 11:09:24.614[1767073164614] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:24.615[1767073164615] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:24.615[1767073164615] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073164615&signature=a0650d490a036708fdd7a008806831fbf86a901e7eeb15413c82ff70a4e15779
+2025-12-30 11:09:24.797[1767073164797] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:24.798[1767073164798] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649943 | Qty: 30.4 | P&L: $-0.04561732 (-0.89 %)
+2025-12-30 11:09:24.799[1767073164799] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:24.799[1767073164799] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:34.647[1767073174647] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:34.648[1767073174648] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:34.648[1767073174648] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073174648&signature=832d2484134357ed63a9d0a579405829665fbb0d064068250b2660911c37f338
+2025-12-30 11:09:34.833[1767073174833] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:34.835[1767073174835] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649934 | Qty: 30.4 | P&L: $-0.04562006 (-0.89 %)
+2025-12-30 11:09:34.836[1767073174836] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:34.836[1767073174836] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:44.678[1767073184678] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:44.678[1767073184678] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:44.678[1767073184678] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073184678&signature=2dce689bb9420eabaa39268472b56433f469ad2d2391c8c0c0742a2d61dd278a
+2025-12-30 11:09:44.858[1767073184858] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:44.859[1767073184859] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649965 | Qty: 30.4 | P&L: $-0.04561064 (-0.89 %)
+2025-12-30 11:09:44.859[1767073184859] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:44.860[1767073184860] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:09:54.650[1767073194650] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:09:54.651[1767073194651] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:09:54.651[1767073194651] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073194651&signature=b201a050e9ab66660c27344688240fef9609c46dc03d9237f3fb8ad9765d24e5
+2025-12-30 11:09:54.827[1767073194827] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:09:54.828[1767073194828] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649979 | Qty: 30.4 | P&L: $-0.04560638 (-0.89 %)
+2025-12-30 11:09:54.829[1767073194829] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:09:54.829[1767073194829] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:10:04.610[1767073204610] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:10:04.610[1767073204610] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:10:04.610[1767073204610] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073204610&signature=297dbe6347a84a5af09b2d9faf2f0c00f530434436983d79f51f911d6a08e5b9
+2025-12-30 11:10:04.832[1767073204832] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:10:04.833[1767073204833] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649956 | Qty: 30.4 | P&L: $-0.04561337 (-0.89 %)
+2025-12-30 11:10:04.833[1767073204833] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:10:04.833[1767073204833] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:10:14.657[1767073214657] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:10:14.658[1767073214658] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:10:14.658[1767073214658] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073214658&signature=a82d2418d4ede90dd8387e223e881504e8b0ddc6bd4e6dcf4ccbdf356b0e9983
+2025-12-30 11:10:14.848[1767073214848] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:10:14.848[1767073214848] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649094 | Qty: 30.4 | P&L: $-0.04587542 (-0.90 %)
+2025-12-30 11:10:14.849[1767073214849] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:10:14.849[1767073214849] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:10:24.624[1767073224624] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:10:24.624[1767073224624] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:10:24.625[1767073224625] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073224624&signature=63bf87561b0e3a76b0aefcccd11bba3c5f9a4767fa9bad4e76aba2a95c76105b
+2025-12-30 11:10:24.814[1767073224814] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:10:24.815[1767073224815] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16665876 | Qty: 30.4 | P&L: $-0.04077369 (-0.80 %)
+2025-12-30 11:10:24.815[1767073224815] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:10:24.816[1767073224816] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:10:34.617[1767073234617] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:10:34.617[1767073234617] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:10:34.617[1767073234617] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073234617&signature=a6b1030f07ca06f25d87b2f23f2d0e7b28327c3f06c4fc21464a3b1c3d84ac63
+2025-12-30 11:10:34.812[1767073234812] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:10:34.812[1767073234812] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16665875 | Qty: 30.4 | P&L: $-0.040774 (-0.80 %)
+2025-12-30 11:10:34.813[1767073234813] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:10:34.813[1767073234813] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:10:40.117[1767073240117] | INFO  | SpringApplicationShutdownHook | o.s.b.w.e.tomcat.GracefulShutdown    - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-30 11:10:40.140[1767073240140] | INFO  | tomcat-shutdown | o.s.b.w.e.tomcat.GracefulShutdown    - Graceful shutdown complete
+2025-12-30 11:10:40.144[1767073240144] | INFO  | SpringApplicationShutdownHook | m.c.I.s.BinanceUserDataStreamService - 🔌 User data stream WebSocket closed
+2025-12-30 11:10:40.144[1767073240144] | INFO  | SpringApplicationShutdownHook | c.b.c.f.client.utils.RequestHandler  - DELETE https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:10:40.303[1767073240303] | INFO  | SpringApplicationShutdownHook | m.c.I.s.BinanceUserDataStreamService - 🔑 ListenKey closed
+2025-12-30 11:10:40.304[1767073240304] | INFO  | SpringApplicationShutdownHook | o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-30 11:10:40.306[1767073240306] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown initiated...
+2025-12-30 11:10:40.315[1767073240315] | WARN  | HttpClient-1-Worker-2 | m.c.I.s.BinanceUserDataStreamService - ⚠️ WebSocket closed: 1000 - 
+2025-12-30 11:10:40.375[1767073240375] | INFO  | SpringApplicationShutdownHook | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Shutdown completed.
+2025-12-30 11:10:49.919[1767073249919] | INFO  | background-preinit | o.h.validator.internal.util.Version  - HV000001: Hibernate Validator 8.0.2.Final
+2025-12-30 11:10:49.961[1767073249961] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Starting IntelligentCryptoUserManagementApplication using Java 24.0.1 with PID 62312 (C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management\target\classes started by DELL in C:\Users\DELL\Desktop\crypto\crypto_manager\Intelligent_Crypto_User_Management)
+2025-12-30 11:10:49.962[1767073249962] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-30 11:10:50.852[1767073250852] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-30 11:10:51.005[1767073251005] | INFO  | main       | o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 139 ms. Found 4 JPA repository interfaces.
+2025-12-30 11:10:51.755[1767073251755] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat initialized with port 8081 (http)
+2025-12-30 11:10:51.766[1767073251766] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Initializing ProtocolHandler ["http-nio-8081"]
+2025-12-30 11:10:51.769[1767073251769] | INFO  | main       | o.a.catalina.core.StandardService    - Starting service [Tomcat]
+2025-12-30 11:10:51.770[1767073251770] | INFO  | main       | o.a.catalina.core.StandardEngine     - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-12-30 11:10:51.815[1767073251815] | INFO  | main       | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring embedded WebApplicationContext
+2025-12-30 11:10:51.816[1767073251816] | INFO  | main       | o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1814 ms
+2025-12-30 11:10:51.932[1767073251932] | INFO  | main       | o.h.jpa.internal.util.LogHelper      - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-30 11:10:51.967[1767073251967] | INFO  | main       | org.hibernate.Version                - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-12-30 11:10:51.993[1767073251993] | INFO  | main       | o.h.c.i.RegionFactoryInitiator       - HHH000026: Second-level cache disabled
+2025-12-30 11:10:52.213[1767073252213] | INFO  | main       | o.s.o.j.p.SpringPersistenceUnitInfo  - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-30 11:10:52.239[1767073252239] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Starting...
+2025-12-30 11:10:53.339[1767073253339] | INFO  | main       | com.zaxxer.hikari.pool.HikariPool    - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6c519e47
+2025-12-30 11:10:53.341[1767073253341] | INFO  | main       | com.zaxxer.hikari.HikariDataSource   - HikariPool-1 - Start completed.
+2025-12-30 11:10:53.458[1767073253458] | WARN  | main       | org.hibernate.orm.deprecation        - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-30 11:10:53.716[1767073253716] | INFO  | main       | o.hibernate.orm.connections.pooling  - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.7
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-30 11:10:54.570[1767073254570] | INFO  | main       | o.h.e.t.j.p.i.JtaPlatformInitiator   - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-30 11:10:55.062[1767073255062] | INFO  | main       | o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-30 11:10:55.383[1767073255383] | INFO  | main       | o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-30 11:10:55.454[1767073255454] | INFO  | main       | m.c.I.config.BinanceConfig           - ✅ Binance Futures client initialized in LIVE mode
+2025-12-30 11:10:55.520[1767073255520] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🚀 Starting Binance User Data Stream...
+2025-12-30 11:10:55.522[1767073255522] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - POST https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:10:56.074[1767073256074] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔑 Created listenKey: vbOiDEIylQ...
+2025-12-30 11:10:56.074[1767073256074] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - 🔌 Connecting to Binance User Data Stream: wss://fstream.binance.com/ws/vbOiDEIylQgdZn4d5TEmMus9KKhAhEEeI94pN1D7Hjpz8xmtiIBcc0EchOnTBaGo
+2025-12-30 11:10:56.686[1767073256686] | INFO  | ForkJoinPool.commonPool-worker-1 | m.c.I.s.BinanceUserDataStreamService - ✅ WebSocket connection opened
+2025-12-30 11:10:56.687[1767073256687] | INFO  | main       | m.c.I.s.BinanceUserDataStreamService - ✅ Binance User Data Stream started successfully
+2025-12-30 11:10:56.726[1767073256726] | WARN  | main       | o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-30 11:10:57.217[1767073257217] | INFO  | main       | o.a.coyote.http11.Http11NioProtocol  - Starting ProtocolHandler ["http-nio-8081"]
+2025-12-30 11:10:57.228[1767073257228] | INFO  | main       | o.s.b.w.e.tomcat.TomcatWebServer     - Tomcat started on port 8081 (http) with context path '/'
+2025-12-30 11:10:57.238[1767073257238] | INFO  | main       | m.c.I.IntelligentCryptoUserManagementApplication - Started IntelligentCryptoUserManagementApplication in 7.628 seconds (process running for 8.144)
+2025-12-30 11:10:57.242[1767073257242] | INFO  | scheduling-1 | c.b.c.f.client.utils.RequestHandler  - PUT https://fapi.binance.com/fapi/v1/listenKey
+2025-12-30 11:11:00.943[1767073260943] | INFO  | http-nio-8081-exec-1 | o.a.c.c.C.[Tomcat].[localhost].[/]   - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-30 11:11:00.943[1767073260943] | INFO  | http-nio-8081-exec-1 | o.s.web.servlet.DispatcherServlet    - Initializing Servlet 'dispatcherServlet'
+2025-12-30 11:11:00.944[1767073260944] | INFO  | http-nio-8081-exec-1 | o.s.web.servlet.DispatcherServlet    - Completed initialization in 1 ms
+2025-12-30 11:11:01.359[1767073261359] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:01.360[1767073261360] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:01.362[1767073261362] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073261360&signature=364dfab6d5f986b2d55e4e448bbb58214656cba791673aaae6064321bad1c858
+2025-12-30 11:11:01.566[1767073261566] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:01.567[1767073261567] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16666086 | Qty: 30.4 | P&L: $-0.04070985 (-0.80 %)
+2025-12-30 11:11:01.568[1767073261568] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:01.568[1767073261568] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:05.696[1767073265696] | WARN  | http-nio-8081-exec-7 | o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'tradeId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "binance-ALICEUSDT"]
+2025-12-30 11:11:11.085[1767073271085] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:11.085[1767073271085] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:11.085[1767073271085] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073271085&signature=c6cbf579a85f6cdb0d3ccbc8d06f25f298dc781b057fded45f438a46cd2005e4
+2025-12-30 11:11:11.285[1767073271285] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:11.286[1767073271286] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16665873 | Qty: 30.4 | P&L: $-0.0407746 (-0.80 %)
+2025-12-30 11:11:11.287[1767073271287] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:11.287[1767073271287] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:21.103[1767073281103] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:21.104[1767073281104] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:21.105[1767073281105] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073281105&signature=cdc5fd56420252a9735b738f6431e7ec347299470c46202a69a6443c654353c4
+2025-12-30 11:11:21.282[1767073281282] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:21.283[1767073281283] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16673358 | Qty: 30.4 | P&L: $-0.03849916 (-0.75 %)
+2025-12-30 11:11:21.283[1767073281283] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:21.283[1767073281283] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:31.097[1767073291097] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:31.098[1767073291098] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:31.098[1767073291098] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073291098&signature=c46c2653d765ce97bd30f123db9aa54148a269f78f7c47760690b93482efd3c4
+2025-12-30 11:11:31.285[1767073291285] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:31.286[1767073291286] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16673357 | Qty: 30.4 | P&L: $-0.03849947 (-0.75 %)
+2025-12-30 11:11:31.286[1767073291286] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:31.286[1767073291286] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:41.136[1767073301136] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:41.136[1767073301136] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:41.137[1767073301137] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073301137&signature=4efa3394292b738d3bfd1b4a2e134ddedca74024ceaf3a67bb31c990c175f1d7
+2025-12-30 11:11:41.393[1767073301393] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:41.394[1767073301394] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.1666442 | Qty: 30.4 | P&L: $-0.04121632 (-0.81 %)
+2025-12-30 11:11:41.394[1767073301394] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:41.394[1767073301394] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:51.088[1767073311088] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:51.088[1767073311088] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:51.089[1767073311089] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073311089&signature=1946746d3f3d8109c05267c54d1623ba15372b831954c4101551393f8a3ce590
+2025-12-30 11:11:51.281[1767073311281] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:51.284[1767073311284] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16644908 | Qty: 30.4 | P&L: $-0.04714796 (-0.92 %)
+2025-12-30 11:11:51.286[1767073311286] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:51.289[1767073311289] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:11:56.752[1767073316752] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:11:56.752[1767073316752] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:11:56.752[1767073316752] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073316752&signature=ae02f4892e013a53751ec317aed6ddd980f7538e8b539a8544391ba9ecfaf28f
+2025-12-30 11:11:56.940[1767073316940] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:11:56.941[1767073316941] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16646495 | Qty: 30.4 | P&L: $-0.04666552 (-0.91 %)
+2025-12-30 11:11:56.941[1767073316941] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:11:56.941[1767073316941] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:06.733[1767073326733] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:06.734[1767073326734] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:06.734[1767073326734] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073326734&signature=4d3373f299fc4ed4d1d3693c174a323804a651aee21ce329b884d5e731c9835e
+2025-12-30 11:12:06.928[1767073326928] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:06.929[1767073326929] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16649457 | Qty: 30.4 | P&L: $-0.04576507 (-0.90 %)
+2025-12-30 11:12:06.929[1767073326929] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:06.929[1767073326929] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:16.725[1767073336725] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:16.726[1767073336726] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:16.726[1767073336726] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073336726&signature=c6caf02efc95ec7007b2b895dcef8efef69477931581272ad1ea6ba17456d033
+2025-12-30 11:12:16.912[1767073336912] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:16.913[1767073336913] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.168 | Current: $0.16662236 | Qty: 30.4 | P&L: $-0.04188025 (-0.82 %)
+2025-12-30 11:12:16.913[1767073336913] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:16.914[1767073336914] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:22.985[1767073342985] | INFO  | http-nio-8081-exec-3 | m.c.I.c.SignalWebhookController      - 📡 Received signal from Python backend: ALICEUSDT.P
+2025-12-30 11:12:23.230[1767073343230] | WARN  | http-nio-8081-exec-3 | m.c.I.c.SignalWebhookController      - ⚠️ Duplicate signal detected and rejected: ALICEUSDT.P LONG @ 0.1672
+2025-12-30 11:12:23.635[1767073343635] | INFO  | HttpClient-1-Worker-2 | m.c.I.s.BinanceUserDataStreamService - 📊 Order Update: ALICEUSDT 7186250023 - Status: NEW
+2025-12-30 11:12:23.635[1767073343635] | INFO  | HttpClient-1-Worker-2 | m.c.I.s.BinanceUserDataStreamService - 📊 Order Update: ALICEUSDT 7186250023 - Status: FILLED
+2025-12-30 11:12:26.638[1767073346638] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:26.638[1767073346638] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:26.638[1767073346638] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073346638&signature=82c2baf744e7b0055fcf3c7ae6dcfe72b5fd47d5783111d159554a224c720fdc
+2025-12-30 11:12:26.830[1767073346830] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:26.830[1767073346830] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662236 | Qty: 60.9 | P&L: $-0.05339772 (-0.52 %)
+2025-12-30 11:12:26.831[1767073346831] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:26.831[1767073346831] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:36.692[1767073356692] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:36.692[1767073356692] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:36.692[1767073356692] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073356692&signature=88c94bb63f8d97a0626d5e878a895b84c94a5841f66254ff9230e8e3f0da6604
+2025-12-30 11:12:36.916[1767073356916] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:36.916[1767073356916] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662447 | Qty: 60.9 | P&L: $-0.05326923 (-0.52 %)
+2025-12-30 11:12:36.917[1767073356917] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:36.917[1767073356917] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:38.522[1767073358522] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:38.522[1767073358522] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:38.523[1767073358523] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073358523&signature=b3a407103cd5a3884e202738c2dd3a7ea3db8ada7e35fc070847f93c6487c27d
+2025-12-30 11:12:38.721[1767073358721] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:38.721[1767073358721] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662235 | Qty: 60.9 | P&L: $-0.05339833 (-0.52 %)
+2025-12-30 11:12:38.722[1767073358722] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:38.722[1767073358722] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:48.404[1767073368404] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:48.405[1767073368405] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:48.405[1767073368405] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073368405&signature=a476901b5cd60ee7e316d0ec93857ea91f6ddc076feae4979e87f1c79511a722
+2025-12-30 11:12:48.588[1767073368588] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:48.589[1767073368589] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662234 | Qty: 60.9 | P&L: $-0.05339894 (-0.52 %)
+2025-12-30 11:12:48.589[1767073368589] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:48.590[1767073368590] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:12:58.407[1767073378407] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:12:58.407[1767073378407] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:12:58.407[1767073378407] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073378407&signature=3fea650e8144d1d5f1734f2a38aa1c19720a8f9d70f9851d0e232d0d6f9af5a3
+2025-12-30 11:12:58.592[1767073378592] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:12:58.593[1767073378593] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662234 | Qty: 60.9 | P&L: $-0.05339894 (-0.52 %)
+2025-12-30 11:12:58.593[1767073378593] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:12:58.593[1767073378593] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:08.426[1767073388426] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:08.427[1767073388427] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:08.427[1767073388427] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073388427&signature=bc6940df80ffefcc335f36f6e649519d7040a5366ab05a7937b09133395fd9e7
+2025-12-30 11:13:08.607[1767073388607] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:08.607[1767073388607] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16650106 | Qty: 60.9 | P&L: $-0.06078489 (-0.60 %)
+2025-12-30 11:13:08.608[1767073388608] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:08.608[1767073388608] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:19.366[1767073399366] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:19.367[1767073399367] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:19.371[1767073399371] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073399371&signature=81706da51200f6764bc6760fe12c77288e5eec2073b8cc96e610dba8ce220312
+2025-12-30 11:13:19.565[1767073399565] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:19.565[1767073399565] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662233 | Qty: 60.9 | P&L: $-0.05339955 (-0.52 %)
+2025-12-30 11:13:19.567[1767073399567] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:19.567[1767073399567] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:28.428[1767073408428] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:28.428[1767073408428] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:28.428[1767073408428] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073408428&signature=da96fc055d56aef0a1d22cab076d56acf58610f41c77d724acb971e28e7fdf70
+2025-12-30 11:13:28.611[1767073408611] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:28.611[1767073408611] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16650085 | Qty: 60.9 | P&L: $-0.06079768 (-0.60 %)
+2025-12-30 11:13:28.612[1767073408612] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:28.612[1767073408612] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:38.422[1767073418422] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:38.423[1767073418423] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:38.423[1767073418423] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073418423&signature=7f3987fc51029c3ab2941552c63ac2e12582cbb15109c7c6b1fabfc12f1ec41c
+2025-12-30 11:13:38.604[1767073418604] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:38.605[1767073418605] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16650058 | Qty: 60.9 | P&L: $-0.06081413 (-0.60 %)
+2025-12-30 11:13:38.605[1767073418605] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:38.605[1767073418605] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:48.388[1767073428388] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:48.388[1767073428388] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:48.388[1767073428388] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073428388&signature=7c7f4a6aca75f348463590c9b2d7e4465e778f4f2796218748f2ba97a5e6abdb
+2025-12-30 11:13:48.615[1767073428615] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:48.616[1767073428616] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16649901 | Qty: 60.9 | P&L: $-0.06090974 (-0.60 %)
+2025-12-30 11:13:48.616[1767073428616] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:48.616[1767073428616] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:13:58.431[1767073438431] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:13:58.431[1767073438431] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:13:58.432[1767073438432] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073438432&signature=292df9dfd3c5769da7360699e314b12b740cdfd6bff4944dacc341adfe71bb09
+2025-12-30 11:13:58.602[1767073438602] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:13:58.603[1767073438603] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16650141 | Qty: 60.9 | P&L: $-0.06076358 (-0.60 %)
+2025-12-30 11:13:58.603[1767073438603] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:13:58.603[1767073438603] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:08.425[1767073448425] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:08.425[1767073448425] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:08.426[1767073448426] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073448426&signature=ef15830c413ece916a2811fcb1fa8d4d8de714526b15336475323272c4688a9a
+2025-12-30 11:14:08.602[1767073448602] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:08.602[1767073448602] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.1666223 | Qty: 60.9 | P&L: $-0.05340138 (-0.52 %)
+2025-12-30 11:14:08.603[1767073448603] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:08.604[1767073448604] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:18.435[1767073458435] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:18.436[1767073458436] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:18.436[1767073458436] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073458436&signature=b7528b9e5224ab3965e15a1c65f44245bc1a903f1ca12f975d5f82ac68f43215
+2025-12-30 11:14:18.616[1767073458616] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:18.617[1767073458617] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662229 | Qty: 60.9 | P&L: $-0.05340199 (-0.52 %)
+2025-12-30 11:14:18.617[1767073458617] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:18.617[1767073458617] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:28.413[1767073468413] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:28.413[1767073468413] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:28.413[1767073468413] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073468413&signature=8ee1deb32c8b02416bbf27f725433219a1e978deabb6d68d874b24c0b785557a
+2025-12-30 11:14:28.595[1767073468595] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:28.595[1767073468595] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662229 | Qty: 60.9 | P&L: $-0.05340199 (-0.52 %)
+2025-12-30 11:14:28.596[1767073468596] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:28.596[1767073468596] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:38.428[1767073478428] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:38.428[1767073478428] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:38.429[1767073478429] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073478428&signature=8148d077f0220e5fadc30c35db4b88f8dfa4ba6b8d261c1bf496b919cfba9f4c
+2025-12-30 11:14:38.614[1767073478614] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:38.615[1767073478615] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16649922 | Qty: 60.9 | P&L: $-0.06089695 (-0.60 %)
+2025-12-30 11:14:38.616[1767073478616] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:38.616[1767073478616] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:48.433[1767073488433] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:48.433[1767073488433] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:48.433[1767073488433] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073488433&signature=e66d474f3c3f1f079af2217b1b0564c798f70334d7ea1ea65d78e9edbb6cd7bb
+2025-12-30 11:14:48.588[1767073488588] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:48.589[1767073488589] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16662439 | Qty: 60.9 | P&L: $-0.0532741 (-0.52 %)
+2025-12-30 11:14:48.589[1767073488589] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:48.589[1767073488589] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:14:58.420[1767073498420] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:14:58.420[1767073498420] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:14:58.421[1767073498421] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073498421&signature=0ae90f10e09b9e8461da14c744e81ea38f3f7efb766b16aad1ab87dd56c35be0
+2025-12-30 11:14:58.708[1767073498708] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:14:58.708[1767073498708] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16650833 | Qty: 60.9 | P&L: $-0.06034215 (-0.59 %)
+2025-12-30 11:14:58.709[1767073498709] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:14:58.709[1767073498709] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:08.431[1767073508431] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:08.431[1767073508431] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:08.432[1767073508432] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073508431&signature=3d3df19e30ead8053c4517c345fbd75cadcb4c636c558bd47a6e3d8234bcc6e8
+2025-12-30 11:15:08.594[1767073508594] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:08.595[1767073508595] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.1665049 | Qty: 60.9 | P&L: $-0.06055104 (-0.59 %)
+2025-12-30 11:15:08.596[1767073508596] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:08.596[1767073508596] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:16.221[1767073516221] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:16.222[1767073516222] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:16.222[1767073516222] | INFO  | http-nio-8081-exec-4 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073516222&signature=c6ae7fe2eb364ea33cbcb8853f7a911e30c6e0bc2b7f4bc0307ce5d1898843bd
+2025-12-30 11:15:16.388[1767073516388] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:16.389[1767073516389] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16637038 | Qty: 60.9 | P&L: $-0.06874331 (-0.67 %)
+2025-12-30 11:15:16.389[1767073516389] | INFO  | http-nio-8081-exec-4 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:16.389[1767073516389] | INFO  | http-nio-8081-exec-4 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:26.149[1767073526149] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:26.149[1767073526149] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:26.150[1767073526150] | INFO  | http-nio-8081-exec-6 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073526149&signature=79f5f5a431702110d9bcb13f67ccb411158dc550bd701bd43b80217fed2350ae
+2025-12-30 11:15:26.372[1767073526372] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:26.372[1767073526372] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16641558 | Qty: 60.9 | P&L: $-0.06599063 (-0.65 %)
+2025-12-30 11:15:26.373[1767073526373] | INFO  | http-nio-8081-exec-6 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:26.373[1767073526373] | INFO  | http-nio-8081-exec-6 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:36.140[1767073536140] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:36.140[1767073536140] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:36.140[1767073536140] | INFO  | http-nio-8081-exec-2 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073536140&signature=a54bb14461d0d17e267b6b06feba78a786ccc32630b719a69a31ea0caae815c4
+2025-12-30 11:15:36.337[1767073536337] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:36.338[1767073536338] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16645317 | Qty: 60.9 | P&L: $-0.0637014 (-0.62 %)
+2025-12-30 11:15:36.338[1767073536338] | INFO  | http-nio-8081-exec-2 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:36.338[1767073536338] | INFO  | http-nio-8081-exec-2 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:46.133[1767073546133] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:46.133[1767073546133] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:46.133[1767073546133] | INFO  | http-nio-8081-exec-8 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073546133&signature=1d2619cb8f7cc829d59daa193226f45d3f54cf0705c0bfb5f36a06f9a606bf14
+2025-12-30 11:15:46.329[1767073546329] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:46.330[1767073546330] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16659862 | Qty: 60.9 | P&L: $-0.05484349 (-0.54 %)
+2025-12-30 11:15:46.330[1767073546330] | INFO  | http-nio-8081-exec-8 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:46.330[1767073546330] | INFO  | http-nio-8081-exec-8 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:15:56.156[1767073556156] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:15:56.157[1767073556157] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:15:56.157[1767073556157] | INFO  | http-nio-8081-exec-9 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073556157&signature=dc803b7055cf80b436aaf59908ea4e50a60e8e4c9fbadf3f11cfbe73672b3820
+2025-12-30 11:15:56.349[1767073556349] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:15:56.349[1767073556349] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16660454 | Qty: 60.9 | P&L: $-0.05448296 (-0.53 %)
+2025-12-30 11:15:56.349[1767073556349] | INFO  | http-nio-8081-exec-9 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:15:56.350[1767073556350] | INFO  | http-nio-8081-exec-9 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:16:06.157[1767073566157] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:16:06.158[1767073566158] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:16:06.158[1767073566158] | INFO  | http-nio-8081-exec-10 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073566158&signature=d9163a74eacd54c3d7fa5d1ac290e849f3d057d9813b0e5be0ad525b2c30d2e6
+2025-12-30 11:16:06.358[1767073566358] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:16:06.359[1767073566359] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16654764 | Qty: 60.9 | P&L: $-0.05794817 (-0.57 %)
+2025-12-30 11:16:06.359[1767073566359] | INFO  | http-nio-8081-exec-10 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:16:06.359[1767073566359] | INFO  | http-nio-8081-exec-10 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:16:16.191[1767073576191] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:16:16.191[1767073576191] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:16:16.191[1767073576191] | INFO  | http-nio-8081-exec-1 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073576191&signature=d5fc504af161b96f89ca21eb4aafd6afbdafa21a47bbcef8304652521308156f
+2025-12-30 11:16:16.389[1767073576389] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:16:16.390[1767073576390] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.1664859 | Qty: 60.9 | P&L: $-0.06170814 (-0.60 %)
+2025-12-30 11:16:16.390[1767073576390] | INFO  | http-nio-8081-exec-1 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:16:16.391[1767073576391] | INFO  | http-nio-8081-exec-1 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:16:26.186[1767073586186] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:16:26.186[1767073586186] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:16:26.187[1767073586187] | INFO  | http-nio-8081-exec-7 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073586186&signature=39608b51b0f7311c90b4b7ba0ddd96ed90a852bb7c2ad8f1df03b51c991d39a7
+2025-12-30 11:16:26.357[1767073586357] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:16:26.358[1767073586358] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16648637 | Qty: 60.9 | P&L: $-0.06167952 (-0.60 %)
+2025-12-30 11:16:26.358[1767073586358] | INFO  | http-nio-8081-exec-7 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:16:26.358[1767073586358] | INFO  | http-nio-8081-exec-7 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:16:36.189[1767073596189] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:16:36.190[1767073596190] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:16:36.190[1767073596190] | INFO  | http-nio-8081-exec-3 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073596190&signature=5d392876369a7f821c1d13e3dba30084fa012fadb8ce7b5857d1c58a074179e8
+2025-12-30 11:16:36.381[1767073596381] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:16:36.382[1767073596382] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16649416 | Qty: 60.9 | P&L: $-0.0612051 (-0.60 %)
+2025-12-30 11:16:36.382[1767073596382] | INFO  | http-nio-8081-exec-3 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:16:36.382[1767073596382] | INFO  | http-nio-8081-exec-3 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
+2025-12-30 11:16:46.142[1767073606142] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - 📥 Get real-time positions from Binance account
+2025-12-30 11:16:46.143[1767073606143] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📡 Fetching real-time positions from Binance account...
+2025-12-30 11:16:46.143[1767073606143] | INFO  | http-nio-8081-exec-5 | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v2/positionRisk?recvWindow=60000&timestamp=1767073606143&signature=5a579a0b569ea9c168e398aeee45d1654597c431dfb6f1e1b21aa085e98b757e
+2025-12-30 11:16:46.295[1767073606295] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Received 654 position entries from Binance
+2025-12-30 11:16:46.296[1767073606296] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - ✅ Active position: LONG ALICEUSDT | Entry: $0.1674991789819 | Current: $0.16649866 | Qty: 60.9 | P&L: $-0.06093105 (-0.60 %)
+2025-12-30 11:16:46.296[1767073606296] | INFO  | http-nio-8081-exec-5 | m.c.I.service.TradeService           - 📊 Total active positions found: 1
+2025-12-30 11:16:46.296[1767073606296] | INFO  | http-nio-8081-exec-5 | m.c.I.controller.TradeController     - ✅ Returning 1 active positions
